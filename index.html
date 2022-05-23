@@ -171,7 +171,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-05-23 22:26:08 / Modified: 23:09:56" itemprop="dateCreated datePublished" datetime="2022-05-23T22:26:08+08:00">2022-05-23</time>
+              <time title="Created: 2022-05-23 22:26:08 / Modified: 23:20:16" itemprop="dateCreated datePublished" datetime="2022-05-23T22:26:08+08:00">2022-05-23</time>
             </span>
 
           
@@ -187,7 +187,7 @@
       
           <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>原来项目中只有spark的maven依赖，新增flink依赖后，spark程序运行报错。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ Caused by: java.lang.ClassNotFoundException: com.esotericsoftware.kryo.pool.KryoFactory</span><br></pre></td></tr></table></figure>
-<p>SparkSql的依赖中原来包含<code>com.esotericsoftware.kryo:kryo:jar:2.21</code>，但其他的依赖中包含<code>com.esotericsoftware.kryo:kryo:jar:2.24.0</code>，<br>在多版本同时存在的情况下，Java类加载器加载到了高版本的 kryo。由于高低版本不兼容，因为SparkSql报错。</p>
+<p>SparkSql原来依赖<code>com.esotericsoftware.kryo:kryo:jar:2.21</code>，但flink依赖中包含<code>com.esotericsoftware.kryo:kryo:jar:2.24.0</code>和<br><code>com.esotericsoftware.kryo:kryo:jar:2.21</code>， 在多版本同时存在的情况下，Java类加载器加载到了高版本的 kryo。由于高低版本不兼容，所以SparkSql报错。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.flink<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>flink-clients<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.15.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h1><p>使用下面的命令排查冲突的依赖：</p>
