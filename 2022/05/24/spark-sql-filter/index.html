@@ -28,7 +28,7 @@
 <meta property="og:description" content="Syntaxes1234filter(condition: Column): Dataset[T] &#x2F;&#x2F; 对Column进行条件过滤filter(conditionExpr: String): Dataset[T] &#x2F;&#x2F;using SQL expression filter(func: T &#x3D;&gt; Boolean): Dataset[T]filter(func: FilterFunction[">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-05-24T02:49:47.962Z">
-<meta property="article:modified_time" content="2022-05-24T03:58:58.146Z">
+<meta property="article:modified_time" content="2022-05-24T12:39:26.637Z">
 <meta property="article:author" content="swj">
 <meta property="article:tag" content="bigdata spark-sql flink scala">
 <meta name="twitter:card" content="summary">
@@ -178,7 +178,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-05-24 10:49:47 / Modified: 11:58:58" itemprop="dateCreated datePublished" datetime="2022-05-24T10:49:47+08:00">2022-05-24</time>
+              <time title="Created: 2022-05-24 10:49:47 / Modified: 20:39:26" itemprop="dateCreated datePublished" datetime="2022-05-24T10:49:47+08:00">2022-05-24</time>
             </span>
 
           
@@ -202,6 +202,7 @@
 <h3 id="Filter-with-Multiple-Conditions"><a href="#Filter-with-Multiple-Conditions" class="headerlink" title="Filter with Multiple Conditions"></a>Filter with Multiple Conditions</h3><p>AND(&amp;&amp;), OR(||), and NOT(!)</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df1.filter($<span class="string">&quot;name&quot;</span> === <span class="string">&quot;suwenjin&quot;</span> &amp;&amp; $<span class="string">&quot;age&quot;</span> === <span class="number">12</span>).show()</span><br><span class="line">df1.filter($<span class="string">&quot;name&quot;</span> === <span class="string">&quot;suwenjin&quot;</span> || $<span class="string">&quot;age&quot;</span> =!= <span class="number">12</span>).show()</span><br></pre></td></tr></table></figure>
 
+<p>github地址:<br><a target="_blank" rel="noopener" href="https://github.com/jwsmai/ScalaTools/blob/main/src/main/scala/spark/sql/DataframeFilterExample.scala">https://github.com/jwsmai/ScalaTools/blob/main/src/main/scala/spark/sql/DataframeFilterExample.scala</a></p>
 
     </div>
 
