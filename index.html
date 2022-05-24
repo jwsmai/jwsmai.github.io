@@ -149,6 +149,74 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2022/05/24/spark-sql-filter/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="swj">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwsmai">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/24/spark-sql-filter/" class="post-title-link" itemprop="url">Spark学习（一）：filter算子</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-05-24 10:49:47 / Modified: 11:58:58" itemprop="dateCreated datePublished" datetime="2022-05-24T10:49:47+08:00">2022-05-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Syntaxes"><a href="#Syntaxes" class="headerlink" title="Syntaxes"></a>Syntaxes</h1><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">filter(condition: <span class="type">Column</span>): <span class="type">Dataset</span>[<span class="type">T</span>] <span class="comment">// 对Column进行条件过滤</span></span><br><span class="line">filter(conditionExpr: <span class="type">String</span>): <span class="type">Dataset</span>[<span class="type">T</span>] <span class="comment">//using SQL expression </span></span><br><span class="line">filter(func: <span class="type">T</span> =&gt; <span class="type">Boolean</span>): <span class="type">Dataset</span>[<span class="type">T</span>]</span><br><span class="line">filter(func: <span class="type">FilterFunction</span>[<span class="type">T</span>]): <span class="type">Dataset</span>[<span class="type">T</span>]</span><br></pre></td></tr></table></figure>
+
+<h1 id="Practice"><a href="#Practice" class="headerlink" title="Practice"></a>Practice</h1><h3 id="filter-with-Column-condition"><a href="#filter-with-Column-condition" class="headerlink" title="filter() with Column condition"></a>filter() with Column condition</h3><p>用&#x3D;!&#x3D;表达not equal.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// This import is needed to use the $-notation and &#x27;-notation</span></span><br><span class="line"><span class="keyword">import</span> spark.implicits._</span><br><span class="line"></span><br><span class="line">df1.filter(col(<span class="string">&quot;name&quot;</span>) === <span class="string">&quot;suwenjin&quot;</span>).show()</span><br><span class="line">df1.filter(df1(<span class="string">&quot;name&quot;</span>) === <span class="string">&quot;suwenjin&quot;</span>).show()</span><br><span class="line">df1.filter($<span class="string">&quot;name&quot;</span> === <span class="string">&quot;suwenjin&quot;</span>).show()</span><br><span class="line">df1.filter(&#x27;name === <span class="string">&quot;suwenjin&quot;</span>).show()</span><br><span class="line">df1.filter(&#x27;name =!= <span class="string">&quot;suwenjin&quot;</span>).show() <span class="comment">// not equal</span></span><br></pre></td></tr></table></figure>
+<p>使用<code>$-notation</code>和<code>&#39;-notation</code>时需要导入<code>implicits</code></p>
+<h3 id="filter-with-SQL-Expression"><a href="#filter-with-SQL-Expression" class="headerlink" title="filter() with SQL Expression"></a>filter() with SQL Expression</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df1.filter(<span class="string">&quot;name == &#x27;suwenjin&#x27;&quot;</span>).show()</span><br><span class="line">df1.filter(<span class="string">&quot;name = &#x27;suwenjin&#x27;&quot;</span>).show()</span><br></pre></td></tr></table></figure>
+<p>sql表达式里可以使用”&#x3D;”或者”&#x3D;&#x3D;&#x3D;”来判断是否相等。</p>
+<h3 id="Filter-with-Multiple-Conditions"><a href="#Filter-with-Multiple-Conditions" class="headerlink" title="Filter with Multiple Conditions"></a>Filter with Multiple Conditions</h3><p>AND(&amp;&amp;), OR(||), and NOT(!)</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df1.filter($<span class="string">&quot;name&quot;</span> === <span class="string">&quot;suwenjin&quot;</span> &amp;&amp; $<span class="string">&quot;age&quot;</span> === <span class="number">12</span>).show()</span><br><span class="line">df1.filter($<span class="string">&quot;name&quot;</span> === <span class="string">&quot;suwenjin&quot;</span> || $<span class="string">&quot;age&quot;</span> =!= <span class="number">12</span>).show()</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2022/05/23/fuck-sparksql/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -349,7 +417,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

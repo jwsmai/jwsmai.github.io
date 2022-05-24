@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"jwsmai.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="背景原来项目中只有spark的maven依赖，新增flink依赖后，spark程序运行报错。 1$ Caused by: java.lang.ClassNotFoundException: com.esotericsoftware.kryo.pool.KryoFactory SparkSql原来依赖com.esotericsoftware.kryo:kryo:jar:2.21，但flink依赖中包">
+  <meta name="description" content="Syntaxes1234filter(condition: Column): Dataset[T] &#x2F;&#x2F; 对Column进行条件过滤filter(conditionExpr: String): Dataset[T] &#x2F;&#x2F;using SQL expression filter(func: T &#x3D;&gt; Boolean): Dataset[T]filter(func: FilterFunction[">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spark踩坑（一）：maven依赖冲突">
-<meta property="og:url" content="https://jwsmai.github.io/2022/05/23/fuck-sparksql/index.html">
+<meta property="og:title" content="Spark学习（一）：filter算子">
+<meta property="og:url" content="https://jwsmai.github.io/2022/05/24/spark-sql-filter/index.html">
 <meta property="og:site_name" content="jwsmai">
-<meta property="og:description" content="背景原来项目中只有spark的maven依赖，新增flink依赖后，spark程序运行报错。 1$ Caused by: java.lang.ClassNotFoundException: com.esotericsoftware.kryo.pool.KryoFactory SparkSql原来依赖com.esotericsoftware.kryo:kryo:jar:2.21，但flink依赖中包">
+<meta property="og:description" content="Syntaxes1234filter(condition: Column): Dataset[T] &#x2F;&#x2F; 对Column进行条件过滤filter(conditionExpr: String): Dataset[T] &#x2F;&#x2F;using SQL expression filter(func: T &#x3D;&gt; Boolean): Dataset[T]filter(func: FilterFunction[">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-05-23T14:26:08.586Z">
-<meta property="article:modified_time" content="2022-05-23T15:20:16.790Z">
+<meta property="article:published_time" content="2022-05-24T02:49:47.962Z">
+<meta property="article:modified_time" content="2022-05-24T03:58:58.146Z">
 <meta property="article:author" content="swj">
 <meta property="article:tag" content="bigdata spark-sql flink scala">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://jwsmai.github.io/2022/05/23/fuck-sparksql/">
+<link rel="canonical" href="https://jwsmai.github.io/2022/05/24/spark-sql-filter/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>Spark踩坑（一）：maven依赖冲突 | jwsmai</title>
+  <title>Spark学习（一）：filter算子 | jwsmai</title>
   
 
 
@@ -154,7 +154,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2022/05/23/fuck-sparksql/">
+    <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2022/05/24/spark-sql-filter/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -167,7 +167,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Spark踩坑（一）：maven依赖冲突
+          Spark学习（一）：filter算子
         </h1>
 
         <div class="post-meta">
@@ -178,7 +178,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-05-23 22:26:08 / Modified: 23:20:16" itemprop="dateCreated datePublished" datetime="2022-05-23T22:26:08+08:00">2022-05-23</time>
+              <time title="Created: 2022-05-24 10:49:47 / Modified: 11:58:58" itemprop="dateCreated datePublished" datetime="2022-05-24T10:49:47+08:00">2022-05-24</time>
             </span>
 
           
@@ -192,15 +192,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>原来项目中只有spark的maven依赖，新增flink依赖后，spark程序运行报错。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ Caused by: java.lang.ClassNotFoundException: com.esotericsoftware.kryo.pool.KryoFactory</span><br></pre></td></tr></table></figure>
-<p>SparkSql原来依赖<code>com.esotericsoftware.kryo:kryo:jar:2.21</code>，但flink依赖中包含<code>com.esotericsoftware.kryo:kryo:jar:2.24.0</code>和<br><code>com.esotericsoftware.kryo:kryo:jar:2.21</code>， 在多版本同时存在的情况下，Java类加载器加载到了高版本的 kryo。由于高低版本不兼容，所以SparkSql报错。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.flink<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>flink-clients<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.15.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+        <h1 id="Syntaxes"><a href="#Syntaxes" class="headerlink" title="Syntaxes"></a>Syntaxes</h1><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">filter(condition: <span class="type">Column</span>): <span class="type">Dataset</span>[<span class="type">T</span>] <span class="comment">// 对Column进行条件过滤</span></span><br><span class="line">filter(conditionExpr: <span class="type">String</span>): <span class="type">Dataset</span>[<span class="type">T</span>] <span class="comment">//using SQL expression </span></span><br><span class="line">filter(func: <span class="type">T</span> =&gt; <span class="type">Boolean</span>): <span class="type">Dataset</span>[<span class="type">T</span>]</span><br><span class="line">filter(func: <span class="type">FilterFunction</span>[<span class="type">T</span>]): <span class="type">Dataset</span>[<span class="type">T</span>]</span><br></pre></td></tr></table></figure>
 
-<h1 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h1><p>使用下面的命令排查冲突的依赖：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ mvn dependency:tree -Dverbose -Dincludes=com.esotericsoftware.kryo</span><br><span class="line"></span><br><span class="line">[INFO] </span><br><span class="line">[INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ ScalaTools ---</span><br><span class="line">[INFO] groupId:ScalaTools:jar:1.0-SNAPSHOT</span><br><span class="line">[INFO] \- org.apache.flink:flink-clients:jar:1.15.0:compile</span><br><span class="line">[INFO]    +- org.apache.flink:flink-core:jar:1.15.0:compile</span><br><span class="line">[INFO]    |  \- com.esotericsoftware.kryo:kryo:jar:2.24.0:compile</span><br><span class="line">[INFO]    \- org.apache.flink:flink-java:jar:1.15.0:compile</span><br><span class="line">[INFO]       \- com.twitter:chill-java:jar:0.7.6:compile</span><br><span class="line">[INFO]          \- (com.esotericsoftware.kryo:kryo:jar:2.21:compile - omitted <span class="keyword">for</span> conflict with 2.24.0)</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] BUILD SUCCESS</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+<h1 id="Practice"><a href="#Practice" class="headerlink" title="Practice"></a>Practice</h1><h3 id="filter-with-Column-condition"><a href="#filter-with-Column-condition" class="headerlink" title="filter() with Column condition"></a>filter() with Column condition</h3><p>用&#x3D;!&#x3D;表达not equal.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// This import is needed to use the $-notation and &#x27;-notation</span></span><br><span class="line"><span class="keyword">import</span> spark.implicits._</span><br><span class="line"></span><br><span class="line">df1.filter(col(<span class="string">&quot;name&quot;</span>) === <span class="string">&quot;suwenjin&quot;</span>).show()</span><br><span class="line">df1.filter(df1(<span class="string">&quot;name&quot;</span>) === <span class="string">&quot;suwenjin&quot;</span>).show()</span><br><span class="line">df1.filter($<span class="string">&quot;name&quot;</span> === <span class="string">&quot;suwenjin&quot;</span>).show()</span><br><span class="line">df1.filter(&#x27;name === <span class="string">&quot;suwenjin&quot;</span>).show()</span><br><span class="line">df1.filter(&#x27;name =!= <span class="string">&quot;suwenjin&quot;</span>).show() <span class="comment">// not equal</span></span><br></pre></td></tr></table></figure>
+<p>使用<code>$-notation</code>和<code>&#39;-notation</code>时需要导入<code>implicits</code></p>
+<h3 id="filter-with-SQL-Expression"><a href="#filter-with-SQL-Expression" class="headerlink" title="filter() with SQL Expression"></a>filter() with SQL Expression</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df1.filter(<span class="string">&quot;name == &#x27;suwenjin&#x27;&quot;</span>).show()</span><br><span class="line">df1.filter(<span class="string">&quot;name = &#x27;suwenjin&#x27;&quot;</span>).show()</span><br></pre></td></tr></table></figure>
+<p>sql表达式里可以使用”&#x3D;”或者”&#x3D;&#x3D;&#x3D;”来判断是否相等。</p>
+<h3 id="Filter-with-Multiple-Conditions"><a href="#Filter-with-Multiple-Conditions" class="headerlink" title="Filter with Multiple Conditions"></a>Filter with Multiple Conditions</h3><p>AND(&amp;&amp;), OR(||), and NOT(!)</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df1.filter($<span class="string">&quot;name&quot;</span> === <span class="string">&quot;suwenjin&quot;</span> &amp;&amp; $<span class="string">&quot;age&quot;</span> === <span class="number">12</span>).show()</span><br><span class="line">df1.filter($<span class="string">&quot;name&quot;</span> === <span class="string">&quot;suwenjin&quot;</span> || $<span class="string">&quot;age&quot;</span> =!= <span class="number">12</span>).show()</span><br></pre></td></tr></table></figure>
 
-<p>从上面的执行结果中可以发现<code>org.apache.flink:flink-clients</code>下有两个版本的<code>com.esotericsoftware.kryo</code>， 而maven选择了其中版本更高的那个。</p>
 
     </div>
 
@@ -216,13 +217,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/05/23/hello-world/" rel="prev" title="Hello World">
-      <i class="fa fa-chevron-left"></i> Hello World
+    <a href="/2022/05/23/fuck-sparksql/" rel="prev" title="Spark踩坑（一）：maven依赖冲突">
+      <i class="fa fa-chevron-left"></i> Spark踩坑（一）：maven依赖冲突
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/05/24/spark-sql-filter/" rel="next" title="Spark学习（一）：filter算子">
-      Spark学习（一）：filter算子 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -281,7 +279,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%92%E6%9F%A5%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">排查过程</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Syntaxes"><span class="nav-number">1.</span> <span class="nav-text">Syntaxes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Practice"><span class="nav-number">2.</span> <span class="nav-text">Practice</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#filter-with-Column-condition"><span class="nav-number">2.0.1.</span> <span class="nav-text">filter() with Column condition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#filter-with-SQL-Expression"><span class="nav-number">2.0.2.</span> <span class="nav-text">filter() with SQL Expression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Filter-with-Multiple-Conditions"><span class="nav-number">2.0.3.</span> <span class="nav-text">Filter with Multiple Conditions</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
