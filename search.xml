@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>IntellJ学习（一）：Debug</title>
+      <link href="/2022/05/28/debug/"/>
+      <url>/2022/05/28/debug/</url>
+      
+        <content type="html"><![CDATA[<h1 id="程序调试标准动作"><a href="#程序调试标准动作" class="headerlink" title="程序调试标准动作"></a>程序调试标准动作</h1><ul><li>查看变量的值，展开实例看内部成员变量的值</li><li>程序继续执行之 Step Over(F8)：执行一行</li><li>程序继续执行之 Step Out(Shift F8)：继续执行直到遇到下一个断点或者方法结束</li><li>程序继续执行之 Resume(F9)：继续执行直到遇到下一个断点或者程序结束</li><li>执行任意代码之 Evaluate Expression：在对话框输入代码，直接执行看结果值</li><li>条件断点：给断点设置条件，只有满足条件时，程序才会在该断点停住</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> tools </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Maven学习（一）：基本概念</title>
       <link href="/2022/05/28/fuck-maven/"/>
       <url>/2022/05/28/fuck-maven/</url>
@@ -76,7 +95,7 @@
       
       <categories>
           
-          <category> spark </category>
+          <category> spark-sql </category>
           
       </categories>
       
@@ -101,7 +120,7 @@
       
       <categories>
           
-          <category> spark </category>
+          <category> spark-sql </category>
           
       </categories>
       
@@ -120,7 +139,7 @@
       
       <categories>
           
-          <category> spark </category>
+          <category> spark-sql </category>
           
       </categories>
       
