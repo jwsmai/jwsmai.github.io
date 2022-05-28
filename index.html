@@ -183,7 +183,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-05-28 12:31:39 / Modified: 15:09:58" itemprop="dateCreated datePublished" datetime="2022-05-28T12:31:39+08:00">2022-05-28</time>
+              <time title="Created: 2022-05-28 12:31:39 / Modified: 16:56:41" itemprop="dateCreated datePublished" datetime="2022-05-28T12:31:39+08:00">2022-05-28</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -208,10 +208,12 @@
       
           <h1 id="程序调试标准动作"><a href="#程序调试标准动作" class="headerlink" title="程序调试标准动作"></a>程序调试标准动作</h1><ul>
 <li>查看变量的值，展开实例看内部成员变量的值</li>
-<li>程序继续执行之 Step Over(F8)：执行一行</li>
-<li>程序继续执行之 Step Out(Shift F8)：继续执行直到遇到下一个断点或者方法结束</li>
-<li>程序继续执行之 Resume(F9)：继续执行直到遇到下一个断点或者程序结束</li>
-<li>执行任意代码之 Evaluate Expression：在对话框输入代码，直接执行看结果值</li>
+<li>Step Over(F8)：从断点处开始，逐行执行代码，不进入方法。</li>
+<li>Step Into(F7): 从断点处开始，逐行执行代码，如果遇到方法，会进入方法，但是只能进入自定义方法，不会进入官方类库的方法。</li>
+<li>Force Step Into (Alt Shift F7): 从断点处开始，逐行执行代码，如果遇到方法，会进入方法，适用于所有方法。</li>
+<li>Step Out(Shift F8)：继续执行直到遇到下一个断点或者方法结束</li>
+<li>Resume(F9)：继续执行直到遇到下一个断点或者程序结束</li>
+<li>执行任意代码Evaluate Expression：在对话框输入代码，直接执行看结果值</li>
 <li>条件断点：给断点设置条件，只有满足条件时，程序才会在该断点停住</li>
 </ul>
 
