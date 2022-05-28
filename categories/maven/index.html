@@ -20,20 +20,16 @@
     var CONFIG = {"hostname":"jwsmai.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":false,"top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Syntaxes1234filter(condition: Column): Dataset[T] &#x2F;&#x2F; 对Column进行条件过滤filter(conditionExpr: String): Dataset[T] &#x2F;&#x2F;using SQL expression filter(func: T &#x3D;&gt; Boolean): Dataset[T]filter(func: FilterFunction[">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Spark学习（一）：filter算子">
-<meta property="og:url" content="https://jwsmai.github.io/2022/05/24/spark-sql-filter/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="jwsmai">
+<meta property="og:url" content="https://jwsmai.github.io/categories/maven/index.html">
 <meta property="og:site_name" content="jwsmai">
-<meta property="og:description" content="Syntaxes1234filter(condition: Column): Dataset[T] &#x2F;&#x2F; 对Column进行条件过滤filter(conditionExpr: String): Dataset[T] &#x2F;&#x2F;using SQL expression filter(func: T &#x3D;&gt; Boolean): Dataset[T]filter(func: FilterFunction[">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-05-24T02:49:47.962Z">
-<meta property="article:modified_time" content="2022-05-24T15:02:01.750Z">
 <meta property="article:author" content="swj">
 <meta property="article:tag" content="bigdata spark-sql flink scala">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://jwsmai.github.io/2022/05/24/spark-sql-filter/">
+<link rel="canonical" href="https://jwsmai.github.io/categories/maven/">
 
 
 <script id="page-configurations">
@@ -41,12 +37,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : true,
+    isPost : false,
     lang   : 'en'
   };
 </script>
 
-  <title>Spark学习（一）：filter算子 | jwsmai</title>
+  <title>Category: maven | jwsmai</title>
   
 
 
@@ -156,99 +152,51 @@
         <div class="content-wrap">
           
 
-          <div class="content post posts-expand">
+          <div class="content category">
             
 
-    
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2022/05/24/spark-sql-filter/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="swj">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jwsmai">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Spark学习（一）：filter算子
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-05-24 10:49:47 / Modified: 23:02:01" itemprop="dateCreated datePublished" datetime="2022-05-24T10:49:47+08:00">2022-05-24</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/spark/" itemprop="url" rel="index"><span itemprop="name">spark</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+  
+  <div class="post-block">
+    <div class="posts-collapse">
+      <div class="collection-title">
+        <h2 class="collection-header">maven
+          <small>Category</small>
+        </h2>
+      </div>
 
       
-        <h1 id="Syntaxes"><a href="#Syntaxes" class="headerlink" title="Syntaxes"></a>Syntaxes</h1><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">filter(condition: <span class="type">Column</span>): <span class="type">Dataset</span>[<span class="type">T</span>] <span class="comment">// 对Column进行条件过滤</span></span><br><span class="line">filter(conditionExpr: <span class="type">String</span>): <span class="type">Dataset</span>[<span class="type">T</span>] <span class="comment">//using SQL expression </span></span><br><span class="line">filter(func: <span class="type">T</span> =&gt; <span class="type">Boolean</span>): <span class="type">Dataset</span>[<span class="type">T</span>]</span><br><span class="line">filter(func: <span class="type">FilterFunction</span>[<span class="type">T</span>]): <span class="type">Dataset</span>[<span class="type">T</span>]</span><br></pre></td></tr></table></figure>
-
-<h1 id="Practice"><a href="#Practice" class="headerlink" title="Practice"></a>Practice</h1><h3 id="filter-with-Column-condition"><a href="#filter-with-Column-condition" class="headerlink" title="filter() with Column condition"></a>filter() with Column condition</h3><p>用&#x3D;!&#x3D;表达not equal.</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// This import is needed to use the $-notation and &#x27;-notation</span></span><br><span class="line"><span class="keyword">import</span> spark.implicits._</span><br><span class="line"></span><br><span class="line">df1.filter(col(<span class="string">&quot;name&quot;</span>) === <span class="string">&quot;suwenjin&quot;</span>).show()</span><br><span class="line">df1.filter(df1(<span class="string">&quot;name&quot;</span>) === <span class="string">&quot;suwenjin&quot;</span>).show()</span><br><span class="line">df1.filter($<span class="string">&quot;name&quot;</span> === <span class="string">&quot;suwenjin&quot;</span>).show()</span><br><span class="line">df1.filter(&#x27;name === <span class="string">&quot;suwenjin&quot;</span>).show()</span><br><span class="line">df1.filter(&#x27;name =!= <span class="string">&quot;suwenjin&quot;</span>).show() <span class="comment">// not equal</span></span><br></pre></td></tr></table></figure>
-<p>使用<code>$-notation</code>和<code>&#39;-notation</code>时需要导入<code>implicits</code></p>
-<h3 id="filter-with-SQL-Expression"><a href="#filter-with-SQL-Expression" class="headerlink" title="filter() with SQL Expression"></a>filter() with SQL Expression</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df1.filter(<span class="string">&quot;name == &#x27;suwenjin&#x27;&quot;</span>).show()</span><br><span class="line">df1.filter(<span class="string">&quot;name = &#x27;suwenjin&#x27;&quot;</span>).show()</span><br></pre></td></tr></table></figure>
-<p>sql表达式里可以使用”&#x3D;”或者”&#x3D;&#x3D;&#x3D;”来判断是否相等。</p>
-<h3 id="Filter-with-Multiple-Conditions"><a href="#Filter-with-Multiple-Conditions" class="headerlink" title="Filter with Multiple Conditions"></a>Filter with Multiple Conditions</h3><p>AND(&amp;&amp;), OR(||), and NOT(!)</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df1.filter($<span class="string">&quot;name&quot;</span> === <span class="string">&quot;suwenjin&quot;</span> &amp;&amp; $<span class="string">&quot;age&quot;</span> === <span class="number">12</span>).show()</span><br><span class="line">df1.filter($<span class="string">&quot;name&quot;</span> === <span class="string">&quot;suwenjin&quot;</span> || $<span class="string">&quot;age&quot;</span> =!= <span class="number">12</span>).show()</span><br></pre></td></tr></table></figure>
-
-<h1 id="Github地址"><a href="#Github地址" class="headerlink" title="Github地址"></a>Github地址</h1><p><a target="_blank" rel="noopener" href="https://github.com/jwsmai/ScalaTools/blob/main/src/main/scala/spark/sql/DataframeFilterExample.scala">https://github.com/jwsmai/ScalaTools/blob/main/src/main/scala/spark/sql/DataframeFilterExample.scala</a></p>
-
+    <div class="collection-year">
+      <span class="collection-header">2022</span>
     </div>
 
-    
-    
-    
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
 
-      <footer class="post-footer">
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2022-05-28T11:30:04+08:00"
+              content="2022-05-28">
+          05-28
+        </time>
+      </div>
 
-        
+      <div class="post-title">
+          <a class="post-title-link" href="/2022/05/28/fuck-maven/" itemprop="url">
+            <span itemprop="name">Maven学习（一）：基本概念</span>
+          </a>
+      </div>
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2022/05/23/fuck-sparksql/" rel="prev" title="Spark踩坑（一）：maven依赖冲突">
-      <i class="fa fa-chevron-left"></i> Spark踩坑（一）：maven依赖冲突
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/05/24/spark-window-function/" rel="next" title="Spark学习（二）：窗口函数">
-      Spark学习（二）：窗口函数 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+    </header>
   </article>
+
+    </div>
+  </div>
   
   
+  
+
   
 
 
@@ -301,7 +249,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Syntaxes"><span class="nav-number">1.</span> <span class="nav-text">Syntaxes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Practice"><span class="nav-number">2.</span> <span class="nav-text">Practice</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#filter-with-Column-condition"><span class="nav-number">2.0.1.</span> <span class="nav-text">filter() with Column condition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#filter-with-SQL-Expression"><span class="nav-number">2.0.2.</span> <span class="nav-text">filter() with SQL Expression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Filter-with-Multiple-Conditions"><span class="nav-number">2.0.3.</span> <span class="nav-text">Filter with Multiple Conditions</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Github%E5%9C%B0%E5%9D%80"><span class="nav-number">3.</span> <span class="nav-text">Github地址</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
