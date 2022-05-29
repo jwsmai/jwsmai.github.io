@@ -1,19 +1,1372 @@
-{%- extends "_layout.swig" -%}
-{%- import '_macro/post.swig' as post_template -%}
-{%- import '_macro/archive.swig' as archive_template -%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-{%- block title -%} {{ config.title }} {%- endblock -%}
+<link rel="stylesheet" href="/css/main.css">
 
-{%- block content -%}
-  {%- set mode = theme.mode.toLowerCase() -%}
-  <section id="posts" class="posts">
-    {%- if mode == 'default' -%}
-      {%- for post in page.posts -%}
-        {{ post_template.render(post) }}
-      {%- endfor -%}
-      {%- include "_partial/pagination.swig" -%}
-    {%- else -%}
-      {{ archive_template.render() }}
-    {%- endif -%}
-  </section>
-{%- endblock -%}
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jwsmai.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":false,"top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="website">
+<meta property="og:title" content="jwsmai">
+<meta property="og:url" content="https://jwsmai.github.io/index.html">
+<meta property="og:site_name" content="jwsmai">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="swj">
+<meta property="article:tag" content="bigdata spark-sql flink scala">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://jwsmai.github.io/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'en'
+  };
+</script>
+
+  <title>jwsmai</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">jwsmai</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/jwsmai" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2022/05/29/Leetcode/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="swj">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwsmai">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/29/Leetcode/" class="post-title-link" itemprop="url">算法学习（一）：leetcode刷题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-05-29 19:51:55 / Modified: 20:11:38" itemprop="dateCreated datePublished" datetime="2022-05-29T19:51:55+08:00">2022-05-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="数学"><a href="#数学" class="headerlink" title="数学"></a>数学</h1><h2 id="7-整数反转"><a href="#7-整数反转" class="headerlink" title="7. 整数反转"></a><strong>7. 整数反转</strong></h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">reverse</span></span>(x: <span class="type">Int</span>): <span class="type">Int</span> = &#123;</span><br><span class="line">    <span class="keyword">var</span> (myX, rev, pop) = (x, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">while</span> (myX != <span class="number">0</span>) &#123;</span><br><span class="line">      pop = myX % <span class="number">10</span></span><br><span class="line">      myX = myX / <span class="number">10</span></span><br><span class="line">      <span class="keyword">if</span> (rev &gt; <span class="type">Integer</span>.<span class="type">MAX_VALUE</span> / <span class="number">10</span> || (rev == <span class="type">Integer</span>.<span class="type">MAX_VALUE</span> &amp;&amp; pop &gt; <span class="number">7</span>)) </span><br><span class="line">          <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">      <span class="keyword">if</span> (rev &lt; <span class="type">Integer</span>.<span class="type">MIN_VALUE</span> / <span class="number">10</span> || (rev == <span class="type">Integer</span>.<span class="type">MIN_VALUE</span> &amp;&amp; pop &lt; <span class="number">-8</span>)) </span><br><span class="line">          <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">      rev = rev * <span class="number">10</span> + pop</span><br><span class="line">    &#125;</span><br><span class="line">    rev</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="二分"><a href="#二分" class="headerlink" title="二分"></a>二分</h1><h2 id="35-搜索插入位置"><a href="#35-搜索插入位置" class="headerlink" title="35. 搜索插入位置"></a><strong>35. 搜索插入位置</strong></h2><p>题解：有序则二分。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">searchInsert</span></span>(nums: <span class="type">Array</span>[<span class="type">Int</span>], target: <span class="type">Int</span>): <span class="type">Int</span> = &#123;</span><br><span class="line">    <span class="keyword">var</span> (left, right) = (<span class="number">0</span>, nums.length - <span class="number">1</span>)</span><br><span class="line">    target <span class="keyword">match</span> &#123;</span><br><span class="line">      <span class="keyword">case</span> _ <span class="keyword">if</span> target &gt; nums(right) =&gt; <span class="keyword">return</span> right + <span class="number">1</span></span><br><span class="line">      <span class="keyword">case</span> _ <span class="keyword">if</span> target &lt;= nums(left) =&gt; <span class="keyword">return</span> left</span><br><span class="line">      <span class="keyword">case</span> _ =&gt; &#123;</span><br><span class="line">        <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">          <span class="keyword">var</span> mid = left + ((right - left) &gt;&gt; <span class="number">1</span>)</span><br><span class="line">          <span class="keyword">if</span> (target &lt;= nums(mid) &amp;&amp; target &gt; nums(mid - <span class="number">1</span>))</span><br><span class="line">            <span class="keyword">return</span> mid</span><br><span class="line">          <span class="keyword">else</span> <span class="keyword">if</span> (target &lt; nums(mid))</span><br><span class="line">            right = mid - <span class="number">1</span></span><br><span class="line">          <span class="keyword">else</span></span><br><span class="line">            left = mid + <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="剑指-Offer-53-I-在排序数组中查找数字-I"><a href="#剑指-Offer-53-I-在排序数组中查找数字-I" class="headerlink" title="剑指 Offer 53 - I. 在排序数组中查找数字 I"></a><strong>剑指 Offer 53 - I. 在排序数组中查找数字 I</strong></h2><p>题解：有序则二分。次数算法是在搜索的数字以后需要再往前和往后查找是否有相同元素。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">search</span></span>(nums: <span class="type">Array</span>[<span class="type">Int</span>], target: <span class="type">Int</span>): <span class="type">Int</span> = &#123;</span><br><span class="line">    <span class="keyword">if</span> (nums.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> (left, right) = (<span class="number">0</span>, nums.length - <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">var</span> count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">      <span class="keyword">var</span> mid = left + ((right - left) &gt;&gt; <span class="number">1</span>)</span><br><span class="line">      nums(mid) <span class="keyword">match</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> x <span class="keyword">if</span> x == target =&gt; &#123;</span><br><span class="line">          count += <span class="number">1</span></span><br><span class="line">          <span class="keyword">if</span> (mid &gt; left) &#123;</span><br><span class="line">            <span class="keyword">var</span> i = mid - <span class="number">1</span> <span class="comment">// 向左搜索</span></span><br><span class="line">            <span class="keyword">while</span> (i &gt;= left &amp;&amp; nums(i) == target) &#123;</span><br><span class="line">              count += <span class="number">1</span></span><br><span class="line">              i -= <span class="number">1</span></span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">if</span> (mid &lt; right) &#123;</span><br><span class="line">            <span class="keyword">var</span> j = mid + <span class="number">1</span> <span class="comment">// 向右搜索</span></span><br><span class="line">            <span class="keyword">while</span> (j &lt;= right &amp;&amp; nums(j) == target) &#123;</span><br><span class="line">              count += <span class="number">1</span></span><br><span class="line">              j += <span class="number">1</span></span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">return</span> count</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> x <span class="keyword">if</span> x &gt; target =&gt; right = mid - <span class="number">1</span></span><br><span class="line">        <span class="keyword">case</span> x =&gt; left = mid + <span class="number">1</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    count</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>位运算</strong></p>
+<p>当left和right足够大的时候相加会溢出。更好的写法是mid&#x3D;left+(right-left)&#x2F;2，计算机的除法实现是复杂的，我们可以用右移一位的方式来实现除以2，那么性能最优的写法是mid&#x3D;left+((right - left) &gt;&gt; 1)。</p>
+</blockquote>
+<h2 id="面试题-10-05-稀疏数组搜索"><a href="#面试题-10-05-稀疏数组搜索" class="headerlink" title="面试题 10.05. 稀疏数组搜索"></a><strong>面试题 10.05. 稀疏数组搜索</strong></h2><p>题解：有序则二分。当遇到空字符串的时候mid往后移动，直到mid等于right。如果移动后的mid等于right,那么把right直接压缩到移动前的mid，再结束当前循环，因为后面都是空字符串。需要注意scala里breakable和break的用法。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Solution</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">import</span> scala.util.control.<span class="type">Breaks</span>.&#123;<span class="keyword">break</span>, breakable&#125;  </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findString</span></span>(words: <span class="type">Array</span>[<span class="type">String</span>], s: <span class="type">String</span>): <span class="type">Int</span> = &#123;    </span><br><span class="line">        <span class="keyword">var</span> (left, right) = (<span class="number">0</span>, words.length - <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">while</span> (left &lt;= right) &#123;      </span><br><span class="line">        breakable &#123;        </span><br><span class="line">            <span class="keyword">var</span> mid = left + ((right - left) &gt;&gt; <span class="number">2</span>)        </span><br><span class="line">            <span class="keyword">var</span> tmp = mid        </span><br><span class="line">            <span class="keyword">while</span> (mid &lt;= right &amp;&amp; words(mid).equals(<span class="string">&quot;&quot;</span>)) &#123;</span><br><span class="line">                mid = mid + <span class="number">1</span>        </span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">if</span> (mid == right + <span class="number">1</span>) &#123;          </span><br><span class="line">            right = tmp - <span class="number">1</span>          </span><br><span class="line">            <span class="keyword">break</span>        </span><br><span class="line">        &#125;</span><br><span class="line">        s.compareTo(words(mid)) <span class="keyword">match</span> &#123;          </span><br><span class="line">            <span class="keyword">case</span> x <span class="keyword">if</span> x == <span class="number">0</span> =&gt; <span class="keyword">return</span> mid          </span><br><span class="line">            <span class="keyword">case</span> x <span class="keyword">if</span> x &gt; <span class="number">0</span> =&gt; left = mid + <span class="number">1</span>          </span><br><span class="line">            <span class="keyword">case</span> _ =&gt; right = mid - <span class="number">1</span>        </span><br><span class="line">        &#125;      </span><br><span class="line">        &#125;    </span><br><span class="line">    &#125;    </span><br><span class="line">        <span class="number">-1</span>  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h1><h2 id="剑指-Offer-57-和为s的两个数字"><a href="#剑指-Offer-57-和为s的两个数字" class="headerlink" title="剑指 Offer 57. 和为s的两个数字"></a><strong>剑指 Offer 57. 和为s的两个数字</strong></h2><p>题解：熟悉Set的特性：由哈希表实现的无序、无重合的集合。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">twoSum</span></span>(nums: <span class="type">Array</span>[<span class="type">Int</span>], target: <span class="type">Int</span>): <span class="type">Array</span>[<span class="type">Int</span>] = &#123;</span><br><span class="line">  <span class="keyword">var</span> set = mutable.<span class="type">Set</span>[<span class="type">Int</span>]()</span><br><span class="line">  <span class="keyword">for</span> (i &lt;- nums)</span><br><span class="line">    <span class="keyword">if</span> (set.contains(target - i)) <span class="keyword">return</span> <span class="type">Array</span>(i, target - i) <span class="keyword">else</span> set += i</span><br><span class="line">  <span class="type">Array</span>(<span class="number">-1</span>, <span class="number">-1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h1><h2 id="1-两数之和"><a href="#1-两数之和" class="headerlink" title="1. 两数之和"></a><strong>1. 两数之和</strong></h2><p>题解：熟悉Map的特性，Map可以理解为<em>k</em>ey: Set + value: Array的数据结构。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span></span>(nums: <span class="type">Array</span>[<span class="type">Int</span>], target: <span class="type">Int</span>): <span class="type">Array</span>[<span class="type">Int</span>] = &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.length == <span class="number">2</span>) <span class="keyword">return</span> <span class="type">Array</span>(<span class="number">0</span>,<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">import</span> scala.collection.mutable.<span class="type">Map</span></span><br><span class="line">        <span class="keyword">var</span> map :<span class="type">Map</span>[<span class="type">Int</span>,<span class="type">Int</span>] = <span class="type">Map</span>()</span><br><span class="line">         <span class="keyword">for</span> (i &lt;- nums.indices) &#123;</span><br><span class="line">             <span class="keyword">if</span> (map.contains(target - nums(i))) &#123;</span><br><span class="line">                 <span class="keyword">return</span> <span class="type">Array</span>(map(target - nums(i)),i)</span><br><span class="line">             &#125;</span><br><span class="line">             map += (nums(i)-&gt;i)</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="type">Array</span>(<span class="number">0</span>,<span class="number">0</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><h2 id="56-合并区间"><a href="#56-合并区间" class="headerlink" title="56. 合并区间"></a><strong>56. 合并区间</strong></h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Solution</span> </span>&#123;   </span><br><span class="line">    <span class="keyword">import</span> scala.collection.mutable.<span class="type">ArrayBuffer</span>   </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">merge</span></span>(intervals: <span class="type">Array</span>[<span class="type">Array</span>[<span class="type">Int</span>]]): <span class="type">Array</span>[<span class="type">Array</span>[<span class="type">Int</span>]] = &#123;    </span><br><span class="line">        <span class="keyword">if</span> (intervals.length &lt;= <span class="number">1</span>) <span class="keyword">return</span> intervals    </span><br><span class="line">        <span class="keyword">var</span> result = <span class="keyword">new</span> <span class="type">ArrayBuffer</span>[<span class="type">Array</span>[<span class="type">Int</span>]]() <span class="comment">// 初始化结果    </span></span><br><span class="line">        <span class="keyword">var</span> initIntervals = intervals.sortBy(_.head) <span class="comment">// 对数组按照第一个元素进行排序    </span></span><br><span class="line">        <span class="keyword">var</span> target = initIntervals.head</span><br><span class="line">    <span class="keyword">for</span> (element &lt;- initIntervals) &#123;      </span><br><span class="line">        <span class="keyword">if</span> (element.head &gt; target.last) &#123;        </span><br><span class="line">            <span class="comment">// 两个数组不相交        </span></span><br><span class="line">            result.append(<span class="type">Array</span>(target.head, target.last))        </span><br><span class="line">            target = element      </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;        </span><br><span class="line">            <span class="comment">// 两个数组相交        </span></span><br><span class="line">            target = <span class="type">Array</span>(target.head, <span class="type">Math</span>.max(element.last, target.last))      </span><br><span class="line">        &#125;    </span><br><span class="line">    &#125;    </span><br><span class="line">        result.append(target)    </span><br><span class="line">        result.toArray  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="485-最大连续-1-的个数"><a href="#485-最大连续-1-的个数" class="headerlink" title="485. 最大连续 1 的个数"></a><strong>485. 最大连续 1 的个数</strong></h2><p>题解：遍历所有元素，用maxLength记录当前最大连续个数，lastMaxLength记录上次最大的连续个数，遍历到1则maxLength + 1，遍历到0则判断当前maxLength和lastMaxLength的大小，取较大的一个。遍历完成以后，再次对maxLength和lastMaxLength比较，返回较大的一个。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">findMaxConsecutiveOnes</span></span>(nums: <span class="type">Array</span>[<span class="type">Int</span>]): <span class="type">Int</span> = &#123;</span><br><span class="line">        <span class="keyword">var</span> maxLength = <span class="number">0</span></span><br><span class="line">        <span class="keyword">var</span> lastMaxLength = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> (i &lt;- nums.indices) &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums(i) == <span class="number">1</span>) &#123;</span><br><span class="line">                maxLength += <span class="number">1</span></span><br><span class="line">            &#125;    </span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                lastMaxLength = <span class="type">Math</span>.max(lastMaxLength,maxLength)   </span><br><span class="line">                maxLength = <span class="number">0</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">Math</span>.max(lastMaxLength,maxLength)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="648-单词替换"><a href="#648-单词替换" class="headerlink" title="648. 单词替换"></a><strong>648. 单词替换</strong></h2><p>题解：将句子拆分到集合里，遍历每一个单词检查是不是以列表中的词根开头，如果是就替换掉。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">replaceWords</span></span>(dictionary: <span class="type">List</span>[<span class="type">String</span>], sentence: <span class="type">String</span>): <span class="type">String</span> = &#123;</span><br><span class="line">  <span class="keyword">var</span> arr: <span class="type">Array</span>[<span class="type">String</span>] = sentence.split(<span class="string">&quot; &quot;</span>)</span><br><span class="line">  <span class="keyword">var</span> newSentence: <span class="type">StringBuilder</span> = <span class="keyword">new</span> <span class="type">StringBuilder</span>()</span><br><span class="line">  <span class="keyword">for</span> (str &lt;- arr) &#123;</span><br><span class="line">    <span class="keyword">var</span> curRoot: <span class="type">String</span> = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">for</span> (root &lt;- dictionary) &#123;</span><br><span class="line">      <span class="keyword">if</span> (str.startsWith(root)) &#123;</span><br><span class="line">        root <span class="keyword">match</span> &#123;</span><br><span class="line">          <span class="keyword">case</span> _ <span class="keyword">if</span> curRoot == <span class="string">&quot;&quot;</span> =&gt; curRoot = root</span><br><span class="line">          <span class="keyword">case</span> _ <span class="keyword">if</span> root.length &lt; curRoot.length =&gt; curRoot = root</span><br><span class="line">          <span class="keyword">case</span> _ =&gt;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (curRoot != <span class="string">&quot;&quot;</span>) newSentence.append(curRoot + <span class="string">&quot; &quot;</span>) <span class="keyword">else</span> newSentence.append(str + <span class="string">&quot; &quot;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  newSentence.toString().trim</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="剑指-Offer-59-I-滑动窗口的最大值"><a href="#剑指-Offer-59-I-滑动窗口的最大值" class="headerlink" title="剑指 Offer 59 - I. 滑动窗口的最大值"></a><strong>剑指 Offer 59 - I. 滑动窗口的最大值</strong></h2><p>题解：暴力法先遍历每个元素 0 → (k-1)，再遍历窗口找出最大的元素。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 暴力法</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">maxSlidingWindow</span></span>(nums: <span class="type">Array</span>[<span class="type">Int</span>], k: <span class="type">Int</span>): <span class="type">Array</span>[<span class="type">Int</span>] = &#123;</span><br><span class="line">  <span class="keyword">if</span> (nums.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="type">Array</span>()</span><br><span class="line">  <span class="keyword">val</span> step = k - <span class="number">1</span></span><br><span class="line">  <span class="keyword">val</span> result = <span class="type">ArrayBuffer</span>[<span class="type">Int</span>]()</span><br><span class="line">  <span class="keyword">for</span> (i &lt;- <span class="number">0</span> until nums.length - step) &#123;</span><br><span class="line">    <span class="keyword">var</span> curArray = <span class="type">ArrayBuffer</span>[<span class="type">Int</span>]()</span><br><span class="line">    <span class="keyword">for</span> (j &lt;- <span class="number">0</span> to step)</span><br><span class="line">      curArray.append(nums(i + j))</span><br><span class="line">    <span class="keyword">var</span> maxValue = curArray.toArray.max</span><br><span class="line">    result.append(maxValue)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (item &lt;- result.toArray)</span><br><span class="line">    println(item)</span><br><span class="line">  result.toArray</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h1><h2 id="20-有效的括号"><a href="#20-有效的括号" class="headerlink" title="20.有效的括号"></a>20.有效的括号</h2><p>题解：当符号等于左括号直接入栈，若栈顶与当前元素匹配就出栈，最后判断栈是否为空。用ArrayBuffer来实现也可，但是性能不如栈。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isValid</span></span>(s: <span class="type">String</span>): <span class="type">Boolean</span> = &#123;</span><br><span class="line">      <span class="keyword">import</span> scala.collection.mutable.<span class="type">Stack</span></span><br><span class="line">      <span class="keyword">import</span> scala.collection.mutable.<span class="type">Map</span></span><br><span class="line">      <span class="keyword">if</span> (s.length == <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">      <span class="keyword">var</span> stack = <span class="type">Stack</span>[<span class="type">Char</span>](s(<span class="number">0</span>))</span><br><span class="line">      <span class="keyword">var</span> strMap = <span class="type">Map</span>(&#x27;&#125;&#x27;-&gt;&#x27;&#123;&#x27;,&#x27;]&#x27;-&gt;&#x27;[&#x27;,&#x27;)&#x27; -&gt; &#x27;(&#x27;)  </span><br><span class="line">       <span class="keyword">for</span> (i &lt;- <span class="number">1</span> until s.length) &#123;</span><br><span class="line">           <span class="keyword">if</span> (stack.isEmpty || s(i) == &#x27;[&#x27; || s(i) == &#x27;(&#x27; || s(i) == &#x27;&#123;&#x27;)</span><br><span class="line">               stack.push(s(i))</span><br><span class="line">           <span class="keyword">else</span></span><br><span class="line">               <span class="keyword">if</span> (stack.top == strMap(s(i)))  stack.pop() <span class="keyword">else</span>  stack.push(s(i))</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> stack.isEmpty</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a><strong>链表</strong></h1><h2 id="2-两数相加"><a href="#2-两数相加" class="headerlink" title="2. 两数相加"></a><strong>2. 两数相加</strong></h2><p>题解：遍历两个链表，逐位相加，定义变量carry记录是否需要进位。相加计算公式：sum &#x3D; x + y + carry，进位制carry&#x3D;sum &#x2F; 10, 相加后当前位的结果为sum%10。当两个链表都遍历完成后，需要判断carry是否为1，若为1则还需继续进位。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * class ListNode(_x: Int = 0, _next: ListNode = null) &#123;</span></span><br><span class="line"><span class="comment"> *   var next: ListNode = _next</span></span><br><span class="line"><span class="comment"> *   var x: Int = _x</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addTwoNumbers</span></span>(l1: <span class="type">ListNode</span>, l2: <span class="type">ListNode</span>): <span class="type">ListNode</span> = &#123;</span><br><span class="line">        <span class="keyword">var</span> dummaryHead = <span class="type">ListNode</span>(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">var</span> curr = dummaryHead </span><br><span class="line">        <span class="keyword">var</span> (left,right) = (l1,l2)</span><br><span class="line">        <span class="keyword">var</span> carry = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> (left != <span class="literal">null</span> || right != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">var</span> x = <span class="keyword">if</span> (left != <span class="literal">null</span>) left.x <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">            <span class="keyword">var</span> y = <span class="keyword">if</span> (right != <span class="literal">null</span>) right.x <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">            <span class="keyword">var</span> sum = x + y + carry</span><br><span class="line">            carry = sum / <span class="number">10</span></span><br><span class="line">            curr.next = <span class="type">ListNode</span>(sum % <span class="number">10</span>)</span><br><span class="line">            curr = curr.next</span><br><span class="line">            <span class="keyword">if</span> (left != <span class="literal">null</span>)</span><br><span class="line">                left = left.next</span><br><span class="line">            <span class="keyword">if</span> (right!= <span class="literal">null</span>)</span><br><span class="line">                right = right.next    </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (carry == <span class="number">1</span>) curr.next = <span class="type">ListNode</span>(<span class="number">1</span>)</span><br><span class="line">        dummaryHead.next</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>小技巧</strong></p>
+<p>对于链表问题，返回结果为头结点时，通常需要先初始化一个预先指针 pre，该指针的下一个节点指向真正的头结点head。使用预先指针的目的在于链表初始化时无可用节点值，而且链表构造过程需要指针移动，进而会导致头指针丢失，无法返回结果。</p>
+</blockquote>
+<h2 id="19-删除链表的倒数第-N-个结点"><a href="#19-删除链表的倒数第-N-个结点" class="headerlink" title="19. 删除链表的倒数第 N 个结点"></a><strong>19. 删除链表的倒数第 N 个结点</strong></h2><p>题解：先对链表进行遍历得到链表长度count，然后对倒数第N+1个节点执行：node.next &#x3D; node.next.next。有种情况例外就是删除N&#x3D;count，那么只需对头结点做操作即可。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** * Definition for singly-linked list. * class ListNode(_x: Int = 0, _next: ListNode = null) &#123; *   var next: ListNode = _next *   var x: Int = _x * &#125; */</span></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Solution</span> </span>&#123;    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeNthFromEnd</span></span>(head: <span class="type">ListNode</span>, n: <span class="type">Int</span>): <span class="type">ListNode</span> = &#123;        <span class="keyword">import</span> scala.collection.mutable.<span class="type">ArrayBuffer</span>        <span class="keyword">var</span> countHead = head        <span class="keyword">var</span> comHead = head        <span class="keyword">var</span> count = <span class="number">0</span>        <span class="keyword">while</span> (countHead != <span class="literal">null</span>) &#123;            count += <span class="number">1</span>            countHead = countHead.next        &#125;</span><br><span class="line">        <span class="keyword">var</span> target = count - n - <span class="number">1</span>        <span class="keyword">var</span> arrayBuffer = <span class="type">ArrayBuffer</span>[<span class="type">ListNode</span>](comHead)        <span class="keyword">if</span> (target &gt;= <span class="number">0</span>) &#123;            <span class="keyword">for</span> (i &lt;- <span class="number">0</span> until count <span class="number">-1</span>) &#123;            <span class="keyword">if</span> (i == target)  &#123;              arrayBuffer.append(comHead.next.next)              comHead = comHead.next.next            &#125;            <span class="keyword">else</span> &#123;              arrayBuffer.append(comHead.next)              comHead = comHead.next            &#125;            &#125;        &#125; <span class="keyword">else</span> &#123;            comHead = comHead.next            <span class="keyword">return</span> comHead        &#125;</span><br><span class="line">        <span class="keyword">var</span> result = <span class="type">ListNode</span>()        <span class="keyword">var</span> dummary = result        <span class="keyword">for</span> (node &lt;- arrayBuffer) &#123;           result.next = node           result = result.next        &#125;        dummary.next    &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>‌</p>
+<h2 id="21-合并两个有序链表"><a href="#21-合并两个有序链表" class="headerlink" title="21.合并两个有序链表"></a><strong>21.合并两个有序链表</strong></h2><p>题解：最简单的办法，新建一个链表，每次从两个链表里捞最小的，但是时间和空间复杂度比较差，比较好的办法是直接操作俩个链表。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * class ListNode(_x: Int = 0, _next: ListNode = null) &#123;</span></span><br><span class="line"><span class="comment"> *   var next: ListNode = _next</span></span><br><span class="line"><span class="comment"> *   var x: Int = _x</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mergeTwoLists</span></span>(l1: <span class="type">ListNode</span>, l2: <span class="type">ListNode</span>): <span class="type">ListNode</span> = &#123;</span><br><span class="line">        <span class="keyword">if</span> (l1 == <span class="literal">null</span> &amp;&amp; l2 == <span class="literal">null</span>) <span class="keyword">return</span> l1</span><br><span class="line">        <span class="keyword">var</span> (list1,list2)= (l1,l2)</span><br><span class="line">        <span class="keyword">var</span> newList = <span class="keyword">new</span> <span class="type">ListNode</span>()</span><br><span class="line">        <span class="keyword">var</span> cur = newList</span><br><span class="line">        <span class="keyword">while</span> (list1 != <span class="literal">null</span> &amp;&amp; list2 != <span class="literal">null</span>) &#123;</span><br><span class="line">             <span class="keyword">if</span> (list1.x &lt;= list2.x) &#123;</span><br><span class="line">                 cur.next = list1</span><br><span class="line">                 list1 = list1.next</span><br><span class="line">             &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                 cur.next = list2</span><br><span class="line">                 list2 = list2.next</span><br><span class="line">             &#125;</span><br><span class="line">             cur = cur.next </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (list1 == <span class="literal">null</span>) cur.next = list2 <span class="keyword">else</span> cur.next = list1</span><br><span class="line">        <span class="keyword">return</span> newList.next</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="剑指-Offer-24-反转链表"><a href="#剑指-Offer-24-反转链表" class="headerlink" title="剑指 Offer 24. 反转链表"></a><strong>剑指 Offer 24. 反转链表</strong></h2><p>题解 ： 将链表所有node存进栈里，然后每次弹出栈顶元素追加到新的链表中。构造新的链表时，额外定义一个指针指向头结点。空间复杂度比较差，超出内存限制警告。第二种办法是局部反转：定义前后两个指针，每次局部反转后，指针向后移，直到前面的指针指向的node为空。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** * Definition for singly-linked list. * class ListNode(var _x: Int = 0) &#123; *   var next: ListNode = null *   var x: Int = _x * &#125; */</span></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Solution</span> </span>&#123;    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverseList</span></span>(head: <span class="type">ListNode</span>): <span class="type">ListNode</span> = &#123;          </span><br><span class="line">        <span class="keyword">if</span> (head == <span class="literal">null</span>) <span class="keyword">return</span> head          </span><br><span class="line">        <span class="keyword">var</span> pre = head          </span><br><span class="line">        <span class="keyword">var</span> cur : <span class="type">ListNode</span> = <span class="literal">null</span>          </span><br><span class="line">        <span class="keyword">while</span> (pre != <span class="literal">null</span>) &#123;              </span><br><span class="line">            <span class="keyword">var</span> tmp = pre.next              <span class="comment">// 局部反转              </span></span><br><span class="line">            pre.next = cur              <span class="comment">// 指针往前移              </span></span><br><span class="line">            cur = pre              </span><br><span class="line">            pre = tmp          </span><br><span class="line">        &#125;          </span><br><span class="line">        cur    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/** * Definition for singly-linked list. * class ListNode(var _x: Int = 0) &#123; *   var next: ListNode = null *   var x: Int = _x * &#125; */</span><span class="class"><span class="keyword">object</span> <span class="title">Solution</span> </span>&#123;    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverseList</span></span>(head: <span class="type">ListNode</span>): <span class="type">ListNode</span> = &#123;          </span><br><span class="line">        <span class="keyword">if</span> (head == <span class="literal">null</span>) <span class="keyword">return</span> head          </span><br><span class="line">        <span class="keyword">import</span> scala.collection.mutable.<span class="type">Stack</span>          </span><br><span class="line">        <span class="keyword">var</span> curHead = head          </span><br><span class="line">        <span class="keyword">var</span> newHead : <span class="type">ListNode</span> = <span class="literal">null</span>          </span><br><span class="line">        <span class="keyword">var</span> stack = <span class="keyword">new</span> <span class="type">Stack</span>[<span class="type">ListNode</span>]()</span><br><span class="line">        <span class="keyword">while</span> (curHead != <span class="literal">null</span>) &#123;              </span><br><span class="line">            stack.push(curHead)              </span><br><span class="line">            curHead = curHead.next          </span><br><span class="line">        &#125;                  </span><br><span class="line">        newHead = stack.pop()          </span><br><span class="line">        <span class="keyword">var</span> dummy = newHead                     </span><br><span class="line">        <span class="keyword">while</span> (!stack.isEmpty) &#123;             </span><br><span class="line">            newHead.next = stack.pop()              </span><br><span class="line">            newHead = newHead.next          </span><br><span class="line">        &#125;         </span><br><span class="line">        dummy    </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="92-反转链表-II"><a href="#92-反转链表-II" class="headerlink" title="92. 反转链表 II"></a><strong>92. 反转链表 II</strong></h2><p>题解<strong>：</strong>将需要反转的部分存入栈中，先入后出。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * class ListNode(_x: Int = 0, _next: ListNode = null) &#123;</span></span><br><span class="line"><span class="comment"> *   var next: ListNode = _next</span></span><br><span class="line"><span class="comment"> *   var x: Int = _x</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">import</span> scala.collection.mutable</span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">reverseBetween</span></span>(head: <span class="type">ListNode</span>, m: <span class="type">Int</span>, n: <span class="type">Int</span>): <span class="type">ListNode</span> = &#123;</span><br><span class="line">     <span class="keyword">var</span> myHead = head</span><br><span class="line">    <span class="keyword">var</span> index = <span class="number">1</span></span><br><span class="line">    <span class="keyword">val</span> stack = <span class="keyword">new</span> mutable.<span class="type">Stack</span>[<span class="type">Int</span>]()</span><br><span class="line">    <span class="comment">// 将需要反转的部分存入栈中</span></span><br><span class="line">    <span class="keyword">while</span> (myHead != <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (index &gt;= m &amp;&amp; index &lt;= n) &#123;</span><br><span class="line">        stack.push(myHead.x)</span><br><span class="line">      &#125;</span><br><span class="line">      myHead = myHead.next</span><br><span class="line">      index += <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    myHead = head</span><br><span class="line">    index = <span class="number">1</span></span><br><span class="line">    <span class="comment">// 将需要反转的部分重新复制</span></span><br><span class="line">    <span class="keyword">while</span> (myHead != <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (index &gt;= m &amp;&amp; index &lt;= n) &#123;</span><br><span class="line">        myHead.x = stack.pop()</span><br><span class="line">      &#125;</span><br><span class="line">      myHead = myHead.next</span><br><span class="line">      index += <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    head</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="递归"><a href="#递归" class="headerlink" title="递归"></a><strong>递归</strong></h1><h2 id="653-两数之和-IV-输入-BST"><a href="#653-两数之和-IV-输入-BST" class="headerlink" title="653. 两数之和 IV - 输入 BST"></a><strong>653. 两数之和 IV - 输入 BST</strong></h2><p>题解：前序递归所有节点，每访问一个节点，判断Set集中不是存在一个元素a满足：k - a &#x3D; root.value,如果存在返回true，若不存在将root.vaue添加到集合中，继续左右节点的搜索。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment">    * class TreeNode(_value: Int = 0, _left: TreeNode = null, _right: TreeNode = null) &#123;</span></span><br><span class="line"><span class="comment">    *   var value: Int = _value</span></span><br><span class="line"><span class="comment">    *   var left: TreeNode = _left</span></span><br><span class="line"><span class="comment">    *   var right: TreeNode = _right</span></span><br><span class="line"><span class="comment">    * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">  <span class="keyword">import</span> scala.collection.mutable.<span class="type">Set</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">findTarget</span></span>(root: <span class="type">TreeNode</span>, k: <span class="type">Int</span>): <span class="type">Boolean</span> = &#123;</span><br><span class="line">    <span class="keyword">return</span> findIt(root, k, <span class="type">Set</span>())</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">findIt</span></span>(root: <span class="type">TreeNode</span>, k: <span class="type">Int</span>, set: <span class="type">Set</span>[<span class="type">Int</span>]): <span class="type">Boolean</span> = &#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span> <span class="literal">false</span> <span class="comment">// 判断base case</span></span><br><span class="line">    <span class="keyword">if</span> (set.contains(k - root.value)) <span class="keyword">return</span> <span class="literal">true</span> <span class="keyword">else</span> set.+=(root.value)</span><br><span class="line">    findIt(root.left, k, set) || findIt(root.right, k, set)</span><br><span class="line">  &#125;</span><br><span class="line">     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="55-跳跃游戏"><a href="#55-跳跃游戏" class="headerlink" title="55. 跳跃游戏"></a><strong>55. 跳跃游戏</strong></h2><p>题解：从后往前判断，初始步长为step&#x3D;1，假设可以到达用变量标识isCan&#x3D;1。 如果倒数第二个点的值大于等于步长1，那么就把倒数第二个点看做最后一个点，继续递归。如果倒数第二个点小于步长，那么倒数第三个点就需要跳两步，递归时步长要+1，标识isCan&#x3D;0。当把所有的元素都递归完以后，判断isCan是否等于1即可。 注意： 很常见的情况是[1,2,0,0]这种，倒数第二个点将step置为2，当递归到倒数第三个点的时候要记得将step重新置为1。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Solution</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">canJump</span></span>(nums: <span class="type">Array</span>[<span class="type">Int</span>]): <span class="type">Boolean</span> = &#123;        </span><br><span class="line">    <span class="keyword">if</span> (nums.length == <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">true</span>         </span><br><span class="line">    <span class="keyword">var</span> tail = nums.length - <span class="number">2</span>        </span><br><span class="line">    <span class="keyword">var</span> step = <span class="number">1</span>        </span><br><span class="line">    <span class="keyword">var</span> isCan = <span class="number">1</span>        </span><br><span class="line">    <span class="keyword">if</span>(helper(nums,tail,step,isCan) == <span class="number">1</span>)  <span class="literal">true</span> <span class="keyword">else</span> <span class="literal">false</span>    </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span></span>(nums:<span class="type">Array</span>[<span class="type">Int</span>],tail:<span class="type">Int</span>,_step: <span class="type">Int</span>, _isCan :<span class="type">Int</span>): <span class="type">Int</span> = &#123;        </span><br><span class="line">        <span class="keyword">if</span> (tail == <span class="number">-1</span>) <span class="keyword">return</span> _isCan        </span><br><span class="line">        <span class="keyword">var</span> isCan = _isCan        </span><br><span class="line">        <span class="keyword">var</span> step = _step        </span><br><span class="line">        <span class="keyword">if</span> (nums(tail) &gt;= step) &#123;            </span><br><span class="line">            isCan = <span class="number">1</span>            </span><br><span class="line">            step = <span class="number">1</span>            </span><br><span class="line">            helper(nums, tail - <span class="number">1</span>,step ,isCan)        </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;            </span><br><span class="line">            isCan = <span class="number">0</span>            </span><br><span class="line">            helper(nums, tail - <span class="number">1</span>, step + <span class="number">1</span>, isCan)        </span><br><span class="line">        &#125;    </span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h1><h2 id="200-岛屿数量"><a href="#200-岛屿数量" class="headerlink" title="200. 岛屿数量"></a><strong>200. 岛屿数量</strong></h2><p>题解：岛屿系列题目都可以用DFS来解决。</p>
+<p>二叉树DFS两要素：判断Base Case , 访问左右子树</p>
+<p>def dfs(root: TreeNode &#x3D; null) : Unit &#x3D; {</p>
+<p>​    if (root &#x3D;&#x3D; null) return  &#x2F;&#x2F;  判断base case</p>
+<p>   dfs(root.left) &#x2F;&#x2F;  访问左右子树</p>
+<p>   dfs(root.right)</p>
+<p>}</p>
+<p>这题是网格，可以把它想象成一个“四叉树”(妙啊~)，那么它的base case就是越界，如果遍历到的格子不在网格范围内，那就直接return，它有4个邻接点(i-1,j)、(i+1,j)、(i,j+1)、(i,j-1)</p>
+<p>判断位置是否在网格中：</p>
+<p>def inArea(grid : Array[Array[Char]] ,i : Int  , j :Int) : boolean &#x3D; {</p>
+<p>​    return   i &gt;&#x3D;0  &amp;&amp; i &lt;  grid.length &amp;&amp; j &gt;&#x3D;0 &amp;&amp; j &lt; grid(0).length</p>
+<p>}</p>
+<p>构造网格DFS：</p>
+<p>dfs dfs(grid : Array[Array[Char]] , i : Int &#x3D; 0 , j : Int &#x3D; 0)  : Unit &#x3D; {</p>
+<p>​    if(!inArea(grid,i,i))  return‌</p>
+<p>​    if(grid(i)(j) !&#x3D; “1”)  return  &#x2F;&#x2F; 当前网格是海洋或者已经遍历过</p>
+<p>   grid(i)(j) &#x3D; ”0“</p>
+<p>   dfs(grid,i-1,j)</p>
+<p>   dfs(grid,i+1,j)</p>
+<p>   dfs(grid,i,j-1)</p>
+<p>   dfs(grid,i,j+1)</p>
+<p>}</p>
+<p>需要注意网格和二叉树不同，二叉树的每个节点都只有一个父节点，但网格不同，因此我们防止某个网格被反复遍历。办法是将遍历过的节点用常量的标识。</p>
+<p>上面是这道题的基本框架，下面实现这道题：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">     <span class="keyword">import</span> scala.collection.mutable.<span class="type">ArrayBuffer</span></span><br><span class="line">     <span class="function"><span class="keyword">def</span> <span class="title">inArea</span></span>(grid: <span class="type">Array</span>[<span class="type">Array</span>[<span class="type">Char</span>]], i: <span class="type">Int</span>, j: <span class="type">Int</span>): <span class="type">Boolean</span> =  &#123;</span><br><span class="line">       <span class="keyword">return</span> i &gt;= <span class="number">0</span> &amp;&amp; i &lt; grid.length &amp;&amp; j &gt;= <span class="number">0</span> &amp;&amp; j &lt; grid(<span class="number">0</span>).length</span><br><span class="line">     &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dfs</span></span>(grid: <span class="type">Array</span>[<span class="type">Array</span>[<span class="type">Char</span>]], i: <span class="type">Int</span>, j: <span class="type">Int</span>): <span class="type">Unit</span> = &#123;</span><br><span class="line">        <span class="keyword">if</span> (!inArea(grid,i,j)) <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">if</span> (grid(i)(j) != &#x27;<span class="number">1</span>&#x27;) <span class="keyword">return</span></span><br><span class="line">        grid(i)(j) =  &#x27;<span class="number">0</span>&#x27;</span><br><span class="line">        dfs(grid, i + <span class="number">1</span>, j)</span><br><span class="line">        dfs(grid, i - <span class="number">1</span>, j)</span><br><span class="line">        dfs(grid, i, j - <span class="number">1</span>)</span><br><span class="line">        dfs(grid, i, j + <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">numIslands</span></span>(grid: <span class="type">Array</span>[<span class="type">Array</span>[<span class="type">Char</span>]]): <span class="type">Int</span> = &#123;</span><br><span class="line">        <span class="keyword">var</span> count : <span class="type">Int</span> = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> (i &lt;- <span class="number">0</span> until grid.length) &#123;</span><br><span class="line">          <span class="keyword">for</span> (j &lt;- <span class="number">0</span> until grid(<span class="number">0</span>).length) &#123;</span><br><span class="line">              <span class="keyword">if</span> (grid(i)(j) == &#x27;<span class="number">1</span>&#x27;) &#123;</span><br><span class="line">                 dfs(grid,i,j) <span class="comment">// 一次岛搜索结束</span></span><br><span class="line">                 count += <span class="number">1</span></span><br><span class="line">              &#125;   </span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        count</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a>贪心</h1><h2 id="122-买卖股票的最佳时机-II"><a href="#122-买卖股票的最佳时机-II" class="headerlink" title="122. 买卖股票的最佳时机 II"></a><strong>122. 买卖股票的最佳时机 II</strong></h2><p>题解：贪心的思路很简单，局部最优，只需判断当前和昨天的股价即可。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span></span>(prices: <span class="type">Array</span>[<span class="type">Int</span>]): <span class="type">Int</span> = &#123;</span><br><span class="line">    <span class="keyword">var</span> len = prices.length</span><br><span class="line">    <span class="keyword">if</span> (len &lt; <span class="number">2</span>) <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> sum = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> (i &lt;- <span class="number">1</span> until len)</span><br><span class="line">      sum += <span class="type">Math</span>.max(prices(i) - prices(i - <span class="number">1</span>), <span class="number">0</span>)</span><br><span class="line">    sum</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="665-非递减数列"><a href="#665-非递减数列" class="headerlink" title="665. 非递减数列"></a><strong>665. 非递减数列</strong></h2><p>题解：假设有序列[…,a,b,c,…],当存在nums[i] &gt; nums[i + 1]的时候，有两个办法让它递增：</p>
+<p>nums[i] &#x3D; nums[i+1] nums[i+1] &#x3D; nums[i] 尽可能使用方法1，因为使用方法2可能会破坏后面的序列递增，如[4,2,3]。但方法1在某些情况下不能使用，如[4,5,2]，因为将nums[1] &#x3D; 2后它还是递减的，这时候就只能使用方法2。</p>
+<p>上面的描述太抽象，自己都绕晕了，简单地说就是加入第二个元素比第一个小，最好的方式是把第一个元素的值弄小，而不是放大第二个值，因为放大第二个值会影响到后面的序列。</p>
+<p>但不是所有的情况都可以通过把第一个值弄小的方法解决。下面列举几种情况：</p>
+<p>【2，4，3，5】这种情况可以直接把4置为3，因为3大于第一个元素。</p>
+<p>【2，6，1，5】这种情况没法把6置为1，因为1小于2，修改之后还是递减。</p>
+<p>【4，2，3】这种情况，比较特殊第二个元素第一个元素小直接将4置为2就可以，因为它根本不会影响到2之前的序列，并且如果将2置为4，那么就影响到2以后的序列的递增了。</p>
+<p>总而言之就是要判断nums[i+1]和nums[i-1]的关系，如果nums[i +1] &gt; nums[i -1]那就将nums[i] 置为nums[i+1]，否则就将nums[i+1]置为nums[i]。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">checkPossibility</span></span>(nums: <span class="type">Array</span>[<span class="type">Int</span>]): <span class="type">Boolean</span> = &#123;</span><br><span class="line">  <span class="keyword">var</span> cnt: <span class="type">Int</span> = <span class="number">0</span></span><br><span class="line">  <span class="keyword">for</span> (i &lt;- <span class="number">0</span> until nums.length - <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (nums(i) &gt; nums(i + <span class="number">1</span>)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (i == <span class="number">0</span>) &#123;</span><br><span class="line">        nums(<span class="number">0</span>) = nums(<span class="number">1</span>)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums(i + <span class="number">1</span>) &lt; nums(i - <span class="number">1</span>))</span><br><span class="line">          nums(i + <span class="number">1</span>) = nums(i)</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">          nums(i) = nums(i + <span class="number">1</span>)</span><br><span class="line">      &#125;</span><br><span class="line">      cnt += <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (cnt &gt; <span class="number">1</span>) <span class="literal">false</span> <span class="keyword">else</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h1><h2 id="70-爬楼梯"><a href="#70-爬楼梯" class="headerlink" title="70. 爬楼梯"></a><strong>70. 爬楼梯</strong></h2><p>题解：动态规划，到第N个楼梯的最后一步有两个跳法，要么跳一阶要么跳两阶，那么到第N阶的方法实际上就是到N-1阶的方法数+到N-2阶的方法数。</p>
+<p>推导方程：DP[N] &#x3D; DP[N-1] + DP[N-2]</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">      <span class="function"><span class="keyword">def</span> <span class="title">climbStairs</span></span>(n: <span class="type">Int</span>): <span class="type">Int</span> = &#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span> || n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">val</span> dp: <span class="type">Array</span>[<span class="type">Int</span>] = <span class="keyword">new</span> <span class="type">Array</span>[<span class="type">Int</span>](n + <span class="number">1</span>)</span><br><span class="line">    dp(<span class="number">0</span>) = <span class="number">1</span></span><br><span class="line">    dp(<span class="number">1</span>) = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> (i &lt;- <span class="number">2</span> to n) &#123;</span><br><span class="line">      dp(i) = dp(i - <span class="number">1</span>) + dp(i - <span class="number">2</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    dp(n)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="剑指-Offer-47-礼物的最大价值"><a href="#剑指-Offer-47-礼物的最大价值" class="headerlink" title="剑指 Offer 47. 礼物的最大价值"></a><strong>剑指 Offer 47. 礼物的最大价值</strong></h2><p><strong>题解：</strong>思路：1.贪心策略，每次选取局部最优，这种办法实际上不总是能解决问题，贪心算法是目光短浅的。  2.动态规划，从左上角开始计算每个网格最大的价值，当前格子grid(i)(j)的价值就是它左边或者上面的格子的价值决定的。有下面几种格子： i &#x3D; 0 j &#x3D; 0 第一个格子起点，价值就是它自己 i &#x3D; 0 j &gt;0 第一行的格子，价值就是左边的格子的价值+ 它自己的价值 i &gt; 0 j &#x3D; 0第一列的格子， 价值就是上面的格子的价值+它自己的价值 上面三种的价值都是固定的，下面这种格子才有最大的价值 i &gt; 0 j &gt;0 中部的格子，最大的价值等于 max(左边格子的价值，上边格子的价值) + 它自己的价值 每一个格子的价值都会迭代计算到最后一个格子，最后一个格子的价值就是最大的价值.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 动态规划 */</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">maxValueDP</span></span>(grid: <span class="type">Array</span>[<span class="type">Array</span>[<span class="type">Int</span>]]): <span class="type">Int</span> = &#123;</span><br><span class="line">  <span class="keyword">var</span> maxRow = grid.length</span><br><span class="line">  <span class="keyword">var</span> maxCol = grid(<span class="number">0</span>).length</span><br><span class="line">  <span class="keyword">if</span> (maxCol == <span class="number">0</span> &amp;&amp; maxRow == <span class="number">0</span>) <span class="keyword">return</span> grid(<span class="number">0</span>)(<span class="number">0</span>)</span><br><span class="line">  <span class="keyword">for</span> (i &lt;- <span class="number">0</span> until maxRow) &#123;</span><br><span class="line">    <span class="keyword">for</span> (j &lt;- <span class="number">0</span> until maxCol) &#123;</span><br><span class="line">      grid(i)(j) <span class="keyword">match</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> _ <span class="keyword">if</span> i == <span class="number">0</span> &amp;&amp; j == <span class="number">0</span> =&gt;</span><br><span class="line">        <span class="keyword">case</span> _ <span class="keyword">if</span> i == <span class="number">0</span> =&gt; grid(i)(j) += grid(i)(j - <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">case</span> _ <span class="keyword">if</span> j == <span class="number">0</span> =&gt; grid(i)(j) += grid(i - <span class="number">1</span>)(j)</span><br><span class="line">        <span class="keyword">case</span> _ =&gt; grid(i)(j) += <span class="type">Math</span>.max(grid(i - <span class="number">1</span>)(j), grid(i)(j - <span class="number">1</span>))</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  grid(maxRow - <span class="number">1</span>)(maxCol - <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment">/* 贪心算法 */</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">maxValue</span></span>(grid: <span class="type">Array</span>[<span class="type">Array</span>[<span class="type">Int</span>]]): <span class="type">Int</span> = &#123;</span><br><span class="line">  <span class="keyword">var</span> maxRow = grid.length - <span class="number">1</span></span><br><span class="line">  <span class="keyword">var</span> maxCol = grid(<span class="number">0</span>).length - <span class="number">1</span></span><br><span class="line">  <span class="keyword">var</span> maxSum = grid(<span class="number">0</span>)(<span class="number">0</span>)</span><br><span class="line">  <span class="keyword">if</span> (maxCol == <span class="number">0</span> &amp;&amp; maxRow == <span class="number">0</span>) <span class="keyword">return</span> maxSum</span><br><span class="line">  <span class="keyword">var</span> (m, n) = (<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">  <span class="keyword">while</span> (m &lt;= maxRow &amp;&amp; n &lt;= maxCol) &#123;</span><br><span class="line">    <span class="keyword">if</span> (m == maxRow &amp;&amp; n == maxCol) <span class="keyword">return</span>  maxSum</span><br><span class="line">    maxSum <span class="keyword">match</span> &#123;</span><br><span class="line">      <span class="keyword">case</span> _ <span class="keyword">if</span> m == maxRow &amp;&amp; n &lt; maxCol =&gt; &#123;</span><br><span class="line">        maxSum += grid(m)(n + <span class="number">1</span>)</span><br><span class="line">        n += <span class="number">1</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">case</span> _ <span class="keyword">if</span> n == maxCol &amp;&amp; m &lt; maxRow =&gt; &#123;</span><br><span class="line">        maxSum += grid(m + <span class="number">1</span>)(n)</span><br><span class="line">        m += <span class="number">1</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">case</span> _ =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (grid(m + <span class="number">1</span>)(n) &gt; grid(m)(n + <span class="number">1</span>)) &#123;</span><br><span class="line">          maxSum += grid(m + <span class="number">1</span>)(n)</span><br><span class="line">          m += <span class="number">1</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          maxSum += grid(m)(n + <span class="number">1</span>)</span><br><span class="line">          n += <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  maxSum</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2022/05/29/regular-expression/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="swj">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwsmai">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/29/regular-expression/" class="post-title-link" itemprop="url">正则表达式学习（一）：基础知识</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-05-29 19:51:55 / Modified: 20:11:28" itemprop="dateCreated datePublished" datetime="2022-05-29T19:51:55+08:00">2022-05-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/regular-expression/" itemprop="url" rel="index"><span itemprop="name">regular-expression</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[abc]    匹配方括号中的任意一个字符    </span><br><span class="line">[^abc]   匹配方括号中不包含的任意字符</span><br><span class="line"></span><br><span class="line">[a-z]    匹配a-z中的任意字符</span><br><span class="line">[a-zA-Z] 匹配a-z或A-Z中的任意字符</span><br><span class="line">[0-9]    匹配任意数字</span><br><span class="line"></span><br><span class="line">(abc)    匹配字符串abc</span><br><span class="line">(a|b|c)  匹配a或b或c</span><br><span class="line"></span><br><span class="line">&#123;0,1&#125;    匹配前面的子表达式零次或一次，等同于?</span><br><span class="line">&#123;0,&#125;     匹配前面的子表达式零次或多次 ，等同于*</span><br><span class="line">&#123;1,&#125;    匹配前面的子表达式一次或多次，等同于+ </span><br><span class="line"></span><br><span class="line">.       匹配除换行符以外的任意字符</span><br><span class="line">\       转义符，它可以还原元字符原来的含义，允许你匹配保留字符 [ ] ( ) &#123; &#125; . * + ? ^ $ \ |</span><br><span class="line">^       开始符</span><br><span class="line">$       结束符</span><br><span class="line"></span><br><span class="line">\s      匹配空格</span><br><span class="line">\S      匹配非空格</span><br><span class="line">\d      匹配任意数字，等同于[0-9]</span><br><span class="line">\D      匹配任意非数字</span><br><span class="line">\w      匹配任意字母数字或下划线</span><br><span class="line">\W      匹配任意非字母数字或下划线</span><br></pre></td></tr></table></figure>
+
+<h3 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h3><h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><table>
+<thead>
+<tr>
+<th>断言</th>
+<th>表达式</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>正向先行断言</td>
+<td>?&#x3D;</td>
+<td>子串后面必须有</td>
+</tr>
+<tr>
+<td>负向先行断言</td>
+<td>?!</td>
+<td>子串后面没有</td>
+</tr>
+<tr>
+<td>正向后行断言</td>
+<td>?&lt;&#x3D;</td>
+<td>子串前面必须有</td>
+</tr>
+<tr>
+<td>负向后行断言</td>
+<td>?&lt;!</td>
+<td>子串前面没有</td>
+</tr>
+</tbody></table>
+<h4 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h4><p>匹配字符串中的加粗子串</p>
+<p>1.<strong>ha</strong>ppyhahay</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ha(?=p)   # ha后面必须是p(正向先行断言)</span><br></pre></td></tr></table></figure>
+
+<p>2.happy<strong>ha</strong>hay</p>
+<p>解法1：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ha(?!(p|y)) # ha后面不能是p或y(负向先行断言)</span><br></pre></td></tr></table></figure>
+
+<p>解法2：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(?&lt;=y)ha   # ha前面必须是y(正向后行断言)</span><br></pre></td></tr></table></figure>
+
+<p>解法3：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(?&lt;!a)ha(?!p) # ha前面不能是a且后面不能是p(负向后行断言、负向先行断言)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2022/05/28/debug/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="swj">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwsmai">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/28/debug/" class="post-title-link" itemprop="url">IntellJ学习（一）：Debug</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-05-28 12:31:39 / Modified: 16:56:41" itemprop="dateCreated datePublished" datetime="2022-05-28T12:31:39+08:00">2022-05-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tools/" itemprop="url" rel="index"><span itemprop="name">tools</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="程序调试标准动作"><a href="#程序调试标准动作" class="headerlink" title="程序调试标准动作"></a>程序调试标准动作</h1><ul>
+<li>查看变量的值，展开实例看内部成员变量的值</li>
+<li>Step Over(F8)：从断点处开始，逐行执行代码，不进入方法。</li>
+<li>Step Into(F7): 从断点处开始，逐行执行代码，如果遇到方法，会进入方法，但是只能进入自定义方法，不会进入官方类库的方法。</li>
+<li>Force Step Into (Alt Shift F7): 从断点处开始，逐行执行代码，如果遇到方法，会进入方法，适用于所有方法。</li>
+<li>Step Out(Shift F8)：继续执行直到遇到下一个断点或者方法结束</li>
+<li>Resume(F9)：继续执行直到遇到下一个断点或者程序结束</li>
+<li>执行任意代码Evaluate Expression：在对话框输入代码，直接执行看结果值</li>
+<li>条件断点：给断点设置条件，只有满足条件时，程序才会在该断点停住</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2022/05/25/spark-sql-convent-struct-type/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="swj">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwsmai">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/25/spark-sql-convent-struct-type/" class="post-title-link" itemprop="url">Spark学习（四）：dataframe构造structType</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-05-25 21:36:54 / Modified: 22:03:40" itemprop="dateCreated datePublished" datetime="2022-05-25T21:36:54+08:00">2022-05-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spark-sql/" itemprop="url" rel="index"><span itemprop="name">spark-sql</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="需求背景"><a href="#需求背景" class="headerlink" title="需求背景"></a>需求背景</h1><p>为满足业务系统能够像解析mongo数据一样解析大数据产出的数据，我们绝对将多个字段的多行数据处理到一个字段中。<br>如下表中的数据所示，一组task和serid有多个sku，一个sku下又有多个location,我们需要将这些数据处理成嵌套形式的Schema。</p>
+<h1 id="示例数据"><a href="#示例数据" class="headerlink" title="示例数据"></a>示例数据</h1><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">+-------+---------+------+--------+----+----+----+----+</span><br><span class="line">|task<span class="emphasis">_id|serial_</span>id|sku<span class="emphasis">_id|sku_</span>name|xMax|xMin|Ymin|Ymax|</span><br><span class="line">+-------+---------+------+--------+----+----+----+----+</span><br><span class="line">|      a|        1|     1|    啤酒|   0|   0|   0|   0|</span><br><span class="line">|      a|        1|     1|    啤酒|   0|   0|   0|   1|</span><br><span class="line">|      a|        1|     1|    啤酒|   0|   0|   1|   0|</span><br><span class="line">|      a|        1|     1|    啤酒|   0|   0|   1|   1|</span><br><span class="line">|      a|        1|     2|    可乐|   0|   1|   0|   0|</span><br><span class="line">|      a|        1|     2|    可乐|   0|   1|   0|   1|</span><br><span class="line">|      a|        1|     2|    可乐|   0|   1|   1|   0|</span><br><span class="line">|      a|        1|     2|    可乐|   0|   1|   1|   1|</span><br><span class="line">+-------+---------+------+--------+----+----+----+----+</span><br></pre></td></tr></table></figure>
+<h1 id="示例数据Schema"><a href="#示例数据Schema" class="headerlink" title="示例数据Schema"></a>示例数据Schema</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">root</span><br><span class="line">|-- task_id: string (nullable = true)</span><br><span class="line">|-- serial_id: integer (nullable = true)</span><br><span class="line">|-- sku_id: integer (nullable = true)</span><br><span class="line">|-- sku_name: string (nullable = true)</span><br><span class="line">|-- xMax: integer (nullable = true)</span><br><span class="line">|-- xMin: integer (nullable = true)</span><br><span class="line">|-- Ymin: integer (nullable = true)</span><br><span class="line">|-- Ymax: integer (nullable = true)</span><br></pre></td></tr></table></figure>
+<h1 id="目标数据Schema"><a href="#目标数据Schema" class="headerlink" title="目标数据Schema"></a>目标数据Schema</h1><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">root</span><br><span class="line">|-- task_id: string (nullable = <span class="literal">true</span>)</span><br><span class="line">|-- serial_id: integer (nullable = <span class="literal">true</span>)</span><br><span class="line">|-- processed_results: array (nullable = <span class="literal">false</span>)</span><br><span class="line">|    |-- element: struct (containsNull = <span class="literal">false</span>)</span><br><span class="line">|    |    |-- bounding_box: struct (nullable = <span class="literal">false</span>)</span><br><span class="line">|    |    |    |-- top_left: struct (nullable = <span class="literal">false</span>)</span><br><span class="line">|    |    |    |    |-- <span class="type">Xmin</span>: integer (nullable = <span class="literal">true</span>)</span><br><span class="line">|    |    |    |    |-- <span class="type">Ymin</span>: integer (nullable = <span class="literal">true</span>)</span><br><span class="line">|    |    |    |-- bottom_right: struct (nullable = <span class="literal">false</span>)</span><br><span class="line">|    |    |    |    |-- <span class="type">Xmax</span>: integer (nullable = <span class="literal">true</span>)</span><br><span class="line">|    |    |    |    |-- <span class="type">Ymax</span>: integer (nullable = <span class="literal">true</span>)</span><br><span class="line">|    |    |-- sku_lists: struct (nullable = <span class="literal">false</span>)</span><br><span class="line">|    |    |    |-- sku_id: integer (nullable = <span class="literal">true</span>)</span><br><span class="line">|    |    |    |-- sku_name: string (nullable = <span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h1><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> structDF = df.groupBy($<span class="string">&quot;task_id&quot;</span>, $<span class="string">&quot;serial_id&quot;</span>)</span><br><span class="line">   .agg(</span><br><span class="line">     collect_list(</span><br><span class="line">       struct(</span><br><span class="line">         struct(struct($<span class="string">&quot;Xmin&quot;</span>, $<span class="string">&quot;Ymin&quot;</span>).as(<span class="string">&quot;top_left&quot;</span>), struct($<span class="string">&quot;Xmax&quot;</span>, $<span class="string">&quot;Ymax&quot;</span>).as(<span class="string">&quot;bottom_right&quot;</span>)).as(<span class="string">&quot;bounding_box&quot;</span>),</span><br><span class="line">         struct($<span class="string">&quot;sku_id&quot;</span>, $<span class="string">&quot;sku_name&quot;</span>).as(<span class="string">&quot;sku_lists&quot;</span>)</span><br><span class="line">       )</span><br><span class="line">     ).as(<span class="string">&quot;processed_results&quot;</span>)</span><br><span class="line">   )</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2022/05/25/spark-structured-streaming-example/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="swj">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwsmai">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/25/spark-structured-streaming-example/" class="post-title-link" itemprop="url">Spark学习（三）：Watermark</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-05-25 09:37:30 / Modified: 11:03:25" itemprop="dateCreated datePublished" datetime="2022-05-25T09:37:30+08:00">2022-05-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spark-structured-streaming/" itemprop="url" rel="index"><span itemprop="name">spark-structured-streaming</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="程序配置"><a href="#程序配置" class="headerlink" title="程序配置"></a>程序配置</h1><p>窗口大小：10 minutes<br>watermark大小：10 minutes<br>滑动时间：5 minutes<br>触发方式：default, 尽快触发, 自由切割</p>
+<h1 id="测试数据"><a href="#测试数据" class="headerlink" title="测试数据"></a>测试数据</h1><table>
+<thead>
+<tr>
+<th>event_time</th>
+<th>word</th>
+<th>isCounted</th>
+<th>watermark</th>
+<th>window of watermark</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2022-05-25 09:45:00</td>
+<td>a</td>
+<td>count</td>
+<td>2022-09-25 09:35:00</td>
+<td>2022-09-25 09:30:00 ~ 2022-09-25 09:40:00</td>
+</tr>
+<tr>
+<td>2022-05-25 09:25:00</td>
+<td>b</td>
+<td>not count</td>
+<td>2022-09-25 09:35:00</td>
+<td>2022-09-25 09:30:00 ~ 2022-09-25 09:40:00</td>
+</tr>
+<tr>
+<td>2022-05-25 09:29:59</td>
+<td>b</td>
+<td>not count</td>
+<td>2022-09-25 09:35:00</td>
+<td>2022-09-25 09:30:00 ~ 2022-09-25 09:40:00</td>
+</tr>
+<tr>
+<td>2022-05-25 09:30:00</td>
+<td>b</td>
+<td>count</td>
+<td>2022-09-25 09:35:00</td>
+<td>2022-09-25 09:30:00 ~ 2022-09-25 09:40:00</td>
+</tr>
+<tr>
+<td>2022-05-25 09:35:00</td>
+<td>b</td>
+<td>count</td>
+<td>2022-09-25 09:35:00</td>
+<td>2022-09-25 09:30:00 ~ 2022-09-25 09:40:00</td>
+</tr>
+<tr>
+<td>2022-05-25 09:50:00</td>
+<td>c</td>
+<td>count</td>
+<td>2022-09-25 09:40:00</td>
+<td>2022-09-25 09:35:00 ~ 2022-09-25 09:45:00</td>
+</tr>
+<tr>
+<td>2022-05-25 09:30:00</td>
+<td>d</td>
+<td>not count</td>
+<td>2022-09-25 09:40:00</td>
+<td>2022-09-25 09:35:00 ~ 2022-09-25 09:45:00</td>
+</tr>
+<tr>
+<td>2022-05-25 09:34:00</td>
+<td>d</td>
+<td>not count</td>
+<td>2022-09-25 09:40:00</td>
+<td>2022-09-25 09:35:00 ~ 2022-09-25 09:45:00</td>
+</tr>
+<tr>
+<td>2022-05-25 09:35:00</td>
+<td>d</td>
+<td>count</td>
+<td>2022-09-25 09:40:00</td>
+<td>2022-09-25 09:35:00 ~ 2022-09-25 09:45:00</td>
+</tr>
+<tr>
+<td>2022-05-25 09:35:01</td>
+<td>d</td>
+<td>count</td>
+<td>2022-09-25 09:40:00</td>
+<td>2022-09-25 09:35:00 ~ 2022-09-25 09:45:00</td>
+</tr>
+</tbody></table>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><ol>
+<li>如果数据的event_time &gt;&#x3D; watermark所在最近的一个window的开始时间，就会被处理。而不是&gt;&#x3D;watermark的时间。</li>
+<li>watermark属于多个窗口时，用于比较的是时间最靠后的一个窗口。比如2022-09-25 09:35:00所在窗口是09：25～09：35，09：30～09：40，spark是用第二个窗口来比较event_time。</li>
+</ol>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  <span class="comment">// 设置需要监听的本机地址与端口号</span></span><br><span class="line">  <span class="keyword">val</span> host: <span class="type">String</span> = <span class="string">&quot;127.0.0.1&quot;</span></span><br><span class="line">  <span class="keyword">val</span> port: <span class="type">String</span> = <span class="string">&quot;9999&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">//  nc -lk 9999</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 从监听地址创建DataFrame</span></span><br><span class="line">  <span class="keyword">var</span> df: <span class="type">DataFrame</span> = spark.readStream</span><br><span class="line">    .format(<span class="string">&quot;socket&quot;</span>)</span><br><span class="line">    .option(<span class="string">&quot;host&quot;</span>, host)</span><br><span class="line">    .option(<span class="string">&quot;port&quot;</span>, port)</span><br><span class="line">    .load()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 使用DataFrame API完成Word Count计算</span></span><br><span class="line"><span class="comment">   * */</span></span><br><span class="line">  <span class="comment">// 首先把接收到的字符串，以空格为分隔符做拆分，得到单词数组words</span></span><br><span class="line">  <span class="keyword">val</span> countDf = df.withColumn(<span class="string">&quot;inputs&quot;</span>, split(df(<span class="string">&quot;value&quot;</span>), <span class="string">&quot;,&quot;</span>))</span><br><span class="line">    .withColumn(<span class="string">&quot;event_time&quot;</span>, element_at(col(<span class="string">&quot;inputs&quot;</span>), <span class="number">1</span>).cast(<span class="string">&quot;timestamp&quot;</span>))</span><br><span class="line">    .withColumn(<span class="string">&quot;word&quot;</span>, element_at(col(<span class="string">&quot;inputs&quot;</span>), <span class="number">2</span>))</span><br><span class="line">    <span class="comment">// 根据event_time计算watermark</span></span><br><span class="line">    .withWatermark(<span class="string">&quot;event_time&quot;</span>, <span class="string">&quot;10 minutes&quot;</span>)</span><br><span class="line">    <span class="comment">// 10 mins windows, sliding every 5mins</span></span><br><span class="line">    .groupBy(window(col(<span class="string">&quot;event_time&quot;</span>), <span class="string">&quot;10 minutes&quot;</span>, <span class="string">&quot;5 minutes&quot;</span>), col(<span class="string">&quot;word&quot;</span>))</span><br><span class="line">    .count()</span><br><span class="line"></span><br><span class="line">  countDf.writeStream</span><br><span class="line">    .format(<span class="string">&quot;console&quot;</span>) <span class="comment">// 指定Sink为终端（Console）</span></span><br><span class="line">    .option(<span class="string">&quot;truncate&quot;</span>, <span class="literal">false</span>) <span class="comment">// 指定输出选项,“truncate”选项，用来表明输出内容是否需要截断。</span></span><br><span class="line"><span class="comment">//     .outputMode(&quot;complete&quot;)</span></span><br><span class="line">    .outputMode(<span class="string">&quot;update&quot;</span>)</span><br><span class="line">    .start() <span class="comment">// 启动流处理应用</span></span><br><span class="line">    .awaitTermination() <span class="comment">// 等待中断指令</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h1><p><a target="_blank" rel="noopener" href="https://github.com/jwsmai/ScalaTools/blob/main/src/main/scala/spark/stream/WordCountWaterMarkWindowExample.scala">https://github.com/jwsmai/ScalaTools/blob/main/src/main/scala/spark/stream/WordCountWaterMarkWindowExample.scala</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2022/05/24/spark-window-function/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="swj">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwsmai">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/24/spark-window-function/" class="post-title-link" itemprop="url">Spark学习（二）：窗口函数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-05-24 22:48:13" itemprop="dateCreated datePublished" datetime="2022-05-24T22:48:13+08:00">2022-05-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-28 15:09:58" itemprop="dateModified" datetime="2022-05-28T15:09:58+08:00">2022-05-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spark-sql/" itemprop="url" rel="index"><span itemprop="name">spark-sql</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Syntaxes"><a href="#Syntaxes" class="headerlink" title="Syntaxes"></a>Syntaxes</h1><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.sql.expressions.<span class="type">Window</span></span><br><span class="line"><span class="keyword">val</span> window = <span class="type">Window</span>.partitionBy(<span class="string">&quot;columnName&quot;</span>)</span><br><span class="line">df.withColumn(<span class="string">&quot;newColumn&quot;</span>, sum(<span class="string">&quot;xxx&quot;</span>).over(window))</span><br></pre></td></tr></table></figure>
+<p>按照上面的写法就是根据某一列开窗，<strong>当我们不需要对某一列开窗的时候而对所有行进行sum，我们不对<code>.over</code>函数传参即可</strong>。</p>
+<h1 id="Practics"><a href="#Practics" class="headerlink" title="Practics"></a>Practics</h1><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">Salary</span>(<span class="params">depName: <span class="type">String</span>, empNo: <span class="type">Long</span>, salary: <span class="type">Long</span></span>)</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> empsalary = <span class="type">Seq</span>(</span><br><span class="line">    <span class="type">Salary</span>(<span class="string">&quot;sales&quot;</span>, <span class="number">1</span>, <span class="number">50</span>),</span><br><span class="line">    <span class="type">Salary</span>(<span class="string">&quot;personnel&quot;</span>, <span class="number">2</span>, <span class="number">39</span>),</span><br><span class="line">    <span class="type">Salary</span>(<span class="string">&quot;sales&quot;</span>, <span class="number">3</span>, <span class="number">48</span>),</span><br><span class="line">    <span class="type">Salary</span>(<span class="string">&quot;personnel&quot;</span>, <span class="number">5</span>, <span class="number">35</span>),</span><br><span class="line">    <span class="type">Salary</span>(<span class="string">&quot;develop&quot;</span>, <span class="number">7</span>, <span class="number">42</span>),</span><br><span class="line">    <span class="type">Salary</span>(<span class="string">&quot;develop&quot;</span>, <span class="number">11</span>, <span class="number">52</span>)).toDF()</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 窗口函数</span></span><br><span class="line">  <span class="keyword">val</span> byDepName = <span class="type">Window</span>.partitionBy(<span class="string">&quot;depName&quot;</span>)</span><br><span class="line">  empsalary.withColumn(<span class="string">&quot;depSalSum&quot;</span>, sum(<span class="string">&quot;salary&quot;</span>).over(byDepName))</span><br><span class="line">    .withColumn(<span class="string">&quot;depSalMax&quot;</span>, max(<span class="string">&quot;salary&quot;</span>).over(byDepName))</span><br><span class="line">    .withColumn(<span class="string">&quot;depSalMin&quot;</span>, min(<span class="string">&quot;salary&quot;</span>).over(byDepName))</span><br><span class="line">    .withColumn(<span class="string">&quot;AllSum&quot;</span>, sum(<span class="string">&quot;salary&quot;</span>).over()) <span class="comment">// 直接sum所有列</span></span><br><span class="line">    .show()</span><br></pre></td></tr></table></figure>
+<h1 id="Github地址"><a href="#Github地址" class="headerlink" title="Github地址"></a>Github地址</h1><p><a target="_blank" rel="noopener" href="https://github.com/jwsmai/ScalaTools/blob/main/src/main/scala/spark/sql/WindowFunctionExample.scala">https://github.com/jwsmai/ScalaTools/blob/main/src/main/scala/spark/sql/WindowFunctionExample.scala</a></p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a target="_blank" rel="noopener" href="https://medium.com/expedia-group-tech/deep-dive-into-apache-spark-window-functions-7b4e39ad3c86">https://medium.com/expedia-group-tech/deep-dive-into-apache-spark-window-functions-7b4e39ad3c86</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2022/05/24/spark-sql-filter/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="swj">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwsmai">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/24/spark-sql-filter/" class="post-title-link" itemprop="url">Spark学习（一）：filter算子</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-05-24 10:49:47" itemprop="dateCreated datePublished" datetime="2022-05-24T10:49:47+08:00">2022-05-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-28 15:09:58" itemprop="dateModified" datetime="2022-05-28T15:09:58+08:00">2022-05-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spark-sql/" itemprop="url" rel="index"><span itemprop="name">spark-sql</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Syntaxes"><a href="#Syntaxes" class="headerlink" title="Syntaxes"></a>Syntaxes</h1><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">filter(condition: <span class="type">Column</span>): <span class="type">Dataset</span>[<span class="type">T</span>] <span class="comment">// 对Column进行条件过滤</span></span><br><span class="line">filter(conditionExpr: <span class="type">String</span>): <span class="type">Dataset</span>[<span class="type">T</span>] <span class="comment">//using SQL expression </span></span><br><span class="line">filter(func: <span class="type">T</span> =&gt; <span class="type">Boolean</span>): <span class="type">Dataset</span>[<span class="type">T</span>]</span><br><span class="line">filter(func: <span class="type">FilterFunction</span>[<span class="type">T</span>]): <span class="type">Dataset</span>[<span class="type">T</span>]</span><br></pre></td></tr></table></figure>
+
+<h1 id="Practice"><a href="#Practice" class="headerlink" title="Practice"></a>Practice</h1><h3 id="filter-with-Column-condition"><a href="#filter-with-Column-condition" class="headerlink" title="filter() with Column condition"></a>filter() with Column condition</h3><p>用&#x3D;!&#x3D;表达not equal.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// This import is needed to use the $-notation and &#x27;-notation</span></span><br><span class="line"><span class="keyword">import</span> spark.implicits._</span><br><span class="line"></span><br><span class="line">df1.filter(col(<span class="string">&quot;name&quot;</span>) === <span class="string">&quot;suwenjin&quot;</span>).show()</span><br><span class="line">df1.filter(df1(<span class="string">&quot;name&quot;</span>) === <span class="string">&quot;suwenjin&quot;</span>).show()</span><br><span class="line">df1.filter($<span class="string">&quot;name&quot;</span> === <span class="string">&quot;suwenjin&quot;</span>).show()</span><br><span class="line">df1.filter(&#x27;name === <span class="string">&quot;suwenjin&quot;</span>).show()</span><br><span class="line">df1.filter(&#x27;name =!= <span class="string">&quot;suwenjin&quot;</span>).show() <span class="comment">// not equal</span></span><br></pre></td></tr></table></figure>
+<p>使用<code>$-notation</code>和<code>&#39;-notation</code>时需要导入<code>implicits</code></p>
+<h3 id="filter-with-SQL-Expression"><a href="#filter-with-SQL-Expression" class="headerlink" title="filter() with SQL Expression"></a>filter() with SQL Expression</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df1.filter(<span class="string">&quot;name == &#x27;suwenjin&#x27;&quot;</span>).show()</span><br><span class="line">df1.filter(<span class="string">&quot;name = &#x27;suwenjin&#x27;&quot;</span>).show()</span><br></pre></td></tr></table></figure>
+<p>sql表达式里可以使用”&#x3D;”或者”&#x3D;&#x3D;&#x3D;”来判断是否相等。</p>
+<h3 id="Filter-with-Multiple-Conditions"><a href="#Filter-with-Multiple-Conditions" class="headerlink" title="Filter with Multiple Conditions"></a>Filter with Multiple Conditions</h3><p>AND(&amp;&amp;), OR(||), and NOT(!)</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df1.filter($<span class="string">&quot;name&quot;</span> === <span class="string">&quot;suwenjin&quot;</span> &amp;&amp; $<span class="string">&quot;age&quot;</span> === <span class="number">12</span>).show()</span><br><span class="line">df1.filter($<span class="string">&quot;name&quot;</span> === <span class="string">&quot;suwenjin&quot;</span> || $<span class="string">&quot;age&quot;</span> =!= <span class="number">12</span>).show()</span><br></pre></td></tr></table></figure>
+
+<h1 id="Github地址"><a href="#Github地址" class="headerlink" title="Github地址"></a>Github地址</h1><p><a target="_blank" rel="noopener" href="https://github.com/jwsmai/ScalaTools/blob/main/src/main/scala/spark/sql/DataframeFilterExample.scala">https://github.com/jwsmai/ScalaTools/blob/main/src/main/scala/spark/sql/DataframeFilterExample.scala</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2022/05/23/fuck-sparksql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="swj">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwsmai">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/23/fuck-sparksql/" class="post-title-link" itemprop="url">Spark踩坑（一）：maven依赖冲突</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-05-23 22:26:08" itemprop="dateCreated datePublished" datetime="2022-05-23T22:26:08+08:00">2022-05-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-28 15:09:58" itemprop="dateModified" datetime="2022-05-28T15:09:58+08:00">2022-05-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spark-sql/" itemprop="url" rel="index"><span itemprop="name">spark-sql</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>原来项目中只有spark的maven依赖，新增flink依赖后，spark程序运行报错。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ Caused by: java.lang.ClassNotFoundException: com.esotericsoftware.kryo.pool.KryoFactory</span><br></pre></td></tr></table></figure>
+<p>SparkSql原来依赖<code>com.esotericsoftware.kryo:kryo:jar:2.21</code>，但flink依赖中包含<code>com.esotericsoftware.kryo:kryo:jar:2.24.0</code>和<br><code>com.esotericsoftware.kryo:kryo:jar:2.21</code>， 在多版本同时存在的情况下，Java类加载器加载到了高版本的 kryo。由于高低版本不兼容，所以SparkSql报错。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.flink<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>flink-clients<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.15.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h1><p>使用下面的命令排查冲突的依赖：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ mvn dependency:tree -Dverbose -Dincludes=com.esotericsoftware.kryo</span><br><span class="line"></span><br><span class="line">[INFO] </span><br><span class="line">[INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ ScalaTools ---</span><br><span class="line">[INFO] groupId:ScalaTools:jar:1.0-SNAPSHOT</span><br><span class="line">[INFO] \- org.apache.flink:flink-clients:jar:1.15.0:compile</span><br><span class="line">[INFO]    +- org.apache.flink:flink-core:jar:1.15.0:compile</span><br><span class="line">[INFO]    |  \- com.esotericsoftware.kryo:kryo:jar:2.24.0:compile</span><br><span class="line">[INFO]    \- org.apache.flink:flink-java:jar:1.15.0:compile</span><br><span class="line">[INFO]       \- com.twitter:chill-java:jar:0.7.6:compile</span><br><span class="line">[INFO]          \- (com.esotericsoftware.kryo:kryo:jar:2.21:compile - omitted <span class="keyword">for</span> conflict with 2.24.0)</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] BUILD SUCCESS</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+
+<p>从上面的执行结果中可以发现<code>org.apache.flink:flink-clients</code>下有两个版本的<code>com.esotericsoftware.kryo</code>， 而maven选择了其中版本更高的那个。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2022/05/23/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="swj">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwsmai">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/23/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-05-23 22:11:43 / Modified: 23:14:13" itemprop="dateCreated datePublished" datetime="2022-05-23T22:11:43+08:00">2022-05-23</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy --message <span class="string">&quot;add fuck-sparksql.md&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2020/05/29/fuck-maven/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="swj">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwsmai">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/29/fuck-maven/" class="post-title-link" itemprop="url">Maven学习（一）：基本概念</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-29 20:08:25" itemprop="dateCreated datePublished" datetime="2020-05-29T20:08:25+08:00">2020-05-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-29 20:09:23" itemprop="dateModified" datetime="2022-05-29T20:09:23+08:00">2022-05-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/maven/" itemprop="url" rel="index"><span itemprop="name">maven</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="jar-包的仓库"><a href="#jar-包的仓库" class="headerlink" title="jar 包的仓库"></a>jar 包的仓库</h1><ul>
+<li>maven 有两部分，首先是服务器端，叫做maven repo，或者nexusserver。 它将所有的 jar 包放在一个仓库里。</li>
+<li>所有 jar 包都发布到这个仓库。需要用到某个jar 包，就去这个仓库下载。</li>
+<li>仓库里每个 jar 包，都有唯一的 id。这个id 是由三部分组成的：groupid，artifact id 和 version。<br>group id是发布jar包的组织名称，artifact id是jar包的名称，version是版本号。<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.scalanlp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>breeze_2.10<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span> <span class="comment">&lt;!-- or 2.11 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.10<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>为了避免每次都从服务器下载 artifact（jar包），maven会把下载好的artifact 放在本地的文件夹，这个就叫做local repo, local repor地址：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/suwenjin/.m2</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="maven客户端"><a href="#maven客户端" class="headerlink" title="maven客户端"></a>maven客户端</h1><ul>
+<li>如果一个项目 ChatRoom 依赖某个 jar 包，比如guava，那么就把guava的 id 加入到自己的依赖里，maven 客户端就可以通过id找到并使用guava 了。</li>
+<li>同时，maven 的依赖是传递的。如果使用maven 发布这个jar包到maven repo，maven 还会记住ChatRoom的jar 包依赖于guava。如果有别的项目依赖 ChatRoom，那么它将自动依赖guava，无需再次声明。</li>
+</ul>
+<h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><ul>
+<li><p>maven 构建中的几个主要的 phase：clean compile test package install site</p>
+<ol>
+<li>clean: 清楚maven之前生成的class、jar等文件</li>
+<li>compile:将java文件编译成class文件</li>
+<li>test: 执行测试用例</li>
+<li>package: 将项目打成jar包</li>
+<li>install: 将jar包安装到local repo</li>
+<li>site: 生成项目相关信息的网站</li>
+</ol>
+</li>
+<li><p>其他命令：</p>
+<ol>
+<li>mvn dependency:resolve 打印出已解决依赖的列表</li>
+<li>mvn dependency:tree 打印整个依赖树</li>
+<li>mvn install -X 想要查看完整的依赖踪迹，包含那些因为冲突或者其它原因而被拒绝引入的构件，打开 Maven 的调试标记运行</li>
+</ol>
+</li>
+</ul>
+<h1 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h1><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c5d84c2c7fc8">Maven的依赖(1) 之 依赖的作用域scope</a></p>
+<h1 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h1><ul>
+<li>插件是什么：maven 其实是一套框架，所有的具体任务都是插件完成的。除了核心的编译打包插件，还有非常多的别的目的的插件。</li>
+<li>打出 fatjar 的插件</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">swj</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jwsmai" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jwsmai" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wenjin@noribear.cn" title="E-Mail → mailto:wenjin@noribear.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">swj</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
