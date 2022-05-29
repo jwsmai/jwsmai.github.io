@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"jwsmai.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":false,"top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="jar 包的仓库 maven 有两部分，首先是服务器端，叫做maven repo，或者nexusserver。 它将所有的 jar 包放在一个仓库里。 所有 jar 包都发布到这个仓库。需要用到某个jar 包，就去这个仓库下载。 仓库里每个 jar 包，都有唯一的 id。这个id 是由三部分组成的：groupid，artifact id 和 version。group id是发布jar包的组织名称">
+  <meta name="description" content="程序配置窗口大小：10 minuteswatermark大小：10 minutes滑动时间：5 minutes触发方式：default, 尽快触发, 自由切割 测试数据   event_time word isCounted watermark window of watermark    2022-05-25 09:45:00 a count 2022-09-25 09:35:00 2022-0">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Maven学习（一）：基本概念">
-<meta property="og:url" content="https://jwsmai.github.io/2020/05/29/fuck-maven/index.html">
+<meta property="og:title" content="Spark学习（三）：Watermark">
+<meta property="og:url" content="https://jwsmai.github.io/2020/08/07/spark-structured-streaming-example/index.html">
 <meta property="og:site_name" content="jwsmai">
-<meta property="og:description" content="jar 包的仓库 maven 有两部分，首先是服务器端，叫做maven repo，或者nexusserver。 它将所有的 jar 包放在一个仓库里。 所有 jar 包都发布到这个仓库。需要用到某个jar 包，就去这个仓库下载。 仓库里每个 jar 包，都有唯一的 id。这个id 是由三部分组成的：groupid，artifact id 和 version。group id是发布jar包的组织名称">
+<meta property="og:description" content="程序配置窗口大小：10 minuteswatermark大小：10 minutes滑动时间：5 minutes触发方式：default, 尽快触发, 自由切割 测试数据   event_time word isCounted watermark window of watermark    2022-05-25 09:45:00 a count 2022-09-25 09:35:00 2022-0">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-05-29T12:08:25.000Z">
-<meta property="article:modified_time" content="2022-05-29T12:09:23.460Z">
+<meta property="article:published_time" content="2020-08-07T12:08:25.000Z">
+<meta property="article:modified_time" content="2022-05-29T12:52:47.349Z">
 <meta property="article:author" content="suwenjin">
-<meta property="article:tag" content="bigdata spark-sql flink scala">
+<meta property="article:tag" content="实时计算">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://jwsmai.github.io/2020/05/29/fuck-maven/">
+<link rel="canonical" href="https://jwsmai.github.io/2020/08/07/spark-structured-streaming-example/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>Maven学习（一）：基本概念 | jwsmai</title>
+  <title>Spark学习（三）：Watermark | jwsmai</title>
   
 
 
@@ -163,7 +163,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2020/05/29/fuck-maven/">
+    <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2020/08/07/spark-structured-streaming-example/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/img.png">
@@ -176,7 +176,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Maven学习（一）：基本概念
+          Spark学习（三）：Watermark
         </h1>
 
         <div class="post-meta">
@@ -186,14 +186,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-05-29 20:08:25" itemprop="dateCreated datePublished" datetime="2020-05-29T20:08:25+08:00">2020-05-29</time>
+              <time title="Created: 2020-08-07 20:08:25" itemprop="dateCreated datePublished" datetime="2020-08-07T20:08:25+08:00">2020-08-07</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-29 20:09:23" itemprop="dateModified" datetime="2022-05-29T20:09:23+08:00">2022-05-29</time>
+                <time title="Modified: 2022-05-29 20:52:47" itemprop="dateModified" datetime="2022-05-29T20:52:47+08:00">2022-05-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -201,7 +201,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/maven/" itemprop="url" rel="index"><span itemprop="name">maven</span></a>
+                  <a href="/categories/spark-structured-streaming/" itemprop="url" rel="index"><span itemprop="name">spark-structured-streaming</span></a>
                 </span>
             </span>
 
@@ -216,40 +216,95 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="jar-包的仓库"><a href="#jar-包的仓库" class="headerlink" title="jar 包的仓库"></a>jar 包的仓库</h1><ul>
-<li>maven 有两部分，首先是服务器端，叫做maven repo，或者nexusserver。 它将所有的 jar 包放在一个仓库里。</li>
-<li>所有 jar 包都发布到这个仓库。需要用到某个jar 包，就去这个仓库下载。</li>
-<li>仓库里每个 jar 包，都有唯一的 id。这个id 是由三部分组成的：groupid，artifact id 和 version。<br>group id是发布jar包的组织名称，artifact id是jar包的名称，version是版本号。<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.scalanlp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>breeze_2.10<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span> <span class="comment">&lt;!-- or 2.11 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.10<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li>为了避免每次都从服务器下载 artifact（jar包），maven会把下载好的artifact 放在本地的文件夹，这个就叫做local repo, local repor地址：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/suwenjin/.m2</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="maven客户端"><a href="#maven客户端" class="headerlink" title="maven客户端"></a>maven客户端</h1><ul>
-<li>如果一个项目 ChatRoom 依赖某个 jar 包，比如guava，那么就把guava的 id 加入到自己的依赖里，maven 客户端就可以通过id找到并使用guava 了。</li>
-<li>同时，maven 的依赖是传递的。如果使用maven 发布这个jar包到maven repo，maven 还会记住ChatRoom的jar 包依赖于guava。如果有别的项目依赖 ChatRoom，那么它将自动依赖guava，无需再次声明。</li>
-</ul>
-<h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><ul>
-<li><p>maven 构建中的几个主要的 phase：clean compile test package install site</p>
-<ol>
-<li>clean: 清楚maven之前生成的class、jar等文件</li>
-<li>compile:将java文件编译成class文件</li>
-<li>test: 执行测试用例</li>
-<li>package: 将项目打成jar包</li>
-<li>install: 将jar包安装到local repo</li>
-<li>site: 生成项目相关信息的网站</li>
+        <h1 id="程序配置"><a href="#程序配置" class="headerlink" title="程序配置"></a>程序配置</h1><p>窗口大小：10 minutes<br>watermark大小：10 minutes<br>滑动时间：5 minutes<br>触发方式：default, 尽快触发, 自由切割</p>
+<h1 id="测试数据"><a href="#测试数据" class="headerlink" title="测试数据"></a>测试数据</h1><table>
+<thead>
+<tr>
+<th>event_time</th>
+<th>word</th>
+<th>isCounted</th>
+<th>watermark</th>
+<th>window of watermark</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2022-05-25 09:45:00</td>
+<td>a</td>
+<td>count</td>
+<td>2022-09-25 09:35:00</td>
+<td>2022-09-25 09:30:00 ~ 2022-09-25 09:40:00</td>
+</tr>
+<tr>
+<td>2022-05-25 09:25:00</td>
+<td>b</td>
+<td>not count</td>
+<td>2022-09-25 09:35:00</td>
+<td>2022-09-25 09:30:00 ~ 2022-09-25 09:40:00</td>
+</tr>
+<tr>
+<td>2022-05-25 09:29:59</td>
+<td>b</td>
+<td>not count</td>
+<td>2022-09-25 09:35:00</td>
+<td>2022-09-25 09:30:00 ~ 2022-09-25 09:40:00</td>
+</tr>
+<tr>
+<td>2022-05-25 09:30:00</td>
+<td>b</td>
+<td>count</td>
+<td>2022-09-25 09:35:00</td>
+<td>2022-09-25 09:30:00 ~ 2022-09-25 09:40:00</td>
+</tr>
+<tr>
+<td>2022-05-25 09:35:00</td>
+<td>b</td>
+<td>count</td>
+<td>2022-09-25 09:35:00</td>
+<td>2022-09-25 09:30:00 ~ 2022-09-25 09:40:00</td>
+</tr>
+<tr>
+<td>2022-05-25 09:50:00</td>
+<td>c</td>
+<td>count</td>
+<td>2022-09-25 09:40:00</td>
+<td>2022-09-25 09:35:00 ~ 2022-09-25 09:45:00</td>
+</tr>
+<tr>
+<td>2022-05-25 09:30:00</td>
+<td>d</td>
+<td>not count</td>
+<td>2022-09-25 09:40:00</td>
+<td>2022-09-25 09:35:00 ~ 2022-09-25 09:45:00</td>
+</tr>
+<tr>
+<td>2022-05-25 09:34:00</td>
+<td>d</td>
+<td>not count</td>
+<td>2022-09-25 09:40:00</td>
+<td>2022-09-25 09:35:00 ~ 2022-09-25 09:45:00</td>
+</tr>
+<tr>
+<td>2022-05-25 09:35:00</td>
+<td>d</td>
+<td>count</td>
+<td>2022-09-25 09:40:00</td>
+<td>2022-09-25 09:35:00 ~ 2022-09-25 09:45:00</td>
+</tr>
+<tr>
+<td>2022-05-25 09:35:01</td>
+<td>d</td>
+<td>count</td>
+<td>2022-09-25 09:40:00</td>
+<td>2022-09-25 09:35:00 ~ 2022-09-25 09:45:00</td>
+</tr>
+</tbody></table>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><ol>
+<li>如果数据的event_time &gt;&#x3D; watermark所在最近的一个window的开始时间，就会被处理。而不是&gt;&#x3D;watermark的时间。</li>
+<li>watermark属于多个窗口时，用于比较的是时间最靠后的一个窗口。比如2022-09-25 09:35:00所在窗口是09：25～09：35，09：30～09：40，spark是用第二个窗口来比较event_time。</li>
 </ol>
-</li>
-<li><p>其他命令：</p>
-<ol>
-<li>mvn dependency:resolve 打印出已解决依赖的列表</li>
-<li>mvn dependency:tree 打印整个依赖树</li>
-<li>mvn install -X 想要查看完整的依赖踪迹，包含那些因为冲突或者其它原因而被拒绝引入的构件，打开 Maven 的调试标记运行</li>
-</ol>
-</li>
-</ul>
-<h1 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h1><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c5d84c2c7fc8">Maven的依赖(1) 之 依赖的作用域scope</a></p>
-<h1 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h1><ul>
-<li>插件是什么：maven 其实是一套框架，所有的具体任务都是插件完成的。除了核心的编译打包插件，还有非常多的别的目的的插件。</li>
-<li>打出 fatjar 的插件</li>
-</ul>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  <span class="comment">// 设置需要监听的本机地址与端口号</span></span><br><span class="line">  <span class="keyword">val</span> host: <span class="type">String</span> = <span class="string">&quot;127.0.0.1&quot;</span></span><br><span class="line">  <span class="keyword">val</span> port: <span class="type">String</span> = <span class="string">&quot;9999&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">//  nc -lk 9999</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 从监听地址创建DataFrame</span></span><br><span class="line">  <span class="keyword">var</span> df: <span class="type">DataFrame</span> = spark.readStream</span><br><span class="line">    .format(<span class="string">&quot;socket&quot;</span>)</span><br><span class="line">    .option(<span class="string">&quot;host&quot;</span>, host)</span><br><span class="line">    .option(<span class="string">&quot;port&quot;</span>, port)</span><br><span class="line">    .load()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 使用DataFrame API完成Word Count计算</span></span><br><span class="line"><span class="comment">   * */</span></span><br><span class="line">  <span class="comment">// 首先把接收到的字符串，以空格为分隔符做拆分，得到单词数组words</span></span><br><span class="line">  <span class="keyword">val</span> countDf = df.withColumn(<span class="string">&quot;inputs&quot;</span>, split(df(<span class="string">&quot;value&quot;</span>), <span class="string">&quot;,&quot;</span>))</span><br><span class="line">    .withColumn(<span class="string">&quot;event_time&quot;</span>, element_at(col(<span class="string">&quot;inputs&quot;</span>), <span class="number">1</span>).cast(<span class="string">&quot;timestamp&quot;</span>))</span><br><span class="line">    .withColumn(<span class="string">&quot;word&quot;</span>, element_at(col(<span class="string">&quot;inputs&quot;</span>), <span class="number">2</span>))</span><br><span class="line">    <span class="comment">// 根据event_time计算watermark</span></span><br><span class="line">    .withWatermark(<span class="string">&quot;event_time&quot;</span>, <span class="string">&quot;10 minutes&quot;</span>)</span><br><span class="line">    <span class="comment">// 10 mins windows, sliding every 5mins</span></span><br><span class="line">    .groupBy(window(col(<span class="string">&quot;event_time&quot;</span>), <span class="string">&quot;10 minutes&quot;</span>, <span class="string">&quot;5 minutes&quot;</span>), col(<span class="string">&quot;word&quot;</span>))</span><br><span class="line">    .count()</span><br><span class="line"></span><br><span class="line">  countDf.writeStream</span><br><span class="line">    .format(<span class="string">&quot;console&quot;</span>) <span class="comment">// 指定Sink为终端（Console）</span></span><br><span class="line">    .option(<span class="string">&quot;truncate&quot;</span>, <span class="literal">false</span>) <span class="comment">// 指定输出选项,“truncate”选项，用来表明输出内容是否需要截断。</span></span><br><span class="line"><span class="comment">//     .outputMode(&quot;complete&quot;)</span></span><br><span class="line">    .outputMode(<span class="string">&quot;update&quot;</span>)</span><br><span class="line">    .start() <span class="comment">// 启动流处理应用</span></span><br><span class="line">    .awaitTermination() <span class="comment">// 等待中断指令</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h1><p><a target="_blank" rel="noopener" href="https://github.com/jwsmai/ScalaTools/blob/main/src/main/scala/spark/stream/WordCountWaterMarkWindowExample.scala">https://github.com/jwsmai/ScalaTools/blob/main/src/main/scala/spark/stream/WordCountWaterMarkWindowExample.scala</a></p>
 
     </div>
 
@@ -258,6 +313,10 @@
     
 
       <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E5%AE%9E%E6%97%B6%E8%AE%A1%E7%AE%97/" rel="tag"><i class="fa fa-tag"></i> 实时计算</a>
+          </div>
 
         
 
@@ -265,12 +324,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/04/29/debug/" rel="prev" title="IntellJ学习（一）：Debug">
-      <i class="fa fa-chevron-left"></i> IntellJ学习（一）：Debug
+    <a href="/2020/06/29/Leetcode/" rel="prev" title="算法学习（一）：leetcode刷题">
+      <i class="fa fa-chevron-left"></i> 算法学习（一）：leetcode刷题
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/06/29/Leetcode/" rel="next" title="算法学习（一）：leetcode刷题">
-      算法学习（一）：leetcode刷题 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/08/10/fuck-sparksql/" rel="next" title="Spark踩坑（一）：maven依赖冲突">
+      Spark踩坑（一）：maven依赖冲突 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -330,7 +389,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#jar-%E5%8C%85%E7%9A%84%E4%BB%93%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">jar 包的仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#maven%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">2.</span> <span class="nav-text">maven客户端</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">4.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">插件</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">程序配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE"><span class="nav-number">2.</span> <span class="nav-text">测试数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">3.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">4.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Github"><span class="nav-number">5.</span> <span class="nav-text">Github</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
