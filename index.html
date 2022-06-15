@@ -158,6 +158,67 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2022/06/15/Pandas%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/img.png">
+      <meta itemprop="name" content="suwenjin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwsmai's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/15/Pandas%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/" class="post-title-link" itemprop="url">Pandas学习笔记(一)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-06-15 10:32:29 / Modified: 10:37:50" itemprop="dateCreated datePublished" datetime="2022-06-15T10:32:29+08:00">2022-06-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Access-Row"><a href="#Access-Row" class="headerlink" title="Access Row"></a>Access Row</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.iloc[i] <span class="comment"># 获取第i行</span></span><br></pre></td></tr></table></figure>
+<h1 id="Access-Column"><a href="#Access-Column" class="headerlink" title="Access Column"></a>Access Column</h1><h1 id="Convert-PySpark-DataFrames-to-and-from-pandas-DataFrames"><a href="#Convert-PySpark-DataFrames-to-and-from-pandas-DataFrames" class="headerlink" title="Convert PySpark DataFrames to and from pandas DataFrames"></a>Convert PySpark DataFrames to and from pandas DataFrames</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enable Arrow-based columnar data transfers</span></span><br><span class="line">spark.conf.<span class="built_in">set</span>(<span class="string">&quot;spark.sql.execution.arrow.enabled&quot;</span>, <span class="string">&quot;true&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Generate a pandas DataFrame</span></span><br><span class="line">pdf = pd.DataFrame(np.random.rand(<span class="number">100</span>, <span class="number">3</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a Spark DataFrame from a pandas DataFrame using Arrow</span></span><br><span class="line">df = spark.createDataFrame(pdf)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Convert the Spark DataFrame back to a pandas DataFrame using Arrow</span></span><br><span class="line">result_pdf = df.select(<span class="string">&quot;*&quot;</span>).toPandas()</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/databricks/spark/latest/spark-sql/spark-pandas">https://docs.microsoft.com/en-us/azure/databricks/spark/latest/spark-sql/spark-pandas</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2022/05/29/first-flink/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1112,92 +1173,11 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2020/01/01/spark-sql-filter/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/img.png">
-      <meta itemprop="name" content="suwenjin">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jwsmai's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/01/spark-sql-filter/" class="post-title-link" itemprop="url">Spark学习（一）：filter算子</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-01-01 20:08:25" itemprop="dateCreated datePublished" datetime="2020-01-01T20:08:25+08:00">2020-01-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-29 20:52:47" itemprop="dateModified" datetime="2022-05-29T20:52:47+08:00">2022-05-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/spark-sql/" itemprop="url" rel="index"><span itemprop="name">spark-sql</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Syntaxes"><a href="#Syntaxes" class="headerlink" title="Syntaxes"></a>Syntaxes</h1><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">filter(condition: <span class="type">Column</span>): <span class="type">Dataset</span>[<span class="type">T</span>] <span class="comment">// 对Column进行条件过滤</span></span><br><span class="line">filter(conditionExpr: <span class="type">String</span>): <span class="type">Dataset</span>[<span class="type">T</span>] <span class="comment">//using SQL expression </span></span><br><span class="line">filter(func: <span class="type">T</span> =&gt; <span class="type">Boolean</span>): <span class="type">Dataset</span>[<span class="type">T</span>]</span><br><span class="line">filter(func: <span class="type">FilterFunction</span>[<span class="type">T</span>]): <span class="type">Dataset</span>[<span class="type">T</span>]</span><br></pre></td></tr></table></figure>
-
-<h1 id="Practice"><a href="#Practice" class="headerlink" title="Practice"></a>Practice</h1><h3 id="filter-with-Column-condition"><a href="#filter-with-Column-condition" class="headerlink" title="filter() with Column condition"></a>filter() with Column condition</h3><p>用&#x3D;!&#x3D;表达not equal.</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// This import is needed to use the $-notation and &#x27;-notation</span></span><br><span class="line"><span class="keyword">import</span> spark.implicits._</span><br><span class="line"></span><br><span class="line">df1.filter(col(<span class="string">&quot;name&quot;</span>) === <span class="string">&quot;suwenjin&quot;</span>).show()</span><br><span class="line">df1.filter(df1(<span class="string">&quot;name&quot;</span>) === <span class="string">&quot;suwenjin&quot;</span>).show()</span><br><span class="line">df1.filter($<span class="string">&quot;name&quot;</span> === <span class="string">&quot;suwenjin&quot;</span>).show()</span><br><span class="line">df1.filter(&#x27;name === <span class="string">&quot;suwenjin&quot;</span>).show()</span><br><span class="line">df1.filter(&#x27;name =!= <span class="string">&quot;suwenjin&quot;</span>).show() <span class="comment">// not equal</span></span><br></pre></td></tr></table></figure>
-<p>使用<code>$-notation</code>和<code>&#39;-notation</code>时需要导入<code>implicits</code></p>
-<h3 id="filter-with-SQL-Expression"><a href="#filter-with-SQL-Expression" class="headerlink" title="filter() with SQL Expression"></a>filter() with SQL Expression</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df1.filter(<span class="string">&quot;name == &#x27;suwenjin&#x27;&quot;</span>).show()</span><br><span class="line">df1.filter(<span class="string">&quot;name = &#x27;suwenjin&#x27;&quot;</span>).show()</span><br></pre></td></tr></table></figure>
-<p>sql表达式里可以使用”&#x3D;”或者”&#x3D;&#x3D;&#x3D;”来判断是否相等。</p>
-<h3 id="Filter-with-Multiple-Conditions"><a href="#Filter-with-Multiple-Conditions" class="headerlink" title="Filter with Multiple Conditions"></a>Filter with Multiple Conditions</h3><p>AND(&amp;&amp;), OR(||), and NOT(!)</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df1.filter($<span class="string">&quot;name&quot;</span> === <span class="string">&quot;suwenjin&quot;</span> &amp;&amp; $<span class="string">&quot;age&quot;</span> === <span class="number">12</span>).show()</span><br><span class="line">df1.filter($<span class="string">&quot;name&quot;</span> === <span class="string">&quot;suwenjin&quot;</span> || $<span class="string">&quot;age&quot;</span> =!= <span class="number">12</span>).show()</span><br></pre></td></tr></table></figure>
-
-<h1 id="Github地址"><a href="#Github地址" class="headerlink" title="Github地址"></a>Github地址</h1><p><a target="_blank" rel="noopener" href="https://github.com/jwsmai/ScalaTools/blob/main/src/main/scala/spark/sql/DataframeFilterExample.scala">https://github.com/jwsmai/ScalaTools/blob/main/src/main/scala/spark/sql/DataframeFilterExample.scala</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
 
 
 
@@ -1264,7 +1244,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1277,7 +1257,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
