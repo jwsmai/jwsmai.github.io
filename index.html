@@ -183,7 +183,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-06-17 17:50:41 / Modified: 17:57:33" itemprop="dateCreated datePublished" datetime="2022-06-17T17:50:41+08:00">2022-06-17</time>
+              <time title="Created: 2022-06-17 17:50:41 / Modified: 18:04:10" itemprop="dateCreated datePublished" datetime="2022-06-17T17:50:41+08:00">2022-06-17</time>
             </span>
 
           
@@ -201,7 +201,7 @@
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.withColumn(<span class="string">&quot;_id&quot;</span>, to_json($<span class="string">&quot;_id&quot;</span>))</span><br></pre></td></tr></table></figure>
 
 <h1 id="Convert-Array-to-String"><a href="#Convert-Array-to-String" class="headerlink" title="Convert Array to String"></a>Convert Array to String</h1><p>use <code>concat_ws()</code> function</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.withColumn(<span class="string">&quot;processed_results&quot;</span>, concat_ws(<span class="string">&quot;,&quot;</span>,to_json($<span class="string">&quot;processed_results&quot;</span>)))</span><br></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.withColumn(<span class="string">&quot;processed_results&quot;</span>, concat_ws(<span class="string">&quot;,&quot;</span>,$<span class="string">&quot;processed_results&quot;</span>))</span><br></pre></td></tr></table></figure>
       
     </div>
 
