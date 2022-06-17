@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"jwsmai.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":false,"top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Access Row1df.iloc[i] # 获取第i行 Access ColumnConvert PySpark DataFrames to and from pandas DataFrames1234567891011121314import numpy as npimport pandas as pd# Enable Arrow-based columnar data transferss">
+  <meta name="description" content="Access Row1df.iloc[i] # Access i&amp;#x27;th Row Access ColumnConvert PySpark DataFrames to and from pandas DataFrames1234567891011121314import numpy as npimport pandas as pd# Enable Arrow-based columnar">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pandas学习笔记(一)">
-<meta property="og:url" content="https://jwsmai.github.io/2022/06/15/Pandas%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/index.html">
+<meta property="og:url" content="https://jwsmai.github.io/2022/06/15/pandas-01/index.html">
 <meta property="og:site_name" content="jwsmai&#39;s blog">
-<meta property="og:description" content="Access Row1df.iloc[i] # 获取第i行 Access ColumnConvert PySpark DataFrames to and from pandas DataFrames1234567891011121314import numpy as npimport pandas as pd# Enable Arrow-based columnar data transferss">
+<meta property="og:description" content="Access Row1df.iloc[i] # Access i&amp;#x27;th Row Access ColumnConvert PySpark DataFrames to and from pandas DataFrames1234567891011121314import numpy as npimport pandas as pd# Enable Arrow-based columnar">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-06-15T02:32:29.000Z">
-<meta property="article:modified_time" content="2022-06-15T02:37:50.388Z">
+<meta property="article:modified_time" content="2022-06-15T02:38:53.302Z">
 <meta property="article:author" content="suwenjin">
 <meta property="article:tag" content="Pandas">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://jwsmai.github.io/2022/06/15/Pandas%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/">
+<link rel="canonical" href="https://jwsmai.github.io/2022/06/15/pandas-01/">
 
 
 <script id="page-configurations">
@@ -163,7 +163,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2022/06/15/Pandas%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/">
+    <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2022/06/15/pandas-01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/img.png">
@@ -187,7 +187,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-06-15 10:32:29 / Modified: 10:37:50" itemprop="dateCreated datePublished" datetime="2022-06-15T10:32:29+08:00">2022-06-15</time>
+              <time title="Created: 2022-06-15 10:32:29 / Modified: 10:38:53" itemprop="dateCreated datePublished" datetime="2022-06-15T10:32:29+08:00">2022-06-15</time>
             </span>
 
           
@@ -201,7 +201,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Access-Row"><a href="#Access-Row" class="headerlink" title="Access Row"></a>Access Row</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.iloc[i] <span class="comment"># 获取第i行</span></span><br></pre></td></tr></table></figure>
+        <h1 id="Access-Row"><a href="#Access-Row" class="headerlink" title="Access Row"></a>Access Row</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.iloc[i] <span class="comment"># Access i&#x27;th Row</span></span><br></pre></td></tr></table></figure>
 <h1 id="Access-Column"><a href="#Access-Column" class="headerlink" title="Access Column"></a>Access Column</h1><h1 id="Convert-PySpark-DataFrames-to-and-from-pandas-DataFrames"><a href="#Convert-PySpark-DataFrames-to-and-from-pandas-DataFrames" class="headerlink" title="Convert PySpark DataFrames to and from pandas DataFrames"></a>Convert PySpark DataFrames to and from pandas DataFrames</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enable Arrow-based columnar data transfers</span></span><br><span class="line">spark.conf.<span class="built_in">set</span>(<span class="string">&quot;spark.sql.execution.arrow.enabled&quot;</span>, <span class="string">&quot;true&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Generate a pandas DataFrame</span></span><br><span class="line">pdf = pd.DataFrame(np.random.rand(<span class="number">100</span>, <span class="number">3</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a Spark DataFrame from a pandas DataFrame using Arrow</span></span><br><span class="line">df = spark.createDataFrame(pdf)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Convert the Spark DataFrame back to a pandas DataFrame using Arrow</span></span><br><span class="line">result_pdf = df.select(<span class="string">&quot;*&quot;</span>).toPandas()</span><br></pre></td></tr></table></figure>
 <p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/databricks/spark/latest/spark-sql/spark-pandas">https://docs.microsoft.com/en-us/azure/databricks/spark/latest/spark-sql/spark-pandas</a></p>
 
