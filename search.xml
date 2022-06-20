@@ -8,7 +8,7 @@
       <link href="/2022/06/20/git-01/"/>
       <url>/2022/06/20/git-01/</url>
       
-        <content type="html"><![CDATA[<h2 id="显示最后-5-次的文件改变的具体内容"><a href="#显示最后-5-次的文件改变的具体内容" class="headerlink" title="显示最后 5 次的文件改变的具体内容"></a>显示最后 5 次的文件改变的具体内容</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show -5 filename</span><br></pre></td></tr></table></figure><h2 id="显示某个-commitid-改变的具体内容"><a href="#显示某个-commitid-改变的具体内容" class="headerlink" title="显示某个 commitid 改变的具体内容"></a>显示某个 commitid 改变的具体内容</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show commitid </span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<h2 id="显示最后-5-次的文件改变的具体内容"><a href="#显示最后-5-次的文件改变的具体内容" class="headerlink" title="显示最后 5 次的文件改变的具体内容"></a>显示最后 5 次的文件改变的具体内容</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show -5 filename</span><br></pre></td></tr></table></figure><h2 id="显示某个-commitid-改变的具体内容"><a href="#显示某个-commitid-改变的具体内容" class="headerlink" title="显示某个 commitid 改变的具体内容"></a>显示某个 commitid 改变的具体内容</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show commitid </span><br></pre></td></tr></table></figure><p><a href="https://zhuanlan.zhihu.com/p/501893696">https://zhuanlan.zhihu.com/p/501893696</a></p>]]></content>
       
       
       
