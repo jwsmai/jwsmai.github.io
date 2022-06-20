@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>git常用命令</title>
+      <link href="/2022/06/20/git-01/"/>
+      <url>/2022/06/20/git-01/</url>
+      
+        <content type="html"><![CDATA[<p>git log –name-status 每次修改的文件列表, 显示状态<br>git log –name-only 每次修改的文件列表<br>git log –stat 每次修改的文件列表, 及文件修改的统计<br>git whatchanged 每次修改的文件列表<br>git whatchanged –stat 每次修改的文件列表, 及文件修改的统计<br>git show 显示最后一次的文件改变的具体内容<br>git show -5 显示最后 5 次的文件改变的具体内容<br>git show commitid 显示某个 commitid 改变的具体内容</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>SparkSQL数据处理方法</title>
       <link href="/2022/06/17/spark-sql-common/"/>
       <url>/2022/06/17/spark-sql-common/</url>
