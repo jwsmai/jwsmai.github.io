@@ -251,7 +251,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-20 09:39:15" itemprop="dateModified" datetime="2022-06-20T09:39:15+08:00">2022-06-20</time>
+                <time title="Modified: 2022-06-20 16:21:07" itemprop="dateModified" datetime="2022-06-20T16:21:07+08:00">2022-06-20</time>
               </span>
 
           
@@ -270,6 +270,9 @@
 
 <h1 id="Convert-Array-to-String"><a href="#Convert-Array-to-String" class="headerlink" title="Convert Array to String"></a>Convert Array to String</h1><p>use <code>concat_ws()</code> function</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.withColumn(<span class="string">&quot;processed_results&quot;</span>, concat_ws(<span class="string">&quot;,&quot;</span>,$<span class="string">&quot;processed_results&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<h1 id="Concat-Column-With-Separator"><a href="#Concat-Column-With-Separator" class="headerlink" title="Concat Column With Separator"></a>Concat Column With Separator</h1><p>use <code>concat_ws()</code> function</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df.select(</span><br><span class="line"> concat_ws(<span class="string">&quot;-&quot;</span>, $<span class="string">&quot;t2.plan_id&quot;</span>, $<span class="string">&quot;t2.batch_number&quot;</span>).as(<span class="string">&quot;plan_batch_id&quot;</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
 <h1 id="Regexp"><a href="#Regexp" class="headerlink" title="Regexp"></a>Regexp</h1><p><a target="_blank" rel="noopener" href="https://www.modb.pro/db/43300#21_regexp_84">https://www.modb.pro/db/43300#21_regexp_84</a></p>
 
