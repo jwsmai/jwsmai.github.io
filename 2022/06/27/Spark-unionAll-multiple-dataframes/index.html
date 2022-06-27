@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"jwsmai.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":false,"top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="努力！奋斗！">
-<meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="https://jwsmai.github.io/about/index.html">
+  <meta name="description" content="背景在一次逻辑实现中，map()函数的返回值类型为Iterator[DataFrame], 所以如何将Iterator中的Dataframe拼接起来是一个问题。 错误的方法创建一个空的Dataframe, 然后在foreach()遍历Iterator时进行union, 但这样不行，因为Dataframe是val, 是不可变的。而且有个不能忽视的点是：使用 parallelize、createDat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark unionAll multiple dataframes">
+<meta property="og:url" content="https://jwsmai.github.io/2022/06/27/Spark-unionAll-multiple-dataframes/index.html">
 <meta property="og:site_name" content="jwsmai&#39;s blog">
-<meta property="og:description" content="努力！奋斗！">
+<meta property="og:description" content="背景在一次逻辑实现中，map()函数的返回值类型为Iterator[DataFrame], 所以如何将Iterator中的Dataframe拼接起来是一个问题。 错误的方法创建一个空的Dataframe, 然后在foreach()遍历Iterator时进行union, 但这样不行，因为Dataframe是val, 是不可变的。而且有个不能忽视的点是：使用 parallelize、createDat">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-05-24T01:57:32.000Z">
-<meta property="article:modified_time" content="2022-05-24T01:59:20.750Z">
+<meta property="article:published_time" content="2022-06-27T13:52:17.000Z">
+<meta property="article:modified_time" content="2022-06-27T14:31:12.702Z">
 <meta property="article:author" content="suwenjin">
-<meta property="article:tag" content="bigdata spark-sql flink scala">
+<meta property="article:tag" content="sparksql">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://jwsmai.github.io/about/">
+<link rel="canonical" href="https://jwsmai.github.io/2022/06/27/Spark-unionAll-multiple-dataframes/">
 
 
 <script id="page-configurations">
@@ -41,13 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>about | jwsmai's blog
-</title>
+  <title>Spark unionAll multiple dataframes | jwsmai's blog</title>
   
 
 
@@ -156,44 +155,103 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
-          <div class="content page posts-expand">
+          <div class="content post posts-expand">
             
 
     
-    
-    
-    <div class="post-block" lang="en">
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://jwsmai.github.io/2022/06/27/Spark-unionAll-multiple-dataframes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/img.png">
+      <meta itemprop="name" content="suwenjin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwsmai's blog">
+    </span>
       <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Spark unionAll multiple dataframes
+        </h1>
 
-<h1 class="post-title" itemprop="name headline">about
-</h1>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
 
-<div class="post-meta">
+              <time title="Created: 2022-06-27 21:52:17 / Modified: 22:31:12" itemprop="dateCreated datePublished" datetime="2022-06-27T21:52:17+08:00">2022-06-27</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>在一次逻辑实现中，<code>map()</code>函数的返回值类型为<code>Iterator[DataFrame]</code>, 所以如何将Iterator中的Dataframe拼接起来是一个问题。</p>
+<h1 id="错误的方法"><a href="#错误的方法" class="headerlink" title="错误的方法"></a>错误的方法</h1><p>创建一个空的Dataframe, 然后在<code>foreach()</code>遍历Iterator时进行<code>union</code>, 但这样不行，因为Dataframe是<code>val</code>, 是不可变的。<br>而且有个不能忽视的点是：使用 parallelize、createDataFrame 等 API 创建数据集容易引起Driver端的OOM, 因为创建的数据集可能超过内存上限。</p>
+<h1 id="正确的方法"><a href="#正确的方法" class="headerlink" title="正确的方法"></a>正确的方法</h1><p>下面这种方法的到的<code>df</code>就是拼接好的Dataframe</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> dfs = <span class="type">Seq</span>(df1, df2, df3)</span><br><span class="line"><span class="keyword">val</span> df = dfs.reduce(_ union _)</span><br></pre></td></tr></table></figure>
+<p>为什么这里用到的是<code>reduce()</code>而不是<code>map()</code>？我们需要理解map和reduce的区别：</p>
+<h2 id="Reduce"><a href="#Reduce" class="headerlink" title="Reduce"></a>Reduce</h2><p>reduce表示将列表，传入一个函数进行聚合计算</p>
+<ul>
+<li><p>方法描述</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reduce</span></span>[<span class="type">A1</span> &gt;: <span class="type">A</span>](op: (<span class="type">A1</span>, <span class="type">A1</span>) ⇒ <span class="type">A1</span>): <span class="type">A1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方法说明<br>返回值：列表最终聚合为一个元素</p>
+</li>
+<li><p>方法实操</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">scala&gt; </span><span class="language-bash">val a = List(1,2,3,4,5,6,7,8,9,10)</span></span><br><span class="line">a: List[Int] = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">scala&gt; </span><span class="language-bash">a.reduce((x,y) =&gt; x + y)</span></span><br><span class="line">res5: Int = 55</span><br><span class="line"></span><br><span class="line">// 第一个下划线表示第一个参数，就是历史的聚合数据结果</span><br><span class="line">// 第二个下划线表示第二个参数，就是当前要聚合的数据元素</span><br><span class="line"><span class="meta prompt_">scala&gt; </span><span class="language-bash">a.reduce(_ + _)</span></span><br><span class="line">res53: Int = 55</span><br><span class="line"></span><br><span class="line">// 与reduce一样，从左往右计算</span><br><span class="line"><span class="meta prompt_">scala&gt; </span><span class="language-bash">a.reduceLeft(_ + _)</span></span><br><span class="line">res0: Int = 55</span><br><span class="line"></span><br><span class="line">// 从右往左聚合计算</span><br><span class="line"><span class="meta prompt_">scala&gt; </span><span class="language-bash">a.reduceRight(_ + _)</span></span><br><span class="line">res1: Int = 55</span><br></pre></td></tr></table></figure>
+<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1></li>
+<li><p><a target="_blank" rel="noopener" href="https://www.modb.pro/db/75430">Scala入门</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/37612622/spark-unionall-multiple-dataframes">Spark unionAll multiple dataframes</a></p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/sparksql/" rel="tag"><i class="fa fa-tag"></i> sparksql</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/06/20/git-01/" rel="prev" title="git常用命令">
+      <i class="fa fa-chevron-left"></i> git常用命令
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
-          <p>努力！奋斗！</p>
-
-      </div>
-      
-      
-      
-    </div>
-    
-
-    
-    
-    
 
 
           </div>
@@ -244,6 +302,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">错误的方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">正确的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Reduce"><span class="nav-number">3.1.</span> <span class="nav-text">Reduce</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="nav-number">4.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

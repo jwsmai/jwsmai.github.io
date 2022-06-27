@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>Spark unionAll multiple dataframes</title>
+      <link href="/2022/06/27/Spark-unionAll-multiple-dataframes/"/>
+      <url>/2022/06/27/Spark-unionAll-multiple-dataframes/</url>
+      
+        <content type="html"><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>在一次逻辑实现中，<code>map()</code>函数的返回值类型为<code>Iterator[DataFrame]</code>, 所以如何将Iterator中的Dataframe拼接起来是一个问题。</p><h1 id="错误的方法"><a href="#错误的方法" class="headerlink" title="错误的方法"></a>错误的方法</h1><p>创建一个空的Dataframe, 然后在<code>foreach()</code>遍历Iterator时进行<code>union</code>, 但这样不行，因为Dataframe是<code>val</code>, 是不可变的。<br>而且有个不能忽视的点是：使用 parallelize、createDataFrame 等 API 创建数据集容易引起Driver端的OOM, 因为创建的数据集可能超过内存上限。</p><h1 id="正确的方法"><a href="#正确的方法" class="headerlink" title="正确的方法"></a>正确的方法</h1><p>下面这种方法的到的<code>df</code>就是拼接好的Dataframe</p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> dfs = <span class="type">Seq</span>(df1, df2, df3)</span><br><span class="line"><span class="keyword">val</span> df = dfs.reduce(_ union _)</span><br></pre></td></tr></table></figure><p>为什么这里用到的是<code>reduce()</code>而不是<code>map()</code>？我们需要理解map和reduce的区别：</p><h2 id="Reduce"><a href="#Reduce" class="headerlink" title="Reduce"></a>Reduce</h2><p>reduce表示将列表，传入一个函数进行聚合计算</p><ul><li><p>方法描述</p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reduce</span></span>[<span class="type">A1</span> &gt;: <span class="type">A</span>](op: (<span class="type">A1</span>, <span class="type">A1</span>) ⇒ <span class="type">A1</span>): <span class="type">A1</span></span><br></pre></td></tr></table></figure></li><li><p>方法说明<br>返回值：列表最终聚合为一个元素</p></li><li><p>方法实操</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">scala&gt; </span><span class="language-bash">val a = List(1,2,3,4,5,6,7,8,9,10)</span></span><br><span class="line">a: List[Int] = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">scala&gt; </span><span class="language-bash">a.reduce((x,y) =&gt; x + y)</span></span><br><span class="line">res5: Int = 55</span><br><span class="line"></span><br><span class="line">// 第一个下划线表示第一个参数，就是历史的聚合数据结果</span><br><span class="line">// 第二个下划线表示第二个参数，就是当前要聚合的数据元素</span><br><span class="line"><span class="meta prompt_">scala&gt; </span><span class="language-bash">a.reduce(_ + _)</span></span><br><span class="line">res53: Int = 55</span><br><span class="line"></span><br><span class="line">// 与reduce一样，从左往右计算</span><br><span class="line"><span class="meta prompt_">scala&gt; </span><span class="language-bash">a.reduceLeft(_ + _)</span></span><br><span class="line">res0: Int = 55</span><br><span class="line"></span><br><span class="line">// 从右往左聚合计算</span><br><span class="line"><span class="meta prompt_">scala&gt; </span><span class="language-bash">a.reduceRight(_ + _)</span></span><br><span class="line">res1: Int = 55</span><br></pre></td></tr></table></figure><h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1></li><li><p><a href="https://www.modb.pro/db/75430">Scala入门</a></p></li><li><p><a href="https://stackoverflow.com/questions/37612622/spark-unionall-multiple-dataframes">Spark unionAll multiple dataframes</a></p></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> sparksql </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>git常用命令</title>
       <link href="/2022/06/20/git-01/"/>
       <url>/2022/06/20/git-01/</url>
