@@ -1,15 +1,15 @@
 import { defineConfig } from 'vitepress'
 
-// GitHub Pages 部署的 base 路径由 GitHub Actions 通过环境变量注入：
-// - 仓库名为 <用户名>.github.io 时 -> '/'
-// - 仓库名为 blog 等其他名字时   -> '/blog/'
-// 本地开发/预览时默认 '/'
+// The base path is injected by GitHub Actions via an env var:
+// - Repo named <username>.github.io  -> '/'
+// - Repo named blog or other names   -> '/blog/'
+// Local dev/preview defaults to '/'
 const base = process.env.BASE_PATH || '/'
 
 export default defineConfig({
-  title: '个人技术博客',
-  description: '技术笔记 · 踩坑记录 · 学习教程',
-  lang: 'zh-CN',
+  title: 'Personal Tech Blog',
+  description: 'Tech notes, debugging records, and tutorials',
+  lang: 'en-US',
   base,
 
   head: [
@@ -17,50 +17,40 @@ export default defineConfig({
   ],
 
   themeConfig: {
-    // 顶部导航
+    // Top navigation
     nav: [
-      { text: '首页', link: '/' },
-      { text: '文章', link: '/posts/' }
+      { text: 'Home', link: '/' },
+      { text: 'Posts', link: '/posts/' }
     ],
 
-    // 侧边栏
+    // Sidebar
     sidebar: [
       {
-        text: '文章列表',
+        text: 'Posts',
         items: [
-          { text: '博客搭建记录', link: '/posts/hello-world' }
+          { text: 'Building This Blog', link: '/posts/hello-world' }
         ]
       }
     ],
 
-    // 页脚
+    // Footer
     footer: {
-      message: '基于 VitePress 构建',
+      message: 'Built with VitePress',
       copyright: 'Copyright © 2026'
     },
 
-    // 站内搜索（本地搜索，无需外部服务）
+    // Local search (no external service required)
     search: {
-      provider: 'local',
-      options: {
-        translations: {
-          button: { buttonText: '搜索', buttonAriaLabel: '搜索' },
-          modal: {
-            noResultsText: '未找到相关内容',
-            resetButtonTitle: '清除查询条件',
-            footer: { selectText: '选择', navigateText: '切换', closeText: '关闭' }
-          }
-        }
-      }
+      provider: 'local'
     },
 
-    // 文章页显示最近更新时间
+    // Show last updated time on posts
     lastUpdated: {
-      text: '最后更新于',
+      text: 'Last updated',
       formatOptions: { dateStyle: 'full', timeStyle: 'short' }
     },
 
-    // 社交链接
+    // Social links
     socialLinks: [
       { icon: 'github', link: 'https://github.com/jwsmai' }
     ]

@@ -1,71 +1,71 @@
 ---
-title: 博客搭建记录：从零开始用 VitePress + GitHub Pages 建站
-description: 本文记录了这个博客的搭建过程，包括项目初始化、站点配置和自动化部署。
+title: "Building This Blog: VitePress + GitHub Pages from Scratch"
+description: "How this blog was built — project setup, site configuration, and automated deployment."
 date: 2026-08-23
 tags:
   - VitePress
   - GitHub Pages
 ---
 
-# 博客搭建记录：从零开始用 VitePress + GitHub Pages 建站
+# Building This Blog: VitePress + GitHub Pages from Scratch
 
-## 为什么选择 VitePress
+## Why VitePress
 
-- 基于 Vite，开发体验好，构建速度快
-- 专注写 Markdown，无需关心页面细节
-- 默认支持搜索、暗色模式、代码高亮，开箱即用
+- Built on Vite — great developer experience and fast builds
+- Focus on writing Markdown, no need to worry about page details
+- Search, dark mode, and code highlighting out of the box
 
-## 项目初始化
+## Project Setup
 
 ```bash
-# 创建项目目录
+# Create the project directory
 mkdir blog && cd blog
 
-# 初始化 package.json
+# Initialize package.json
 npm init -y
 
-# 安装 VitePress
+# Install VitePress
 npm install -D vitepress
 ```
 
-## 目录结构
+## Directory Structure
 
 ```
 blog/
-├── .github/workflows/deploy.yml   # 自动部署到 GitHub Pages
+├── .github/workflows/deploy.yml   # Auto-deploy to GitHub Pages
 ├── docs/
-│   ├── .vitepress/config.mts      # VitePress 配置
-│   ├── index.md                   # 首页
-│   └── posts/                     # 文章目录
+│   ├── .vitepress/config.mts      # VitePress configuration
+│   ├── index.md                   # Home page
+│   └── posts/                     # Posts directory
 └── package.json
 ```
 
-## 常用命令
+## Common Commands
 
-| 命令 | 说明 |
+| Command | Description |
 | --- | --- |
-| `npm run dev` | 本地开发预览 |
-| `npm run build` | 构建生产版本 |
-| `npm run preview` | 本地预览构建产物 |
+| `npm run dev` | Local development preview |
+| `npm run build` | Build the production version |
+| `npm run preview` | Preview the build output locally |
 
-## 写文章就是这么简单
+## Writing a Post Is That Simple
 
-新建一个 Markdown 文件，写上文章内容：
+Create a new Markdown file and write your content:
 
 ```md
 ---
-title: 文章标题
+title: Post Title
 date: 2026-08-23
 ---
 
-# 正文从这里开始
+# Content starts here
 
-这是第一段内容，支持 **粗体**、*斜体*、[链接](https://example.com) 等语法。
+This is the first paragraph, supporting **bold**, *italic*, [links](https://example.com), and more.
 ```
 
-> **提示**：本文是示例文章，你可以直接修改或删除它。
+> **Tip**: This is a sample post — feel free to edit or delete it.
 
-代码块自动高亮，支持大多数主流语言：
+Code blocks are highlighted automatically and support most popular languages:
 
 ```ts
 function greet(name: string): string {
@@ -73,8 +73,8 @@ function greet(name: string): string {
 }
 ```
 
-## 下一步
+## Next Steps
 
-1. 把项目推送到 GitHub 仓库
-2. 开启 GitHub Pages（Settings → Pages → 选择 GitHub Actions）
-3. 之后每次 `git push` 都会自动重新部署
+1. Push the project to a GitHub repository
+2. Enable GitHub Pages (Settings → Pages → choose GitHub Actions)
+3. Every `git push` will automatically redeploy from now on

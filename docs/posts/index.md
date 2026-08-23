@@ -1,11 +1,11 @@
 ---
-title: 文章列表
+title: Posts
 ---
 
-# 文章列表
+# Posts
 
-- [博客搭建记录：从零开始用 VitePress + GitHub Pages 建站](./hello-world)
+- [Building This Blog: VitePress + GitHub Pages from Scratch](./hello-world)
 
 ---
 
-> 在 `docs/posts/` 下新建 Markdown 文件即可发布新文章，记得把文章链接更新到上面的列表和侧边栏配置（`docs/.vitepress/config.mts`）中。
+> Create a new Markdown file under `docs/posts/` to publish a new post. Remember to update the links in the list above and the sidebar config (`docs/.vitepress/config.mts`).
