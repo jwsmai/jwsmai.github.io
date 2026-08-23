@@ -2,8 +2,8 @@
 layout: home
 
 hero:
-  name: "Personal Tech Blog"
-  text: "Tech Notes · Debugging · Tutorials"
+  name: "Ryan's Blog"
+  text: "Tech Notes · Debugging · Tutorials · Life"
   tagline: Documenting the moments of work and study
   actions:
     - theme: brand
@@ -23,4 +23,7 @@ features:
   - icon: 🎓
     title: Tutorials
     details: Well-organized learning materials and tutorials to help others get started
+  - icon: 💭
+    title: Life Reflections
+    details: Thoughts on life beyond code — growth, balance, and everyday moments
 ---
