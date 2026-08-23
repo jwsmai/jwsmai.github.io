@@ -17,7 +17,7 @@ Data engineer with 5+ years of experience across cross-border e-commerce and IoT
 
 ## Work Experience
 
-### Pinduoduo (TEMU) | Data Warehouse Engineer
+### Temu | Data Warehouse Engineer
 
 **Jun 2024 – Jun 2025** · Cross-border E-commerce · [temu.com](https://www.temu.com/)
 
@@ -45,7 +45,7 @@ Data engineer with 5+ years of experience across cross-border e-commerce and IoT
 
 ## Projects
 
-### Pinduoduo | Shopping Cart Data Governance Initiative
+### Temu | Shopping Cart Data Governance Initiative
 
 **Problem:** Hourly baselines in the transaction domain frequently missed deadlines, while storage costs kept rising.
 
@@ -60,7 +60,7 @@ Data engineer with 5+ years of experience across cross-border e-commerce and IoT
 
 ---
 
-### Pinduoduo | Real-time GMV Monitoring Dashboard
+### Temu | Real-time GMV Monitoring Dashboard
 
 **Problem:** Business needed real-time, multi-dimensional visibility into global market transactions, including cumulative GMV since midnight.
 
