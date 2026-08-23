@@ -20,7 +20,8 @@ export default defineConfig({
     // Top navigation
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Posts', link: '/posts/' }
+      { text: 'Posts', link: '/posts/' },
+      { text: 'Resume', link: '/posts/resume' }
     ],
 
     // Sidebar
