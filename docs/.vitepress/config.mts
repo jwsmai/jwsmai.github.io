@@ -7,7 +7,7 @@ import { defineConfig } from 'vitepress'
 const base = process.env.BASE_PATH || '/'
 
 export default defineConfig({
-  title: 'Personal Tech Blog',
+  title: 'Ryan\'s  Blog',
   description: 'Tech notes, debugging records, and tutorials',
   lang: 'en-US',
   base,
@@ -36,7 +36,7 @@ export default defineConfig({
     // Footer
     footer: {
       message: 'Built with VitePress',
-      copyright: 'Copyright © 2026'
+      copyright: 'Copyright © 2023'
     },
 
     // Local search (no external service required)
