@@ -1,0 +1,10 @@
+node_modules
+dist
+docs/.vitepress/cache
+docs/.vitepress/dist
+
+# 编辑器
+.DS_Store
+.idea
+.vscode/*
+!.vscode/extensions.json
