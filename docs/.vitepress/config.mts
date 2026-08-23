@@ -13,15 +13,17 @@ export default defineConfig({
   base,
 
   head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: `${base}favicon.svg` }]
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: `${base}favicon.svg` }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
+    ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap' }]
   ],
 
   themeConfig: {
     // Top navigation
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Posts', link: '/posts/' },
-      { text: 'Resume', link: '/posts/resume' }
+      { text: 'Posts', link: '/posts/' }
     ],
 
     // Sidebar
