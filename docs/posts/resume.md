@@ -1,12 +1,13 @@
 ---
 title: Ryan Su
-description: 数据仓库工程师 / 大数据开发工程师
+description: 数据工程师
 ---
 
 # Ryan Su
 
 <div class="resume-meta">
-  数据仓库工程师 · 大数据开发工程师<br>
+  数据工程师<br>
+  中国 · 杭州<br>
   <a href="mailto:ryan.su@noribear.cn">ryan.su@noribear.cn</a>
 </div>
 
