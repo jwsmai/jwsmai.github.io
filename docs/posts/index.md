@@ -4,6 +4,7 @@ title: Posts
 
 # Posts
 
+- [Resume](./resume)
 - [Building This Blog: VitePress + GitHub Pages from Scratch](./hello-world)
 
 ---

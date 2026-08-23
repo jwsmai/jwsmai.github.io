@@ -31,6 +31,7 @@ export default defineConfig({
       {
         text: 'Posts',
         items: [
+          { text: 'Resume', link: '/posts/resume' },
           { text: 'Building This Blog', link: '/posts/hello-world' }
         ]
       }
