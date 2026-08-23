@@ -47,7 +47,7 @@ export default defineConfig({
     // Show last updated time on posts
     lastUpdated: {
       text: 'Last updated',
-      formatOptions: { dateStyle: 'full', timeStyle: 'short' }
+      formatOptions: { dateStyle: 'full', timeStyle: 'short', forceLocale: true }
     },
 
     // Social links
