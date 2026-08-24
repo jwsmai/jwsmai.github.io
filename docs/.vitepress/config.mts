@@ -34,6 +34,8 @@ export default defineConfig({
         items: [
           { text: 'Resume (EN)', link: '/posts/resume_en' },
           { text: 'Resume (CN)', link: '/posts/resume' },
+          { text: 'Resume (Nordic)', link: '/posts/resume_nordic' },
+          { text: 'Cover Letter (Nordic)', link: '/posts/cover-letter-nordic' },
           { text: 'Building This Blog', link: '/posts/hello-world' },
           { text: 'Knowledge about AB Test', link: '/posts/ab-test' },
           { text: 'Nordic Interview Culture', link: '/posts/nordic-interview-culture' }
