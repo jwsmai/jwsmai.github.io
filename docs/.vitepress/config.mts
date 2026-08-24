@@ -40,7 +40,10 @@ export default defineConfig({
           { text: 'Knowledge about AB Test', link: '/posts/ab-test' },
           { text: 'Nordic Interview Culture', link: '/posts/nordic-interview-culture' },
           { text: 'Nordic DE Interview Guide', link: '/posts/nordic-de-interview' },
-          { text: 'Nordic DE Job Market', link: '/posts/nordic-data-engineer-job-market' }
+          { text: 'Nordic DE Job Market', link: '/posts/nordic-data-engineer-job-market' },
+          { text: 'GrabJobs JD Analysis', link: '/posts/grabjobs-jd-analysis' },
+          { text: 'GrabJobs JD List', link: '/posts/grabjobs-jd-list' },
+          { text: 'DE Job Vocabulary', link: '/posts/jd-vocabulary' }
         ]
       },
       {
