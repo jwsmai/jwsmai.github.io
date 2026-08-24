@@ -10,36 +10,38 @@ tags:
 
 # Knowledge about AB Test
 
+> POS: **n.** noun · **v.** verb · **adj.** adjective · **adv.** adverb · **phr.** phrase
+
 ## Design & Setup
 
-| Word | Phonetic | Definition |
-| --- | --- | --- |
-| **A/B test** | /ˌeɪ biː ˈtest/ | an experiment comparing two versions (A and B) to determine which performs better |
-| **hypothesis** | /haɪˈpɑːθəsɪs/ | a proposed explanation or assumption, based on limited evidence, that is to be tested |
-| **control group** | /kənˈtroʊl ɡruːp/ | the group that does not receive the treatment and serves as a baseline for comparison |
-| **treatment group** | /ˈtriːtmənt ɡruːp/ | the group that receives the intervention or change being tested |
-| **divide into** | /dɪˈvaɪd ˈɪntə/ | to separate something into parts or groups |
-| **cohort** | /ˈkoʊhɔːrt/ | a group of people who share a common characteristic or experience within a defined period |
+| Word | POS | Phonetic | Definition |
+| --- | --- | --- | --- |
+| **A/B test** | n. phr. | /ˌeɪ biː ˈtest/ | an experiment comparing two versions (A and B) to determine which performs better |
+| **hypothesis** | n. | /haɪˈpɑːθəsɪs/ | a proposed explanation or assumption, based on limited evidence, that is to be tested |
+| **control group** | n. phr. | /kənˈtroʊl ɡruːp/ | the group that does not receive the treatment and serves as a baseline for comparison |
+| **treatment group** | n. phr. | /ˈtriːtmənt ɡruːp/ | the group that receives the intervention or change being tested |
+| **divide into** | v. phr. | /dɪˈvaɪd ˈɪntə/ | to separate something into parts or groups |
+| **cohort** | n. | /ˈkoʊhɔːrt/ | a group of people who share a common characteristic or experience within a defined period |
 
 ## Metrics & Measurement
 
-| Word | Phonetic | Definition |
-| --- | --- | --- |
-| **conversion rate** | /kənˈvɜːrʒən reɪt/ | the percentage of users who complete a desired action, such as making a purchase or signing up |
-| **lift rate** | /lɪft reɪt/ | the relative improvement in a metric achieved by the treatment group compared with the control group |
-| **cumulative** | /ˈkjuːmjələtɪv/ | increasing or growing by successive additions; the total over time |
-| **approximately** | /əˈprɑːksɪmətli/ | roughly; close to a particular number or amount but not exact |
+| Word | POS | Phonetic | Definition |
+| --- | --- | --- | --- |
+| **conversion rate** | n. phr. | /kənˈvɜːrʒən reɪt/ | the percentage of users who complete a desired action, such as making a purchase or signing up |
+| **lift rate** | n. phr. | /lɪft reɪt/ | the relative improvement in a metric achieved by the treatment group compared with the control group |
+| **cumulative** | adj. | /ˈkjuːmjələtɪv/ | increasing or growing by successive additions; the total over time |
+| **approximately** | adv. | /əˈprɑːksɪmətli/ | roughly; close to a particular number or amount but not exact |
 
 ## Execution & Details
 
-| Word | Phonetic | Definition |
-| --- | --- | --- |
-| **conduct parallel experiments** | /kənˈdʌkt ˈpærəlel ɪkˈsperɪmənts/ | to run two or more experiments at the same time, under similar conditions, so their results can be compared |
-| **high-frequency** | /ˌhaɪ ˈfriːkwənsi/ | occurring or repeated very often; at a high rate of frequency |
-| **exposure** | /ɪkˈspoʊʒər/ | the state of being subjected to something, e.g., an ad or a change; how many times users see it |
-| **popup prompt** | /ˈpɑːpʌp prɑːmpt/ | a small window or message that appears on screen to ask the user for input or action |
-| **potential** | /pəˈtenʃl/ | possible or likely in the future; the capacity to become or develop into something |
-| **demonstrate** | /ˈdemənstreɪt/ | to show clearly by providing proof or evidence |
+| Word | POS | Phonetic | Definition |
+| --- | --- | --- | --- |
+| **conduct parallel experiments** | v. phr. | /kənˈdʌkt ˈpærəlel ɪkˈsperɪmənts/ | to run two or more experiments at the same time, under similar conditions, so their results can be compared |
+| **high-frequency** | adj. | /ˌhaɪ ˈfriːkwənsi/ | occurring or repeated very often; at a high rate of frequency |
+| **exposure** | n. | /ɪkˈspoʊʒər/ | the state of being subjected to something, e.g., an ad or a change; how many times users see it |
+| **popup prompt** | n. phr. | /ˈpɑːpʌp prɑːmpt/ | a small window or message that appears on screen to ask the user for input or action |
+| **potential** | adj. & n. | /pəˈtenʃl/ | possible or likely in the future; the capacity to become or develop into something |
+| **demonstrate** | v. | /ˈdemənstreɪt/ | to show clearly by providing proof or evidence |
 
 ## A Paragraph Using All the Words
 
