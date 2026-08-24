@@ -13,7 +13,7 @@ description: Data Engineer — Resume
 
 ## Professional Summary
 
-Data engineer with 5+ years of experience across cross-border e-commerce and IoT retail. Specialized in dimensional modeling, data governance, and real-time analytics. Proven track record of stabilizing ETL baselines, cutting storage costs, and shortening data delivery cycles.
+Data engineer with **5+ years** of experience across cross-border e-commerce and IoT retail. Specialized in **dimensional modeling**, **data governance**, and **real-time analytics**. Proven track record of stabilizing ETL baselines, cutting storage costs, and shortening data delivery cycles.
 
 ## Work Experience
 
@@ -21,24 +21,24 @@ Data engineer with 5+ years of experience across cross-border e-commerce and IoT
 
 **Jun 2024 – Jun 2025** · Cross-border E-commerce · [temu.com](https://www.temu.com/)
 
-- Designed and iterated core transaction-domain models (orders, shopping cart), enabling reliable analytics for cross-border commerce.
-- Optimized transaction ETL pipelines, stabilizing hourly baselines and improving on-time data delivery.
-- Fixed performance and quality issues: resolved data skew, removed redundant computations, and refined DQC rules.
+- Designed and iterated core **transaction-domain models** (orders, shopping cart), enabling reliable analytics for cross-border commerce.
+- Optimized transaction **ETL pipelines**, stabilizing **hourly baselines** and improving on-time data delivery.
+- Fixed performance and quality issues: resolved **data skew**, removed redundant computations, and refined **DQC rules**.
 - Delivered reports and data services for business and analytics teams; handled high-priority ad-hoc data extractions under tight deadlines.
 
 ### Clobotics | Big Data Engineer
 
 **Mar 2022 – Jun 2024** · Retail Intelligence · [clobotics.com](https://clobotics.com/retail/)
 
-- Built the retail data pipeline and core data models from scratch (0 → 1).
+- Built the retail **data pipeline** and **core data models** from scratch (0 → 1).
 - Delivered data reports and analytics services for customers and internal business units.
 
 ### Enmonster | Senior Data Warehouse Engineer
 
 **Nov 2019 – Mar 2022** · Shared-Charging IoT · [enmonster.com](https://www.enmonster.com/product)
 
-- Co-authored data development standards and the company-wide metric system design as a core team member.
-- Designed and optimized finance-domain models across the detail (DWD) and summary (DWS) layers.
+- Co-authored data development standards and the company-wide **metric system** design as a core team member.
+- Designed and optimized **finance-domain models** across the detail (**DWD**) and summary (**DWS**) layers.
 - Led data delivery for a company-level settlement project, driving complex data logic from requirements to production.
 
 ---
@@ -51,12 +51,12 @@ Data engineer with 5+ years of experience across cross-border e-commerce and IoT
 
 **Solution:**
 
-- Introduced daily snapshot tables to serve downstream analytics and trimmed 15% of non-core fields from hourly snapshots, cutting data volume at the source.
-- Adopted Bloom filters to detect changed data, converting full recomputes into incremental ones and avoiding 90% of redundant computation.
-- Applied bucketed joins between fact and dimension tables, replacing global shuffles with efficient bucket-local shuffles.
+- Introduced **daily snapshot tables** to serve downstream analytics and trimmed **15%** of non-core fields from hourly snapshots, cutting data volume at the source.
+- Adopted **Bloom filters** to detect changed data, converting full recomputes into incremental ones and avoiding **90%** of redundant computation.
+- Applied **bucketed joins** between fact and dimension tables, replacing global shuffles with efficient bucket-local shuffles.
 - Consolidated DQC rules and re-architected historical log storage to improve compression.
 
-**Result:** Baselines finished 1 hour earlier, storage costs dropped ~40%, and DQC timeout rate fell from 10% to 0.
+**Result:** Baselines finished 1 hour earlier, storage costs dropped **~40%**, and DQC timeout rate fell from **10% to 0**.
 
 ---
 
@@ -66,11 +66,11 @@ Data engineer with 5+ years of experience across cross-border e-commerce and IoT
 
 **Solution:**
 
-- Built a dual-stream join pipeline in FlinkSQL, correlating payment events with user dimensions in real time.
+- Built a **dual-stream join** pipeline in **FlinkSQL**, correlating payment events with user dimensions in real time.
 - Aggregated live GMV by country, payment channel, and user type.
 - Wrote results to MySQL for immediate reporting.
 
-**Result:** Enabled analysis across 7 dimensions, processing millions of transactions daily with second-level accuracy for decision-making.
+**Result:** Enabled analysis across **7 dimensions**, processing **millions of transactions** daily with second-level accuracy for decision-making.
 
 ---
 
@@ -80,24 +80,24 @@ Data engineer with 5+ years of experience across cross-border e-commerce and IoT
 
 **Solution:**
 
-- Adopted Delta Lake as the core storage format, leveraging versioning, upsert/delete support, and storage-compute separation for frequent data corrections at controlled cost.
-- Used Spark as the unified processing engine to handle heterogeneous sources and file formats with native operators.
+- Adopted **Delta Lake** as the core storage format, leveraging versioning, **upsert/delete** support, and **storage-compute separation** for frequent data corrections at controlled cost.
+- Used **Spark** as the unified processing engine to handle heterogeneous sources and file formats with native operators.
 
-**Result:** Cut delivery cycles from 3+ days to under 1 day, dramatically improving business responsiveness while keeping cluster resource consumption in check.
+**Result:** Cut delivery cycles from **3+ days** to under **1 day**, dramatically improving business responsiveness while keeping cluster resource consumption in check.
 
 ---
 
 ### Enmonster | Data Warehouse Migration & Governance
 
-**Problem:** The CDH-based platform was costly and unstable, and the warehouse lacked unified standards for data domains and layered development, causing inconsistent metric definitions.
+**Problem:** The **CDH**-based platform was costly and unstable, and the warehouse lacked unified standards for data domains and layered development, causing inconsistent metric definitions.
 
 **Solution:**
 
 - Co-defined development standards covering data domains, layering, processes, and the metric system.
-- Rebuilt models using dimensional modeling: separated core and extended DWD models, denormalized frequent dimensions, added lightweight DWS summarization, and implemented complex metric logic at the ADS layer.
+- Rebuilt models using **dimensional modeling**: separated core and extended **DWD** models, denormalized frequent dimensions, added lightweight **DWS** summarization, and implemented complex metric logic at the **ADS** layer.
 - Supported the company-level finance project throughout the migration.
 
-**Result:** Standardized development practices; registered 50+ metrics and cut data inconsistency by 50%+; migrated 10+ core models and 600+ scheduled jobs without downtime or data loss for downstream consumers.
+**Result:** Standardized development practices; registered **50+** metrics and cut data inconsistency by **50%+**; migrated **10+** core models and **600+** scheduled jobs without downtime or data loss for downstream consumers.
 
 ---
 
