@@ -66,6 +66,8 @@ export default {
           const word = (cell.textContent || '').trim()
           // Skip rows without a word / overly long phrases
           if (!word || word.length > 60) return
+          // Skip non-English entries (e.g. Chinese words) — no English pronunciation button
+          if (/[\u4e00-\u9fff]/.test(word)) return
 
           const btn = document.createElement('button')
           btn.type = 'button'
