@@ -43,7 +43,8 @@ export default defineConfig({
           { text: 'Nordic DE Job Market', link: '/posts/nordic-data-engineer-job-market' },
           { text: 'GrabJobs JD Analysis', link: '/posts/grabjobs-jd-analysis' },
           { text: 'GrabJobs JD List', link: '/posts/grabjobs-jd-list' },
-          { text: 'DE Job Vocabulary', link: '/posts/jd-vocabulary' }
+          { text: 'DE Job Vocabulary', link: '/posts/jd-vocabulary' },
+          { text: 'Dimensional vs. Medallion', link: '/posts/dimensional-vs-medallion' }
         ]
       },
       {
