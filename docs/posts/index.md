@@ -6,6 +6,7 @@ title: Posts
 
 - [Resume](./resume)
 - [Building This Blog: VitePress + GitHub Pages from Scratch](./hello-world)
+- [Knowledge about AB Test](./ab-test)
 
 ---
 

@@ -32,3 +32,29 @@
   font-weight: 500;
   margin-bottom: 0.6em;
 }
+
+/* Pronunciation buttons in word tables */
+.pronounce-btn {
+  margin-left: 8px;
+  padding: 2px 6px;
+  border: 1px solid var(--vp-c-brand-1);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--vp-c-brand-1);
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  vertical-align: middle;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.pronounce-btn:hover {
+  background: var(--vp-c-brand-soft);
+}
+
+.pronounce-btn:active {
+  background: var(--vp-c-brand-1);
+  color: var(--vp-c-bg);
+}
