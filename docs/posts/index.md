@@ -7,6 +7,7 @@ title: Posts
 - [Resume](./resume)
 - [Building This Blog: VitePress + GitHub Pages from Scratch](./hello-world)
 - [Knowledge about AB Test](./ab-test)
+- [北欧面试文化礼仪：Lagom、Fika 与詹特法则下的真实规则](./nordic-interview-culture)
 
 ---
 
