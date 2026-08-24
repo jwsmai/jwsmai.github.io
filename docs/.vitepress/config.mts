@@ -23,7 +23,8 @@ export default defineConfig({
     // Top navigation
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Posts', link: '/posts/' }
+      { text: 'Posts', link: '/posts/' },
+      { text: 'Reflections', link: '/reflection/' }
     ],
 
     // Sidebar
@@ -34,6 +35,15 @@ export default defineConfig({
           { text: 'Resume (EN)', link: '/posts/resume_en' },
           { text: 'Resume (CN)', link: '/posts/resume' },
           { text: 'Building This Blog', link: '/posts/hello-world' }
+        ]
+      },
+      {
+        text: 'Reflections',
+        items: [
+          { text: 'All Reflections', link: '/reflection/' },
+          { text: '2026-08-24', link: '/reflection/2026-08-24' },
+          { text: '2026-08-23', link: '/reflection/2026-08-23' },
+          { text: '2026-08-22', link: '/reflection/2026-08-22' }
         ]
       }
     ],
