@@ -18,6 +18,7 @@ tags:
 | --- | --- | --- | --- |
 | **A/B test** | n. phr. | /ˌeɪ biː ˈtest/ | an experiment comparing two versions (A and B) to determine which performs better |
 | **hypothesis** | n. | /haɪˈpɑːθəsɪs/ | a proposed explanation or assumption, based on limited evidence, that is to be tested |
+| **assumption** | n. | /əˈsʌmpʃn/ | something that is accepted as true without proof; a belief taken for granted |
 | **control group** | n. phr. | /kənˈtroʊl ɡruːp/ | the group that does not receive the treatment and serves as a baseline for comparison |
 | **treatment group** | n. phr. | /ˈtriːtmənt ɡruːp/ | the group that receives the intervention or change being tested |
 | **divide into** | v. phr. | /dɪˈvaɪd ˈɪntə/ | to separate something into parts or groups |
