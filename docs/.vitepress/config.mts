@@ -38,7 +38,9 @@ export default defineConfig({
           { text: 'Cover Letter (Nordic)', link: '/posts/cover-letter-nordic' },
           { text: 'Building This Blog', link: '/posts/hello-world' },
           { text: 'Knowledge about AB Test', link: '/posts/ab-test' },
-          { text: 'Nordic Interview Culture', link: '/posts/nordic-interview-culture' }
+          { text: 'Nordic Interview Culture', link: '/posts/nordic-interview-culture' },
+          { text: 'Nordic DE Interview Guide', link: '/posts/nordic-de-interview' },
+          { text: 'Nordic DE Job Market', link: '/posts/nordic-data-engineer-job-market' }
         ]
       },
       {

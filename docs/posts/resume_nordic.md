@@ -13,7 +13,7 @@ description: Data Engineer — Nordic Resume
 
 ## Profile
 
-Data engineer with 5+ years across cross-border e-commerce, retail intelligence, and IoT. Worked mainly with Spark, Flink, and dimensional modeling; experienced in stabilizing ETL baselines, improving data quality, and reducing storage cost. Comfortable collaborating across teams and communicating in English.
+Data engineer with 5+ years across cross-border e-commerce, retail intelligence, and IoT. Worked mainly with Spark and dimensional modeling; experienced in stabilizing ETL baselines, improving data quality, and reducing storage cost. Comfortable collaborating across teams and communicating in English.
 
 ## Work Experience
 
@@ -58,20 +58,6 @@ Data engineer with 5+ years across cross-border e-commerce, retail intelligence,
 
 ---
 
-### Temu | Real-time GMV Monitoring Dashboard
-
-**Problem:** Business needed real-time, multi-dimensional visibility into global transactions, including cumulative GMV since midnight.
-
-**Solution:**
-
-- Built a dual-stream join pipeline in FlinkSQL, correlating payment events with user dimensions in real time.
-- Aggregated live GMV by country, payment channel, and user type.
-- Wrote results to MySQL for immediate reporting.
-
-**Result:** Enabled analysis across 7 dimensions, processing millions of transactions daily with second-level accuracy.
-
----
-
 ### Clobotics | Delta Lake-based Data Delivery Pipeline
 
 **Problem:** Algorithm outputs were scattered across MySQL, MongoDB, and file systems; manual CSV/Excel handoffs caused delivery cycles of 3+ days.
@@ -101,8 +87,8 @@ Data engineer with 5+ years across cross-border e-commerce, retail intelligence,
 
 - **Data Warehousing:** Dimensional modeling (Kimball), DWD/DWS/ADS layered architecture
 - **Data Governance:** Compute & storage governance, data quality (DQC) design and tuning
-- **Query & Processing:** HiveSQL, SparkSQL, Spark, FlinkSQL, Delta Lake
-- **Big Data Stack:** Hadoop, Hive, Spark, Flink, Doris
+- **Query & Processing:** HiveSQL, SparkSQL, Spark, Delta Lake
+- **Big Data Stack:** Hadoop, Hive, Spark, Doris
 - **Platforms:** Alibaba Cloud DataWorks, Databricks
 
 ## Languages
