@@ -17,6 +17,7 @@ title: Posts
 - [北欧 DE 求职高频词汇表（JD 实战提炼）](./jd-vocabulary)
 - [北欧面试 90 秒自我介绍](./nordic-self-intro)
 - [Dimensional Modeling vs. Medallion Architecture](./dimensional-vs-medallion)
+- [Bloom Filters Explained](./bloom-filter)
 
 ---
 

@@ -45,6 +45,7 @@ export default defineConfig({
           { text: 'GrabJobs JD List', link: '/posts/grabjobs-jd-list' },
           { text: 'DE Job Vocabulary', link: '/posts/jd-vocabulary' },
           { text: 'Dimensional vs. Medallion', link: '/posts/dimensional-vs-medallion' },
+          { text: 'Bloom Filters Explained', link: '/posts/bloom-filter' },
           { text: 'Nordic 90s Self-Intro', link: '/posts/nordic-self-intro' }
         ]
       },
