@@ -244,3 +244,35 @@
   stroke: var(--vp-c-warning-1);
   stroke-width: 1.2;
 }
+
+/* Data skew diagrams */
+.skew-bar {
+  fill: var(--vp-c-brand-1);
+}
+
+.skew-bar-hot {
+  fill: var(--vp-c-danger-1);
+}
+
+.skew-box {
+  fill: var(--vp-c-bg);
+  stroke: var(--vp-c-divider);
+  stroke-width: 1.2;
+}
+
+.skew-box-hot {
+  fill: var(--vp-c-danger-soft);
+  stroke: var(--vp-c-danger-1);
+  stroke-width: 1.2;
+}
+
+.skew-box-ok {
+  fill: var(--vp-c-green-soft);
+  stroke: var(--vp-c-green-1);
+  stroke-width: 1.2;
+}
+
+.skew-tag {
+  font-size: 11px;
+  font-weight: 600;
+}
