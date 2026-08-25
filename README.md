@@ -35,7 +35,12 @@ tags:
 # Post body
 ```
 
-2. Update the links in `docs/posts/index.md` and the sidebar config in `docs/.vitepress/config.mts`.
+2. Done — the new post appears in the sidebar and on `/posts/` automatically.
+
+> The sidebar and the `/posts/` listing are auto-generated from the `docs/posts/`
+> directory (`docs/.vitepress/posts-utils.ts` + `docs/posts/posts.data.ts`).
+> Posts with a `date` are sorted newest-first; posts without a `date` (e.g.
+> resumes, cover letters) stay pinned at the top in file-name order.
 
 ## Deploying to GitHub Pages
 
@@ -74,7 +79,7 @@ Every `git push` to `main` triggers GitHub Actions to rebuild and redeploy autom
 ## Customization
 
 - **Site title/description**: edit `title` and `description` in `docs/.vitepress/config.mts`
-- **Navigation/sidebar**: edit `themeConfig` in `docs/.vitepress/config.mts`
+- **Navigation/sidebar**: edit `themeConfig` in `docs/.vitepress/config.mts` (the Posts section is auto-generated; only `nav` and other sections are edited by hand)
 - **Home page content**: edit `docs/index.md`
 - **Site favicon**: replace `docs/public/favicon.svg`
 - **Social links**: edit `socialLinks` in `docs/.vitepress/config.mts` (currently points to `https://github.com/jwsmai`)
