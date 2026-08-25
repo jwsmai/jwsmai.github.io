@@ -15,6 +15,7 @@ title: Posts
 - [从 GrabJobs 真实 JD 看北欧 Data Engineer 岗位特点](./grabjobs-jd-analysis)
 - [GrabJobs 北欧 Data Engineer JD 清单（持续补充）](./grabjobs-jd-list)
 - [北欧 DE 求职高频词汇表（JD 实战提炼）](./jd-vocabulary)
+- [北欧面试 90 秒自我介绍](./nordic-self-intro)
 - [Dimensional Modeling vs. Medallion Architecture](./dimensional-vs-medallion)
 
 ---
