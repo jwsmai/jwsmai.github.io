@@ -129,7 +129,7 @@ Spark / Flink 的 Shuffle 阶段把数据按 key 哈希分桶，相同 key 永�
 ### 代码实现
 
 ```sql
--- Hive / Spark SQL：外层聚合去掉盐，内层聚合拼盐
+-- Spark SQL：外层聚合去掉盐，内层聚合拼盐
 SELECT
     key,
     SUM(cnt) AS total
@@ -143,18 +143,6 @@ FROM (
     GROUP BY key, CONCAT(key, '_', FLOOR(RAND() * 100))   -- 第一层
 ) t
 GROUP BY key;                                              -- 第二层
-```
-
-```scala
-// Spark DataFrame API 等价写法
-import org.apache.spark.sql.functions._
-
-val result = df
-  .withColumn("salted_key", concat(col("key"), lit("_"), floor(rand() * 100)))
-  .groupBy("salted_key")
-  .agg(count("*").as("cnt"))          // 第一层：局部聚合
-  .groupBy("key")
-  .agg(sum("cnt").as("total"))        // 第二层：全局聚合
 ```
 
 ### 适用场景与注意点
@@ -214,36 +202,39 @@ val result = df
 
 ### 代码实现
 
-```scala
-import org.apache.spark.sql.functions._
+```sql
+-- Step 1：识别热点 key（可只抽样统计，避免全量扫描两次）
+CREATE OR REPLACE TEMP VIEW hot_keys AS
+SELECT key
+FROM user_logs
+GROUP BY key
+HAVING COUNT(*) > 1000000;   -- 阈值按业务定
 
-val df = spark.read.parquet("user_logs")
+-- Step 2：热点 key 单独加盐聚合
+CREATE OR REPLACE TEMP VIEW hot_result AS
+SELECT key, SUM(cnt) AS total
+FROM (
+    SELECT
+        key,
+        CONCAT(key, '_', FLOOR(RAND() * 100)) AS salted_key,
+        COUNT(*) AS cnt
+    FROM user_logs
+    WHERE key IN (SELECT key FROM hot_keys)
+    GROUP BY key, CONCAT(key, '_', FLOOR(RAND() * 100))
+) h
+GROUP BY key;
 
-// Step 1：识别热点 key（抽样统计，避免全量扫描两次）
-val hotKeys = df
-  .select("key")
-  .groupBy("key")
-  .agg(count("*").as("cnt"))
-  .filter(col("cnt") > lit(1_000_000L))   // 阈值按业务定
-  .select("key")
+-- Step 3：普通 key 正常聚合
+CREATE OR REPLACE TEMP VIEW cold_result AS
+SELECT key, COUNT(*) AS total
+FROM user_logs
+WHERE key NOT IN (SELECT key FROM hot_keys)
+GROUP BY key;
 
-// Step 2：热点 key 单独加盐聚合
-val hotResult = df
-  .join(hotKeys, Seq("key"), "inner")
-  .withColumn("salted_key", concat(col("key"), lit("_"), floor(rand() * 100)))
-  .groupBy("salted_key")
-  .agg(count("*").as("cnt"))
-  .groupBy("key")
-  .agg(sum("cnt").as("total"))
-
-// Step 3：普通 key 正常聚合
-val coldResult = df
-  .join(hotKeys, Seq("key"), "left_anti")
-  .groupBy("key")
-  .agg(count("*").as("total"))
-
-// Step 4：合并
-val result = hotResult.union(coldResult)
+-- Step 4：合并（热点 + 普通）
+SELECT * FROM hot_result
+UNION ALL
+SELECT * FROM cold_result;
 ```
 
 ### 适用场景与注意点
@@ -306,30 +297,33 @@ val result = hotResult.union(coldResult)
 
 ### 代码实现
 
-```scala
-import org.apache.spark.sql.functions._
+```sql
+-- 大表：热点 key 打盐拆分（盐 0..2），非热点 key 盐固定为 0
+CREATE OR REPLACE TEMP VIEW big_salted AS
+SELECT *,
+       CONCAT(key, '_',
+              IF(key = '999', FLOOR(RAND() * 3), 0)) AS salted_key
+FROM big_table;
 
-val N = 3
-val skewKey = "999"   // 已知的热点 key（可用思路二的方法探测）
+-- 小表：热点行复制 N=3 份（盐 0,1,2），非热点行盐固定为 0
+CREATE OR REPLACE TEMP VIEW small_salted AS
+SELECT key, other_cols, CONCAT(key, '_', salt) AS salted_key
+FROM (
+    -- 热点行复制 3 份
+    SELECT s.*, explode(ARRAY(0, 1, 2)) AS salt
+    FROM small_table s
+    WHERE s.key = '999'
+    UNION ALL
+    -- 非热点行盐为 0
+    SELECT s.*, 0 AS salt
+    FROM small_table s
+    WHERE s.key <> '999'
+) t;
 
-// 大表：热点 key 打盐拆分，非热点 key 盐固定为 0
-val bigSalted = bigDF.withColumn(
-  "salt",
-  when(col("key") === skewKey, floor(rand() * N)).otherwise(0)
-).withColumn("salted_key", concat(col("key"), lit("_"), col("salt")))
-
-// 小表：热点行复制 N 份
-val smallSalted = smallDF
-  .withColumn(
-    "salt",
-    when(col("key") === skewKey, explode(array((0 until N).map(lit(_)): _*)))
-      .otherwise(0)
-  )
-  .withColumn("salted_key", concat(col("key"), lit("_"), col("salt")))
-
-val result = bigSalted
-  .join(smallSalted, Seq("salted_key"), "left")
-  .drop("salt", "salted_key")
+-- 用含盐 key 做 Join，热点 key 被摊到 3 个桶
+SELECT b.*, s.other_cols
+FROM big_salted b
+LEFT JOIN small_salted s ON b.salted_key = s.salted_key;
 ```
 
 ### 适用场景与注意点
@@ -389,13 +383,6 @@ val result = bigSalted
 
 ### 代码实现
 
-```scala
-import org.apache.spark.sql.functions.broadcast
-
-// DataFrame API：显式广播
-val result = bigDF.join(broadcast(smallDF), Seq("user_id"), "left")
-```
-
 ```sql
 -- Spark SQL：用 HINT 强制广播
 SELECT /*+ BROADCAST(dim) */
@@ -406,8 +393,8 @@ LEFT JOIN dim_user d ON l.user_id = d.user_id;
 
 也可以全局调大广播阈值，让优化器自动广播（谨慎，别把大表广播了）：
 
-```scala
-spark.conf.set("spark.sql.autoBroadcastJoinThreshold", "50m") // 默认 10m
+```sql
+SET spark.sql.autoBroadcastJoinThreshold = 50m;   -- 默认 10m
 ```
 
 ### 适用场景与注意点
@@ -443,7 +430,13 @@ GROUP BY COALESCE(NULLIF(key, ''), 'unknown');
 
 - **分桶（Bucketing）**：`CLUSTERED BY (key) INTO 200 BUCKETS`，让物理文件天然按 key 分布；
 - **预聚合**：上游把明细先按维度聚合成汇总表，下游查询不再撞倾斜；
-- **重分区**：`df.repartition(200, col("key"))` 或 `coalesce`，摊平单个分区的数据量。
+- **重分区**：写表时用 `DISTRIBUTE BY` 显式控制数据落盘分布（等价于按 key 重分区）：
+
+```sql
+INSERT OVERWRITE TABLE user_logs_rekeyed
+SELECT * FROM user_logs
+DISTRIBUTE BY key;   -- 按 key 哈希分桶写盘，摊平单个分区
+```
 
 ### 6.3 动态调整并行度
 
@@ -454,12 +447,12 @@ GROUP BY COALESCE(NULLIF(key, ''), 'unknown');
 
 Spark 3.0+ 的 AQE 能在**运行时**自动发现倾斜分区并做拆分，是"免费"的兜底手段：
 
-```scala
-spark.conf.set("spark.sql.adaptive.enabled", "true")
-spark.conf.set("spark.sql.adaptive.coalescePartitions.enabled", "true")
-spark.conf.set("spark.sql.adaptive.skewJoin.enabled", "true")        // 自动 skew join
-spark.conf.set("spark.sql.adaptive.skewJoin.skewedPartitionFactor", "5")
-spark.conf.set("spark.sql.adaptive.skewJoin.skewedPartitionThresholdInBytes", "256m")
+```sql
+SET spark.sql.adaptive.enabled = true;
+SET spark.sql.adaptive.coalescePartitions.enabled = true;
+SET spark.sql.adaptive.skewJoin.enabled = true;                       -- 自动 skew join
+SET spark.sql.adaptive.skewJoin.skewedPartitionFactor = 5;
+SET spark.sql.adaptive.skewJoin.skewedPartitionThresholdInBytes = 256m;
 ```
 
 > 注意：AQE 的 skewJoin 只能处理 **join** 的倾斜，`GROUP BY` 的倾斜仍需手动加盐（思路一/二）。
