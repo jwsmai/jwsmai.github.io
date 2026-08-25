@@ -1,5 +1,6 @@
 ---
 title: Ryan Su
+sidebarTitle: Resume (English)
 description: Data Engineer — Resume
 ---
 

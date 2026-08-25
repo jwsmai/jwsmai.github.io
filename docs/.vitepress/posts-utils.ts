@@ -8,17 +8,18 @@ export interface PostMeta {
   tags?: string[]
 }
 
-/** Extract title / date / tags from a markdown frontmatter block. */
-export function parseFrontmatter(raw: string): { title?: string; date?: string; tags?: string[] } {
+/** Extract title / sidebarTitle / date / tags from a markdown frontmatter block. */
+export function parseFrontmatter(raw: string): { title?: string; sidebarTitle?: string; date?: string; tags?: string[] } {
   const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/)
   if (!match) return {}
   const fm = match[1]
   const title = fm.match(/^title:\s*["']?(.+?)["']?\s*$/m)?.[1]?.trim()
+  const sidebarTitle = fm.match(/^sidebarTitle:\s*["']?(.+?)["']?\s*$/m)?.[1]?.trim()
   const date = fm.match(/^date:\s*(.+?)\s*$/m)?.[1]?.trim()
   const tags = fm.match(/^tags:\s*$/m)
     ? Array.from(fm.matchAll(/^\s*-\s*(.+?)\s*$/gm)).map((m) => m[1].trim())
     : undefined
-  return { title, date, tags: tags?.length ? tags : undefined }
+  return { title, sidebarTitle, date, tags: tags?.length ? tags : undefined }
 }
 
 /**
@@ -33,9 +34,9 @@ export function scanPosts(dir: string): PostMeta[] {
 
   return files.map((f) => {
     const raw = fs.readFileSync(path.join(dir, f), 'utf-8')
-    const { title, date, tags } = parseFrontmatter(raw)
+    const { title, sidebarTitle, date, tags } = parseFrontmatter(raw)
     const slug = f.replace(/\.md$/, '')
-    return { title: title || slug, url: `/posts/${slug}`, date, tags }
+    return { title: sidebarTitle || title || slug, url: `/posts/${slug}`, date, tags }
   })
 }
 

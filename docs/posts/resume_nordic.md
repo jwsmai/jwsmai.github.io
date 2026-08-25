@@ -1,5 +1,6 @@
 ---
 title: Ryan Su
+sidebarTitle: Resume (Nordic)
 description: Data Engineer — Nordic Resume
 ---
 

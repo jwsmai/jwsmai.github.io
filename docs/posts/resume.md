@@ -1,5 +1,6 @@
 ---
 title: Ryan Su
+sidebarTitle: 简历（中文）
 description: 数据工程师
 ---
 
