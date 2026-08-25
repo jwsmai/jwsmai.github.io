@@ -1,6 +1,6 @@
 ---
 title: "数据倾斜（Data Skew）解决方案：四种经典思路图文详解"
-description: "用图解 + Spark 代码详解数据倾斜的四种经典解法：双层 Group By、热点 Key 单独计算、哈希分组（加盐）Join、转 Broadcast Join，并补充空值处理、动态分区与 AQE 等进阶手段。"
+description: "用图解 + Spark SQL 详解数据倾斜的解决方案：双层 Group By、热点 Key 单独计算、哈希分组（加盐）Join、转 Broadcast Join，以及空值处理、数据预处理、并行度调优与 AQE 等实战手段。"
 date: 2026-08-25
 tags:
   - Data Engineering
@@ -15,7 +15,7 @@ tags:
 
 数据倾斜是分布式计算里最常见的性能杀手：一个 200 行的 SQL，其他 Task 30 秒跑完，唯独一个 Task 跑了 2 小时；或者某个 Executor 直接 OOM 让整个 Job 失败。
 
-本文用图说话，讲清楚倾斜是怎么发生的，以及四种最实用的解决思路：**双层 Group By**、**热点 Key 单独计算**、**哈希分组（加盐）Join**、**转 Broadcast Join**，最后补充几种进阶手段。
+本文用图说话，讲清楚倾斜是怎么发生的，以及四种最实用的解决思路：**双层 Group By**、**热点 Key 单独计算**、**哈希分组（加盐）Join**、**转 Broadcast Join**；在此基础上，还会介绍空值处理、数据预处理、并行度调优与 AQE 等更多实战手段。
 
 ---
 
@@ -407,9 +407,7 @@ SET spark.sql.autoBroadcastJoinThreshold = 50m;   -- 默认 10m
 
 ---
 
-## 六、补充思路
-
-### 6.1 空值 / 默认值倾斜
+## 六、空值 / 默认值倾斜
 
 `NULL`、`''`、`-1`、`unknown` 这类兜底值是最隐蔽的倾斜源——它们经常占 30%+ 数据且聚在同一个桶。
 
@@ -424,7 +422,7 @@ FROM t
 GROUP BY COALESCE(NULLIF(key, ''), 'unknown');
 ```
 
-### 6.2 数据预处理：写表时预打散
+## 七、数据预处理：写表时预打散
 
 比"查询时救火"更好的做法是**在写表时就避免倾斜**：
 
@@ -438,12 +436,12 @@ SELECT * FROM user_logs
 DISTRIBUTE BY key;   -- 按 key 哈希分桶写盘，摊平单个分区
 ```
 
-### 6.3 动态调整并行度
+## 八、动态调整并行度
 
 - 调大 `spark.sql.shuffle.partitions`（默认 200）——倾斜数据会被切到更多桶，虽然单桶仍倾斜，但峰值压力减小；
 - 让 Executor 内存和并行度匹配数据量，降低 OOM 概率。
 
-### 6.4 Spark AQE（自适应查询执行）
+## 九、Spark AQE（自适应查询执行）
 
 Spark 3.0+ 的 AQE 能在**运行时**自动发现倾斜分区并做拆分，是"免费"的兜底手段：
 
@@ -459,7 +457,7 @@ SET spark.sql.adaptive.skewJoin.skewedPartitionThresholdInBytes = 256m;
 
 ---
 
-## 七、总结：怎么选
+## 十、总结：怎么选
 
 | 场景 | 首选方案 | 一句话理由 |
 | --- | --- | --- |
@@ -467,8 +465,8 @@ SET spark.sql.adaptive.skewJoin.skewedPartitionThresholdInBytes = 256m;
 | 热点 key 明确且少 | **热点 key 单独计算**（思路二） | 最精准，普通 key 零损耗 |
 | 大表 join 大表、已知热点 key | **加盐 Join**（思路三） | 拆桶 + 复制，两全其美 |
 | 大表 join 小表 | **转 Broadcast Join**（思路四） | 零 Shuffle，治本 |
-| 空值/默认值倾斜 | **过滤 + 归一化**（6.1） | 成本最低，先排查 |
-| 不想改 SQL | **AQE 开关**（6.4） | 白嫖优化，先开起来 |
-| 长期稳定任务 | **分桶/预聚合**（6.2） | 治本于上游 |
+| 空值/默认值倾斜 | **过滤 + 归一化**（六） | 成本最低，先排查 |
+| 不想改 SQL | **AQE 开关**（九） | 白嫖优化，先开起来 |
+| 长期稳定任务 | **分桶/预聚合**（七） | 治本于上游 |
 
 **最后一条经验**：遇到任务卡住，先看 Spark UI 里各 Stage 的 Task 耗时分布——如果出现"一柱擎天"的长条，就是倾斜。**优先开 AQE，其次查空值，再考虑加盐**——大多数生产问题到第三步就已经解决了。
