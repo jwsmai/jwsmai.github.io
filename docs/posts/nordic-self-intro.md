@@ -28,7 +28,7 @@ tags:
 >
 > Before that, I built a retail pipeline **from scratch** at Clobotics and adopted **Delta Lake** to cut a delivery cycle from **3+ days to under a day**. Earlier at Enmonster I helped set up **data standards and a company-wide metric system**.
 >
-> I'm drawn to the **Nordic way of engineering** — direct, honest collaboration and doing things thoughtfully rather than quickly. Happy to walk through any project in detail.
+> As for why I'm here — I'm making a **deliberate move to the Nordics**, because I value the way things are done here: honest, direct collaboration, and a balanced approach to work and life. That's the environment I want to build my next chapter in. Happy to walk through any project in detail.
 
 ## 结构拆解（为什么这么组织）
 
@@ -47,9 +47,26 @@ tags:
 3. **结尾动机段按公司微调** —— 换成具体公司名 + 一个了解的点，更有说服力。
 4. **语速平稳，2 分钟内** —— 别赶，Lagom。
 
+### 求职动机怎么讲（关键）
+
+想在北欧生活而求职是合理的，但**表达方式决定成败**：
+
+- ❌ 不要说 **"I need this job to live here"** —— 听起来像被动、索取，北欧人最反感"没得选"的姿态。
+- ✅ 用 **"deliberate move / I've chosen the Nordics"** —— 传达**主动、长期、承诺**，这正是北欧雇主最想听的（他们招人成本高，怕你干两年就走）。
+- ✅ 从"我需要工作"翻转为"**我选择北欧**"，从索取者变成选择者，符合北欧平等价值观。
+- ⚠️ 记得补一句**指向这家公司/岗位的具体理由**，否则动机显得空洞。
+
+动机段强度对照：
+
+| 强度 | 说法 | 适用 |
+| --- | --- | --- |
+| 🟢 保守 | "I'm making a **deliberate move** to the Nordic region." | 初筛、不熟的公司 |
+| 🟡 平衡 | "I've **chosen** the Nordics for how life and work are balanced here, and I want to **contribute** my skills to that." | 大多数场合（推荐） |
+| 🔴 真诚 | "I'm relocating to **settle in the Nordics** — this role is how I'd **build my life here**." | 终面、经理面 |
+
 ## 配套：1 分钟电话初筛版
 
-> I'm Ryan, a data engineer with 5 years' experience in e-commerce and IoT, working mostly with Spark and dimensional modeling. At Temu I helped cut storage cost ~40% and stabilize hourly baselines. I'm now looking to bring that experience to the Nordic market, and I'm comfortable working in English across distributed teams.
+> I'm Ryan, a data engineer with 5 years' experience in e-commerce and IoT, working mostly with Spark and dimensional modeling. At Temu I helped cut storage cost ~40% and stabilize hourly baselines. I'm making a deliberate move to the Nordic market, and I'd like to bring that experience here.
 
 ## 使用建议
 
