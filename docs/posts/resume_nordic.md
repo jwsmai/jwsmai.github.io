@@ -17,7 +17,7 @@ Data engineer with 5+ years across cross-border e-commerce, retail intelligence,
 
 ## Work Experience
 
-### Temu | Data Warehouse Engineer
+### Temu | Senior Data Engineer
 
 **Jun 2024 – Jun 2025** · Cross-border E-commerce · [temu.com](https://www.temu.com/)
 
@@ -26,14 +26,14 @@ Data engineer with 5+ years across cross-border e-commerce, retail intelligence,
 - Collaborated on performance and quality fixes: resolved data skew, removed redundant computations, refined DQC rules.
 - Delivered reports and data services for business and analytics teams; handled high-priority ad-hoc data extraction under tight deadlines.
 
-### Clobotics | Big Data Engineer
+### Clobotics | Data Engineer
 
 **Mar 2022 – Jun 2024** · Retail Intelligence · [clobotics.com](https://clobotics.com/retail/)
 
 - Helped build the retail data pipeline and core data models from scratch (0 → 1).
 - Delivered data reports and analytics services for customers and internal business units.
 
-### Enmonster | Senior Data Warehouse Engineer
+### Enmonster | Data Engineer
 
 **Nov 2019 – Mar 2022** · Shared-Charging IoT · [enmonster.com](https://www.enmonster.com/product)
 
