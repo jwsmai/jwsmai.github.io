@@ -104,3 +104,143 @@
   border-radius: 999px;
   color: var(--vp-c-brand-2);
 }
+
+/* Inline SVG figures (e.g. Bloom filter diagrams) */
+.bf-fig {
+  margin: 1.8em 0;
+  padding: 1em 1em 0.6em;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  background: var(--vp-c-bg-soft);
+  overflow-x: auto;
+}
+
+.bf-fig svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.bf-fig figcaption {
+  margin-top: 0.8em;
+  text-align: center;
+  font-size: 0.85em;
+  color: var(--vp-c-text-2);
+}
+
+.bf-panel {
+  fill: var(--vp-c-bg);
+  stroke: var(--vp-c-divider);
+  stroke-width: 1;
+}
+
+.bf-bit {
+  fill: var(--vp-c-bg);
+  stroke: var(--vp-c-divider);
+  stroke-width: 1;
+}
+
+.bf-bit-on {
+  fill: var(--vp-c-brand-1);
+  stroke: var(--vp-c-brand-2);
+  stroke-width: 1;
+}
+
+.bf-bit-collide {
+  fill: var(--vp-c-warning-1);
+  stroke: var(--vp-c-warning-2);
+  stroke-width: 1;
+}
+
+.bf-bit-zero {
+  fill: var(--vp-c-bg);
+  stroke: var(--vp-c-danger-1);
+  stroke-width: 1.5;
+}
+
+.bf-text {
+  fill: var(--vp-c-text-1);
+  font-family: var(--vp-font-family-base);
+}
+
+.bf-text-2 {
+  fill: var(--vp-c-text-2);
+  font-family: var(--vp-font-family-base);
+}
+
+.bf-ok {
+  fill: var(--vp-c-green-1);
+  font-family: var(--vp-font-family-base);
+  font-weight: 600;
+}
+
+.bf-bad {
+  fill: var(--vp-c-danger-1);
+  font-family: var(--vp-font-family-base);
+  font-weight: 600;
+}
+
+.bf-warn {
+  fill: var(--vp-c-warning-1);
+  font-family: var(--vp-font-family-base);
+  font-weight: 600;
+}
+
+.bf-arrow {
+  stroke: var(--vp-c-text-3);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.bf-arrow-head {
+  fill: var(--vp-c-text-3);
+}
+
+.bf-axis {
+  stroke: var(--vp-c-text-3);
+  stroke-width: 1.5;
+}
+
+.bf-grid {
+  stroke: var(--vp-c-divider);
+  stroke-width: 0.5;
+  stroke-dasharray: 3 3;
+}
+
+.bf-curve {
+  fill: none;
+  stroke: var(--vp-c-brand-1);
+  stroke-width: 2;
+}
+
+.bf-area {
+  fill: var(--vp-c-brand-soft);
+}
+
+.bf-dot {
+  fill: var(--vp-c-brand-1);
+}
+
+.bf-flow-box {
+  fill: var(--vp-c-bg);
+  stroke: var(--vp-c-divider);
+  stroke-width: 1.2;
+}
+
+.bf-flow-diamond {
+  fill: var(--vp-c-brand-soft);
+  stroke: var(--vp-c-brand-1);
+  stroke-width: 1.2;
+}
+
+.bf-flow-skip {
+  fill: var(--vp-c-green-soft);
+  stroke: var(--vp-c-green-1);
+  stroke-width: 1.2;
+}
+
+.bf-flow-recompute {
+  fill: var(--vp-c-warning-soft);
+  stroke: var(--vp-c-warning-1);
+  stroke-width: 1.2;
+}

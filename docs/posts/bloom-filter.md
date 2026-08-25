@@ -48,6 +48,37 @@ To add an element `x`, compute all `k` hash values and set every corresponding b
 h1(x) = 7, h2(x) = 23, h3(x) = 42   →   set bits 7, 23, 42 to 1
 ```
 
+The figure below walks through inserting two elements into an `m = 8` bit array with `k = 2` hash functions. Note how `"banana"`'s first hash collides with `"apple"`'s second hash — the bit is already 1, so nothing changes:
+
+<figure class="bf-fig">
+<svg viewBox="0 0 1000 195" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Inserting apple and banana into an 8-bit Bloom filter with 2 hash functions">
+  <text x="30" y="26" class="bf-text" font-size="13" font-weight="600">Step 1: start — all 8 bits are 0</text>
+  <rect x="30" y="40" width="290" height="135" class="bf-panel"/>
+  <g font-size="11" text-anchor="middle">
+    <rect x="30" y="65" width="30" height="28" class="bf-bit"/><rect x="66" y="65" width="30" height="28" class="bf-bit"/><rect x="102" y="65" width="30" height="28" class="bf-bit"/><rect x="138" y="65" width="30" height="28" class="bf-bit"/><rect x="174" y="65" width="30" height="28" class="bf-bit"/><rect x="210" y="65" width="30" height="28" class="bf-bit"/><rect x="246" y="65" width="30" height="28" class="bf-bit"/><rect x="282" y="65" width="30" height="28" class="bf-bit"/>
+    <text x="45" y="112" class="bf-text-2">0</text><text x="81" y="112" class="bf-text-2">1</text><text x="117" y="112" class="bf-text-2">2</text><text x="153" y="112" class="bf-text-2">3</text><text x="189" y="112" class="bf-text-2">4</text><text x="225" y="112" class="bf-text-2">5</text><text x="261" y="112" class="bf-text-2">6</text><text x="297" y="112" class="bf-text-2">7</text>
+  </g>
+  <text x="355" y="26" class="bf-text" font-size="13" font-weight="600">Step 2: insert 'apple' → bits 1, 5</text>
+  <rect x="355" y="40" width="290" height="135" class="bf-panel"/>
+  <g font-size="11" text-anchor="middle">
+    <rect x="355" y="65" width="30" height="28" class="bf-bit"/><rect x="391" y="65" width="30" height="28" class="bf-bit-on"/><rect x="427" y="65" width="30" height="28" class="bf-bit"/><rect x="463" y="65" width="30" height="28" class="bf-bit"/><rect x="499" y="65" width="30" height="28" class="bf-bit"/><rect x="535" y="65" width="30" height="28" class="bf-bit-on"/><rect x="571" y="65" width="30" height="28" class="bf-bit"/><rect x="607" y="65" width="30" height="28" class="bf-bit"/>
+    <text x="370" y="112" class="bf-text-2">0</text><text x="406" y="112" class="bf-text-2">1</text><text x="442" y="112" class="bf-text-2">2</text><text x="478" y="112" class="bf-text-2">3</text><text x="514" y="112" class="bf-text-2">4</text><text x="550" y="112" class="bf-text-2">5</text><text x="586" y="112" class="bf-text-2">6</text><text x="622" y="112" class="bf-text-2">7</text>
+  </g>
+  <text x="680" y="26" class="bf-text" font-size="13" font-weight="600">Step 3: insert 'banana' → bits 5, 7</text>
+  <rect x="680" y="40" width="290" height="135" class="bf-panel"/>
+  <g font-size="11" text-anchor="middle">
+    <rect x="680" y="65" width="30" height="28" class="bf-bit"/><rect x="716" y="65" width="30" height="28" class="bf-bit-on"/><rect x="752" y="65" width="30" height="28" class="bf-bit"/><rect x="788" y="65" width="30" height="28" class="bf-bit"/><rect x="824" y="65" width="30" height="28" class="bf-bit"/><rect x="860" y="65" width="30" height="28" class="bf-bit-collide"/><rect x="896" y="65" width="30" height="28" class="bf-bit"/><rect x="932" y="65" width="30" height="28" class="bf-bit-on"/>
+    <text x="695" y="112" class="bf-text-2">0</text><text x="731" y="112" class="bf-text-2">1</text><text x="767" y="112" class="bf-text-2">2</text><text x="803" y="112" class="bf-text-2">3</text><text x="839" y="112" class="bf-text-2">4</text><text x="875" y="112" class="bf-text-2">5</text><text x="911" y="112" class="bf-text-2">6</text><text x="947" y="112" class="bf-text-2">7</text>
+  </g>
+  <text x="875" y="152" text-anchor="middle" class="bf-warn" font-size="11">collision!</text>
+  <line x1="324" y1="84" x2="348" y2="84" class="bf-arrow"/>
+  <polyline points="342,79 352,84 342,89" class="bf-arrow-head"/>
+  <line x1="649" y1="84" x2="673" y2="84" class="bf-arrow"/>
+  <polyline points="667,79 677,84 667,89" class="bf-arrow-head"/>
+</svg>
+<figcaption>Figure 1 — Inserting elements: every element sets its <code>k</code> hash positions to 1. <span style="color: var(--vp-c-warning-1);">Orange</span> marks a collision with a bit that was already set.</figcaption>
+</figure>
+
 ### Membership test
 
 To check whether `x` is "in" the set, compute the same `k` hash values and look at those bits:
@@ -61,16 +92,40 @@ That second case is where the approximation lives: the bits might all be 1 becau
 
 ### A concrete walkthrough
 
-```text
-m = 8 bits, k = 2 hash functions
+With `m = 8` bits and `k = 2` hash functions, the same filter now decides membership — note how the third query is a false positive:
 
-Insert "apple":   h1 → 1, h2 → 5        bits: 0 1 0 0 0 1 0 0
-Insert "banana":  h1 → 5, h2 → 7        bits: 0 1 0 0 0 1 0 1
-
-Query "apple":    h1 → 1 (1 ✓), h2 → 5 (1 ✓)   → probably present  ✓
-Query "cherry":   h1 → 3 (0 ✗)                 → definitely absent  ✓
-Query "date":     h1 → 5 (1 ✓), h2 → 7 (1 ✓)   → probably present  ✗ (false positive!)
-```
+<figure class="bf-fig">
+<svg viewBox="0 0 1000 215" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Querying apple, cherry and date against the Bloom filter, showing one false positive">
+  <text x="30" y="26" class="bf-text" font-size="13" font-weight="600">Query 'apple' — h1→1, h2→5</text>
+  <rect x="30" y="40" width="290" height="165" class="bf-panel"/>
+  <g font-size="11" text-anchor="middle">
+    <rect x="30" y="65" width="30" height="28" class="bf-bit"/><rect x="66" y="65" width="30" height="28" class="bf-bit-on"/><rect x="102" y="65" width="30" height="28" class="bf-bit"/><rect x="138" y="65" width="30" height="28" class="bf-bit"/><rect x="174" y="65" width="30" height="28" class="bf-bit"/><rect x="210" y="65" width="30" height="28" class="bf-bit-on"/><rect x="246" y="65" width="30" height="28" class="bf-bit"/><rect x="282" y="65" width="30" height="28" class="bf-bit"/>
+    <text x="45" y="112" class="bf-text-2">0</text><text x="81" y="112" class="bf-text-2">1</text><text x="117" y="112" class="bf-text-2">2</text><text x="153" y="112" class="bf-text-2">3</text><text x="189" y="112" class="bf-text-2">4</text><text x="225" y="112" class="bf-text-2">5</text><text x="261" y="112" class="bf-text-2">6</text><text x="297" y="112" class="bf-text-2">7</text>
+  </g>
+  <text x="175" y="142" text-anchor="middle" class="bf-text-2" font-size="12">both bits are 1</text>
+  <text x="175" y="166" text-anchor="middle" class="bf-ok" font-size="13">probably present</text>
+  <text x="175" y="188" text-anchor="middle" class="bf-ok" font-size="12">✓ correct</text>
+  <text x="355" y="26" class="bf-text" font-size="13" font-weight="600">Query 'cherry' — h1→3 (bit 0 → stop)</text>
+  <rect x="355" y="40" width="290" height="165" class="bf-panel"/>
+  <g font-size="11" text-anchor="middle">
+    <rect x="355" y="65" width="30" height="28" class="bf-bit"/><rect x="391" y="65" width="30" height="28" class="bf-bit"/><rect x="427" y="65" width="30" height="28" class="bf-bit"/><rect x="463" y="65" width="30" height="28" class="bf-bit-zero"/><rect x="499" y="65" width="30" height="28" class="bf-bit"/><rect x="535" y="65" width="30" height="28" class="bf-bit"/><rect x="571" y="65" width="30" height="28" class="bf-bit"/><rect x="607" y="65" width="30" height="28" class="bf-bit"/>
+    <text x="370" y="112" class="bf-text-2">0</text><text x="406" y="112" class="bf-text-2">1</text><text x="442" y="112" class="bf-text-2">2</text><text x="478" y="112" class="bf-text-2">3</text><text x="514" y="112" class="bf-text-2">4</text><text x="550" y="112" class="bf-text-2">5</text><text x="586" y="112" class="bf-text-2">6</text><text x="622" y="112" class="bf-text-2">7</text>
+  </g>
+  <text x="500" y="142" text-anchor="middle" class="bf-text-2" font-size="12">bit 3 is 0</text>
+  <text x="500" y="166" text-anchor="middle" class="bf-ok" font-size="13">definitely absent</text>
+  <text x="500" y="188" text-anchor="middle" class="bf-ok" font-size="12">✓ correct</text>
+  <text x="680" y="26" class="bf-text" font-size="13" font-weight="600">Query 'date' — h1→5, h2→7</text>
+  <rect x="680" y="40" width="290" height="165" class="bf-panel"/>
+  <g font-size="11" text-anchor="middle">
+    <rect x="680" y="65" width="30" height="28" class="bf-bit"/><rect x="716" y="65" width="30" height="28" class="bf-bit"/><rect x="752" y="65" width="30" height="28" class="bf-bit"/><rect x="788" y="65" width="30" height="28" class="bf-bit"/><rect x="824" y="65" width="30" height="28" class="bf-bit"/><rect x="860" y="65" width="30" height="28" class="bf-bit-on"/><rect x="896" y="65" width="30" height="28" class="bf-bit"/><rect x="932" y="65" width="30" height="28" class="bf-bit-on"/>
+    <text x="695" y="112" class="bf-text-2">0</text><text x="731" y="112" class="bf-text-2">1</text><text x="767" y="112" class="bf-text-2">2</text><text x="803" y="112" class="bf-text-2">3</text><text x="839" y="112" class="bf-text-2">4</text><text x="875" y="112" class="bf-text-2">5</text><text x="911" y="112" class="bf-text-2">6</text><text x="947" y="112" class="bf-text-2">7</text>
+  </g>
+  <text x="825" y="142" text-anchor="middle" class="bf-text-2" font-size="12">bits 5, 7 set by others!</text>
+  <text x="825" y="166" text-anchor="middle" class="bf-bad" font-size="13">false positive</text>
+  <text x="825" y="188" text-anchor="middle" class="bf-bad" font-size="12">✗ wrong answer</text>
+</svg>
+<figcaption>Figure 2 — Membership tests: a 0 bit proves absence (no false negatives); all-1 bits only mean <em>probably</em> present — hence the false positive for <code>'date'</code>.</figcaption>
+</figure>
 
 `"date"` was never inserted, but both of its hash positions happen to be set by other keys. The filter can't tell the difference — that's the probabilistic trade-off.
 
@@ -111,6 +166,33 @@ A few useful rules of thumb:
 - At **10 bits per element** (`m/n = 10`), you get roughly a **1% false-positive rate**.
 - At **~9.6 bits per element**, `k ≈ 7` and `p ≈ 0.8%`.
 - To halve the error rate at fixed `n`, you need to add bits — there's no free lunch.
+
+The curve below shows the false-positive rate (with `k` set to its optimum) as a function of how many bits you give each element:
+
+<figure class="bf-fig">
+<svg viewBox="0 0 560 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="False positive rate versus bits per element curve">
+  <text x="60" y="16" class="bf-text" font-size="13" font-weight="600">False-positive rate vs. bits per element (k = k_opt)</text>
+  <line x1="60" y1="20" x2="60" y2="280" class="bf-axis"/>
+  <line x1="60" y1="280" x2="540" y2="280" class="bf-axis"/>
+  <g class="bf-grid">
+    <line x1="60" y1="215" x2="540" y2="215"/><line x1="60" y1="150" x2="540" y2="150"/><line x1="60" y1="85" x2="540" y2="85"/>
+  </g>
+  <path d="M 60 42 L 140 189 L 220 245 L 300 267 L 380 275 L 460 278 L 540 279 L 540 280 L 60 280 Z" class="bf-area"/>
+  <polyline points="60,42 140,189 220,245 300,267 380,275 460,278 540,279" class="bf-curve"/>
+  <g font-size="11" text-anchor="end" class="bf-text-2">
+    <text x="52" y="284">0</text><text x="52" y="219">.04</text><text x="52" y="154">.08</text><text x="52" y="89">.12</text><text x="52" y="24">.16</text>
+  </g>
+  <g font-size="11" text-anchor="middle" class="bf-text-2">
+    <text x="60" y="296">4</text><text x="140" y="296">6</text><text x="220" y="296">8</text><text x="300" y="296">10</text><text x="380" y="296">12</text><text x="460" y="296">14</text><text x="540" y="296">16</text>
+  </g>
+  <text x="300" y="322" text-anchor="middle" class="bf-text-2" font-size="12">bits per element (m/n)</text>
+  <text transform="rotate(-90 16 150)" x="16" y="150" text-anchor="middle" class="bf-text-2" font-size="12">false-positive rate (p)</text>
+  <circle cx="60" cy="42" r="3.5" class="bf-dot"/><text x="70" y="38" class="bf-text-2" font-size="11">m/n = 4 → ~15%</text>
+  <circle cx="220" cy="245" r="3.5" class="bf-dot"/><text x="230" y="241" class="bf-text-2" font-size="11">m/n = 8 → ~2%</text>
+  <circle cx="300" cy="267" r="3.5" class="bf-dot"/><text x="310" y="263" class="bf-text-2" font-size="11">m/n = 10 → ~0.8%</text>
+</svg>
+<figcaption>Figure 3 — With optimal hashing, 10 bits per element keeps the false-positive rate below 1%; doubling the budget roughly squares it.</figcaption>
+</figure>
 
 ### Intuition, not just formulas
 
@@ -168,6 +250,37 @@ Compare-and-compare against the previous snapshot requires storing the old versi
 3. Insert the keys of **unchanged** rows into a Bloom filter, and pass the **changed** rows through the recompute path.
 
 Rows whose keys are **not** in the filter are guaranteed to have changed (no false negatives) → must be recomputed. Rows whose keys **are** in the filter are probably unchanged → skip them. A false positive here is harmless: it just means we recompute one row that didn't need it.
+
+<figure class="bf-fig">
+<svg viewBox="0 0 700 285" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bloom filter routing rows: changed rows are recomputed, unchanged rows are skipped">
+  <rect x="20" y="60" width="150" height="60" rx="6" class="bf-flow-box"/>
+  <text x="95" y="86" text-anchor="middle" class="bf-text" font-size="13" font-weight="600">New data batch</text>
+  <text x="95" y="104" text-anchor="middle" class="bf-text-2" font-size="12">(rows)</text>
+  <rect x="190" y="60" width="170" height="60" rx="6" class="bf-flow-box"/>
+  <text x="275" y="86" text-anchor="middle" class="bf-text" font-size="13" font-weight="600">Fingerprint each row</text>
+  <text x="275" y="104" text-anchor="middle" class="bf-text-2" font-size="12">compare vs last snapshot</text>
+  <polygon points="500,48 585,90 500,132 415,90" class="bf-flow-diamond"/>
+  <text x="500" y="86" text-anchor="middle" class="bf-text" font-size="13" font-weight="600">Key in Bloom</text>
+  <text x="500" y="104" text-anchor="middle" class="bf-text" font-size="13" font-weight="600">filter?</text>
+  <rect x="310" y="200" width="190" height="60" rx="6" class="bf-flow-recompute"/>
+  <text x="405" y="218" text-anchor="middle" class="bf-text" font-size="12" font-weight="600">Not in filter →</text>
+  <text x="405" y="234" text-anchor="middle" class="bf-text-2" font-size="12">definitely changed</text>
+  <text x="405" y="250" text-anchor="middle" class="bf-warn" font-size="12">→ recompute</text>
+  <rect x="520" y="200" width="165" height="60" rx="6" class="bf-flow-skip"/>
+  <text x="602" y="218" text-anchor="middle" class="bf-text" font-size="12" font-weight="600">In filter →</text>
+  <text x="602" y="234" text-anchor="middle" class="bf-text-2" font-size="12">probably unchanged</text>
+  <text x="602" y="250" text-anchor="middle" class="bf-ok" font-size="12">skip (~90% rows)</text>
+  <line x1="172" y1="90" x2="184" y2="90" class="bf-arrow"/>
+  <polyline points="178,85 188,90 178,95" class="bf-arrow-head"/>
+  <line x1="362" y1="90" x2="408" y2="90" class="bf-arrow"/>
+  <polyline points="402,85 412,90 402,95" class="bf-arrow-head"/>
+  <polyline points="500,132 500,165 405,165 405,192" class="bf-arrow"/>
+  <polyline points="401,194 405,202 409,194" class="bf-arrow-head"/>
+  <polyline points="500,132 500,165 602,165 602,192" class="bf-arrow"/>
+  <polyline points="598,194 602,202 606,194" class="bf-arrow-head"/>
+</svg>
+<figcaption>Figure 4 — A Bloom filter of unchanged-row keys lets a pipeline skip ~90% of rows with zero risk of missing a real change (false positives only cause an occasional redundant recompute).</figcaption>
+</figure>
 
 ### The result
 
